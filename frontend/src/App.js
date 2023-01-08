@@ -16,7 +16,7 @@ import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 import S_words from './page_info/S_word';
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "https://gyuseong.shop/";
 
 class webCam extends Component {
     constructor(props) {
