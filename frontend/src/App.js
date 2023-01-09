@@ -16,8 +16,8 @@ import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 import S_words from './page_info/S_word';
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = "https://gyuseong.shop/";
+// const APPLICATION_SERVER_URL = "http://localhost:5000/"; // 로컬에서는 이걸 주석 풀어주세요
+const APPLICATION_SERVER_URL = "https://practiceggmm.shop/"; // 배포환경에서는 이건 도메인 맞춰서 적어주세요
 
 class webCam extends Component {
     constructor(props) {

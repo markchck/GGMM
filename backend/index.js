@@ -10,7 +10,7 @@ var app = express();
 const mongoose = require("mongoose")
 const Animal = require("./models/theme");
 
-mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
+mongoose.connect("mongodb://localhost:27017/namanmu",{
 	useNewUrlParser:true, 
 	useUnifiedTopology:true, 
 	} //두번째 인자 부분은 아래에서 설명
