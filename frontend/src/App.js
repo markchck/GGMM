@@ -16,7 +16,8 @@ import axios from 'axios';
 import UserVideoComponent from './UserVideoComponent';
 import S_words from './page_info/S_word';
 
-const APPLICATION_SERVER_URL = "https://gyuseong.shop/";
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = "https://gyuseong.shop/";
 
 class webCam extends Component {
     constructor(props) {
@@ -91,14 +92,12 @@ class webCam extends Component {
 
         this.OV = new OpenVidu();
 
-        // --- 2) Init a session ---
-        console.log("여기까지는 옵니다1111" + this.OV)
+        // --- 2) Init a session --
         this.setState(
             {
                 session: this.OV.initSession(),
             },
             () => {
-                console.log("여기까지는 옵니다2222222" + this.state.session)
                 var mySession = this.state.session;
 
                 // --- 3) Specify the actions when events take place in the session ---
@@ -135,13 +134,14 @@ class webCam extends Component {
 
                 // Get a token from the OpenVidu deployment
                 this.getToken().then((token) => {
-                    console.log("여기까지는 옵니다3333333")
+
+                    this.get_animals();
+
                     // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
                     // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
                     mySession.connect(token, { clientData: this.state.myUserName })
 
                         .then(async () => {
-                            console.log("여기까지는 옵니다. 4444 " + token + mySession)
                             // --- 5) Get your own camera stream ---
 
                             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
@@ -173,7 +173,6 @@ class webCam extends Component {
                                 mainStreamManager: publisher,
                                 publisher: publisher,
                             });
-                            console.log(this.state.mainStreamManager + "확인을 거칩니다")
                         })
                         .catch((error) => {
                             console.log('There was an error connecting to the session:', error.code, error.message);
@@ -424,6 +423,16 @@ class webCam extends Component {
         });
         return response.data; // The token
     }
+
+    /* ------ api 통신하는 곳 ------ */
+    async get_animals() {
+        const response = await axios.get(APPLICATION_SERVER_URL + 'api/sessions/game', {}, {
+            headers: { 'Content-Type': 'application/json', },
+        });
+        // 개발자 도구에서 response객체를 확인하세요.
+        console.log(response)
+    }
+    /* ------ api 통신하는 곳 ------ */
 }
 
 export default webCam;

@@ -5,7 +5,7 @@ import React, { Component, useEffect, useState, useRef } from 'react';
 import './App.css';
 import UserVideoComponent from '../UserVideoComponent';
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "http://localhost:5000";
 
 function webCam() {
     const [mySessionId, setMySessionId] = useState('SessionA')

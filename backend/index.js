@@ -6,6 +6,24 @@ var OpenVidu = require("openvidu-node-client").OpenVidu;
 var cors = require("cors");
 var app = express();
 
+// /* ---------------- 몽고디비 사용 -------------------- 
+const mongoose = require("mongoose")
+const Animal = require("./models/theme");
+
+mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
+	useNewUrlParser:true, 
+	useUnifiedTopology:true, 
+	} //두번째 인자 부분은 아래에서 설명
+);
+
+const db = mongoose.connection;
+const handleOpen = () => console.log("✅ Connected to DB");
+const handleError = (error) => console.log("❌ DB Error", error) 
+db.once("open", handleOpen); //open 이벤트가 발생 시 handleOpen 실행 
+db.on("error", handleError); //error 이벤트가 발생할 때마다 handleError 실행 );
+
+/* ---------------- 몽고디비 사용 -------------------- */
+
 // Enable CORS support
 app.use(
   cors({
@@ -51,5 +69,18 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
     res.send(connection.token);
   }
 });
+
+/* ------- 제시어 받는 api -------- */
+app.get("/api/sessions/game", async(req, res) => {
+  Animal.aggregate([{ $sample: { size: 5 } }], function(error, Animal) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(Animal)
+    res.send(Animal)
+  }
+});
+})
+/* ------- 제시어 받는 api -------- */
 
 process.on('uncaughtException', err => console.error(err));
