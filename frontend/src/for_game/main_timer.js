@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
+import Receive_data from "../page_info/S_word_receive_data";
 
 function Main_timer() {
   const { cur_time, settime, time_state, set_time_change } = useStore();
@@ -64,6 +65,10 @@ function Main_timer() {
       console.log("동기화");
     }
   }, [time_state]);
+  
+  useEffect(() =>{
+    Receive_data()
+  },[])
 
   return (
     <>
