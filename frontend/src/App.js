@@ -62,7 +62,7 @@ class webCam extends Component {
     if (this.state.session !== undefined) {
       this.state.session.on("signal:timer", (event) => {
         let message = JSON.parse(event.data);
-        useStore.getState().settime(message.timer);
+        useStore.getState().set_Curtime(message.timer);
         useStore.getState().set_time_change("change");
         useStore.getState().set_cur_round(1);
       });
