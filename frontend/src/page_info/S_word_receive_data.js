@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
 
 function Receive_data() {
     /* ------ api 통신하는 곳 ------ */

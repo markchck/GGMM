@@ -14,7 +14,9 @@ function CreateInvitation({ mySessionId }) {
 
   function createLink_and_copy() {
     let sessionId = mySessionId;
+    // let invitationLink = "http://localhost:3000/join?sessionId=" + sessionId;
     let invitationLink = "https://practiceggmm.shop/join?sessionId=" + sessionId;
+
     navigator.clipboard
       .writeText(invitationLink)
       .then(() => {
