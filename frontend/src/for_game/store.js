@@ -2,7 +2,6 @@ import create from "zustand";
 
 const useStore = create((set) => ({
   //치우
-  // gamer list
   gamers: [],
   setGamers: (gamer) => {
     set((state) => ({
@@ -20,26 +19,25 @@ const useStore = create((set) => ({
       gamers: [],
     }));
   },
-
-  // gamer word list -  API에서 받은거 저장할 위치
-  gameWord : [],
-  setGameWord : (Word)=>{
-    set((state) => ({
-      gameWord: [...state.gameWord, Word],
-    }));
+  setPublishAudio: (name, newValue) => {
+    set((state) => {
+      const gamer = state.gamers.find((x) => x.name === name);
+      gamer.streamManager.publishAudio = newValue;
+      return { gamers: state.gamers };
+    });
   },
 
   myUserID: "none",
   set_myUserID: (input) => set({ myUserID: input }),
   //경준
   cur_time: 1000000,
-  settime: (input) => set({ cur_time: input }),
+  set_Curtime: (input) => set({ cur_time: input }),
 
   time_state: "no_change",
   set_time_change: (input) => set({ time_state: input }),
 
   cnt_answer: 0,
-  cnt_plus: (input) => set(() => ({ cnt_answer: input })),
+  set_CntAns: (input) => set(() => ({ cnt_answer: input })),
 
   //Team 별  round 점수
   curRed_cnt: 0,
@@ -74,6 +72,14 @@ const useStore = create((set) => ({
 
   player_count: 0,
   set_player_count: (input) => set({ player_count: input }),
+
+  gamerWords: [],
+  fetchGamerWords: async () => {
+      const response = await axios.get(APPLICATION_SERVER_URL + 'api/sessions/game', {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      response && set((state) => ({ gamerWords: (state.gamerWords = response.data) }));
+  }
 }));
 
 export default useStore;
