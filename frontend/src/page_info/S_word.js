@@ -10,7 +10,7 @@ import bad_sound from "../audio/bad.mp3";
 function S_words() {
   let [show, setShow] = useState([]);
 
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states } = useStore();
+  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } = useStore();
   const {
     is_my_turn,
     cur_who_turn,
