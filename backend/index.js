@@ -8,7 +8,7 @@ var app = express();
 
 // /* ---------------- 몽고디비 사용 -------------------- 
 const mongoose = require("mongoose")
-const Animal = require("./models/theme");
+const QuestWord = require("./models/theme");
 
 mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
 	useNewUrlParser:true, 
@@ -72,12 +72,12 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 
 /* ------- 제시어 받는 api -------- */
 app.get("/api/sessions/game", async(req, res) => {
-  Animal.aggregate([{ $sample: { size: 5 } }], function(error, Animal) {
+  QuestWord.aggregate([{ $sample: { size: 15 } }], function(error, QuestWord) {
   if (error) {
     console.log(error);
   } else {
-    console.log(Animal)
-    res.send(Animal)
+    console.log(QuestWord);
+    res.send(QuestWord);
   }
 });
 })

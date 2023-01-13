@@ -17,8 +17,8 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 1000;
 
 class webCam extends Component {
@@ -62,7 +62,7 @@ class webCam extends Component {
     if (this.state.session !== undefined) {
       this.state.session.on("signal:timer", (event) => {
         let message = JSON.parse(event.data);
-        useStore.getState().settime(message.timer);
+        useStore.getState().set_Curtime(message.timer);
         useStore.getState().set_time_change("change");
         useStore.getState().set_cur_round(1);
       });
@@ -161,7 +161,7 @@ class webCam extends Component {
               let publisher = await this.OV.initPublisherAsync(undefined, {
                 audioSource: undefined, // The source of audio. If undefined default microphone
                 videoSource: undefined, // The source of video. If undefined default webcam
-                publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
+                publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
                 resolution: "640x480", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
