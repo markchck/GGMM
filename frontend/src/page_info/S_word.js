@@ -2,6 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import useStore from "../for_game/store";
 
+import useSound from "use-sound";
+
+import good_sound from "../audio/good.mp3";
+import bad_sound from "../audio/bad.mp3";
+
 function S_words() {
   let [show, setShow] = useState([
     "제시어1",
@@ -17,7 +22,19 @@ function S_words() {
   ]);
 
   const { cnt_answer, cnt_plus, cur_session } = useStore();
+  const { curRed_cnt, curBlue_cnt } = useStore(); //팀 라운드 별 점수
+  const {
+    curRed_total,
+    set_CurRed_total,
+    curBlue_total,
+    set_CurBlue_total,
+    is_my_turn,
+  } = useStore();
   //ZUSTAND
+
+  const [good] = useSound(good_sound);
+  const [bad] = useSound(bad_sound);
+  //USE Sound
 
   let [show_name, setShow_name] = useState("게임을 시작하겠습니다.");
   const [answer, setAnswer] = useState("");
@@ -41,21 +58,22 @@ function S_words() {
       setInputVisible(true);
     }, 2000);
   }, []);
-  useEffect(() => {
-    console.log("cnt_answer useeffect" + cnt_answer);
-    setNumber(cnt_answer);
 
-    console.log(number);
+  useEffect(() => {
+    setNumber(cnt_answer);
   }, [cnt_answer]);
   useEffect(() => {
     if (number !== 0) {
       sendScore();
       if (showIndex < show.length - 1) {
         nextShow();
+        good();
       }
     }
   }, [number]);
-
+  useEffect(() => {
+    console.log("마이턴 변경" + is_my_turn);
+  }, [is_my_turn]);
   const nextShow = () => {
     setShowIndex(showIndex + 1);
     setShow_name(show[showIndex + 1]);
@@ -71,23 +89,35 @@ function S_words() {
     });
   };
 
-  const check_Score = () => {
+  const check_Score = (e) => {
     if (show_name === answer) {
       cnt_plus(cnt_answer + 1);
       setCorrect(0);
+      setAnswer("");
     } else {
       setCorrect(1);
+      bad();
+      setAnswer("");
     }
   };
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      check_Score(e);
+    }
+  };
   return (
     <>
-      <div>{show_name}</div>
-      {inputVisible && (
+      {is_my_turn && <div>{show_name}</div>}
+      {!is_my_turn && (
         <>
           <input
+            id="Answer_input"
+            value={answer}
             onChange={(e) => {
               setAnswer(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              handleKeyPress(e);
             }}
           />
           <Button
@@ -100,12 +130,6 @@ function S_words() {
           </Button>
         </>
       )}
-      {correct == 0 ? (
-        <div> 정답입니다. </div>
-      ) : correct == 1 ? (
-        <div> 틀렸습니다. </div>
-      ) : null}
-      <div>맞춘 정답 수 : {cnt_answer}</div>
     </>
   );
 }
