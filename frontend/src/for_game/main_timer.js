@@ -1,16 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
+import ReactDOM from "react-dom";
+import useStore from "./store";
+import UserVideoComponent from "../UserVideoComponent";
+import Receive_data from "../page_info/S_word_receive_data";
 
 function Main_timer() {
-  // const [min, setMin] = useState(3);
+  const { cur_time, settime, time_state, set_time_change } = useStore();
   const [sec, setSec] = useState(6000);
   const [msec, setMsec] = useState(0);
   const time = useRef(6000);
   const timer = useRef(null);
   const videoBoxes = useRef(null);
   const currentIndex = useRef(0);
-  const [currentRound, setCurrentRound] = useState(0);
-
-  const totalRounds = 5
+  const { gamers, setGamers, deleteGamer, clearGamer } = useStore(
+    (state) => state
+  );
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -23,77 +27,66 @@ function Main_timer() {
       time.current -= 1;
     }, 10);
 
-    return () => clearInterval(timer.current);
-  }, []);
-
-  useEffect(() => {
     if (time.current < 0) {
-      console.log(" Time over ");
+      console.log("Time's up!");
       clearInterval(timer.current);
+      setSec(cur_time % 100);
+      setMsec(0);
+      time.current = cur_time;
+      currentIndex.current += 1;
+      if (currentIndex.current > { gamers }.gamers.length) {
+        return () => clearInterval(timer.current);
+      }
+
+      timer.current = setInterval(() => {
+        setSec(parseInt(time.current / 100));
+        if ((time.current % 60).toString().length === 1) {
+          setMsec("0" + (time.current % 60).toString());
+        } else {
+          setMsec(time.current % 60);
+        }
+        time.current -= 1;
+      }, 10);
     }
+
+    return () => clearInterval(timer.current);
   }, [msec]);
 
   useEffect(() => {
-    videoBoxes.current = document.getElementsByClassName('video_box');
+    videoBoxes.current = document.getElementsByClassName("video_box");
   }, []);
 
+
   useEffect(() => {
-    if (videoBoxes.current) {
-      videoBoxes.current[currentIndex.current].style.border = '5px solid red';
+    if (time_state === "change") {
+      time.current = cur_time;
+      setSec(cur_time);
+      setMsec(0);
+      console.log("동기화");
     }
-  }, [currentIndex.current]);
-
-  // useEffect(() => {
-  //   if (videoBoxes.current) {
-  //     if (currentRound < totalRounds) {
-  //       videoBoxes.current[currentIndex.current].style.border = 'none';
-  //       currentIndex.current = (currentIndex.current + 1) % videoBoxes.current.length;
-  //       videoBoxes.current[currentIndex.current].style.border = '5px solid red';
-  //       setCurrentRound(currentRound+1)
-  //       console.log(currentRound)
-        
-  //     } else {
-  //       clearInterval(timer.current);
-  //     }
-      
-  //   }
-  // }, [sec]);
-
-  const transitionTimer = useRef(null);
+  }, [time_state]);
   
-  useEffect(() => {
-    transitionTimer.current = setInterval(() => {
-      if(currentIndex.current === 5){
-        console.log("currentIndex.current"+(currentIndex.current))
-        setSec(0);
-        setMsec("0" + (time.current % 60).toString());
-        clearInterval(transitionTimer.current)
-        clearInterval(timer.current)
-        return;
-      }
-        if (videoBoxes.current && (currentIndex.current > 2 && currentIndex.current < 5 )) {
-        console.log("currentIndex.current"+(currentIndex.current))
-        videoBoxes.current[currentIndex.current].style.border = 'none';
-        currentIndex.current = (currentIndex.current - 2) % videoBoxes.current.length;
-        videoBoxes.current[currentIndex.current].style.border = '5px solid red';       
-      }
-      else if (videoBoxes.current && currentIndex.current < 3){
-        console.log("currentIndex.current"+(currentIndex.current))
-        videoBoxes.current[currentIndex.current].style.border = 'none';
-        currentIndex.current = (currentIndex.current + 3) % videoBoxes.current.length;
-        videoBoxes.current[currentIndex.current].style.border = '5px solid red';
-      }
-      // Reset main timer
-      time.current = 6000;
-      setSec(6000);
-    }, 60000);
-  
-  }, []);
+  useEffect(() =>{
+    Receive_data()
+  },[])
 
   return (
-    <center>
-      Timer : {sec}.{msec}
-    </center>
+    <>
+      <div className="team_box">
+        <div className="team_turn">
+          <h1>
+            <center>
+              Timer : {sec}.{msec}
+            </center>
+          </h1>
+        </div>
+      </div>
+      <div className="main_video_box">
+        <div id="main_screen" className="main_video_frame">
+        {{ gamers }.gamers[currentIndex.current] && <UserVideoComponent streamManager={{ gamers }.gamers[currentIndex.current].streamManager} />}
+        </div>
+      </div>
+    </>
   );
 }
 

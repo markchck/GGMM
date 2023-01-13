@@ -1,21 +1,37 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { configureStore, createSlice } from '@reduxjs/toolkit'
-import { Button } from 'react-bootstrap';
+import create from "zustand";
 
-let S_words_Q = createSlice({
-    name : 'words',
-    initialState : [ '제시어1', '제시어2', '제시어3', '제시어4', '제시어5', '제시어6', '제시어7', '제시어8', '제시어9', '제시어10'],
-    reducers : {
-        answer(state, action){
-            console.log("input 동작하는가?" + action)
-        }
-    }
-})
+const useStore = create((set) => ({
+  //치우
+  gamers: [],
+  setGamers: (gamer) => {
+    set((state) => ({
+      gamers: [...state.gamers, gamer],
+    }));
+  },
 
-export let {answer} = S_words_Q.actions
+  deleteGamer: (name) => {
+    set((state) => ({
+      gamers: state.gamers.filter((a) => a.name !== name),
+    }));
+  },
+  clearGamer: () => {
+    set((state) => ({
+      gamers: [],
+    }));
+  },
 
-export default configureStore({
-    reducer: {
-        S_words_Q: S_words_Q.reducer,
-    }
-})
+  //경준
+  cur_time: 6000,
+  settime: (input) => set({ cur_time: input }),
+
+  time_state: "no_change",
+  set_time_change: (input) => set({ time_state: input }),
+
+  cnt_answer: 0,
+  cnt_plus: (input) => set(() => ({ cnt_answer: input })),
+
+  cur_session: undefined,
+  set_session_change: (input) => set({ cur_session: input }),
+}));
+
+export default useStore;
