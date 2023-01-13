@@ -2,6 +2,7 @@ import create from "zustand";
 
 const useStore = create((set) => ({
   //치우
+  // gamer list
   gamers: [],
   setGamers: (gamer) => {
     set((state) => ({
@@ -17,6 +18,14 @@ const useStore = create((set) => ({
   clearGamer: () => {
     set((state) => ({
       gamers: [],
+    }));
+  },
+
+  // gamer word list -  API에서 받은거 저장할 위치
+  gameWord : [],
+  setGameWord : (Word)=>{
+    set((state) => ({
+      gameWord: [...state.gameWord, Word],
     }));
   },
 

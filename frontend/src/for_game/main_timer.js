@@ -80,6 +80,7 @@ function Main_timer() {
       console.log("동기화");
     }
   }, [time_state]);
+  
   useEffect(() => {
     if (cur_round > 1) {
       if (curBlue_cnt > curRed_cnt) {
