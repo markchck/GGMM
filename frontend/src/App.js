@@ -70,7 +70,7 @@ class webCam extends Component {
       this.state.session.on("signal:score", (event) => {
         let message = JSON.parse(event.data);
         console.log("시그널 확인(score) : " + message.score);
-        useStore.getState().cnt_plus(message.score);
+        useStore.getState().set_CntAns(message.score);
         if (useStore.getState().cur_who_turn === "red") {
           useStore.getState().set_CurRed_cnt(message.score);
         }
