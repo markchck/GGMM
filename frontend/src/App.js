@@ -16,10 +16,15 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 1000;
+
+import io from "socket.io-client";
+
+
+
+
 
 class webCam extends Component {
   constructor(props) {
@@ -152,6 +157,9 @@ class webCam extends Component {
         mySession.on("exception", (exception) => {
           console.warn(exception);
         });
+
+        this.getSocket();
+
         this.getToken().then((token) => {
           mySession
             .connect(token, { clientData: this.state.myUserName })
@@ -459,6 +467,24 @@ class webCam extends Component {
       }
     );
     return response.data; // The token
+  }
+
+  async getSocket() {
+    console.log("연결을 시도합니다");
+    const socket = io("https://practiceggmm.shop",{
+      reconnectionDelayMax: 10000,
+    })
+    socket.on("connect", () => {
+      console.log("front connectedddddddddddddddddddd");
+    });
+    socket.on("connect_error", (error) => {
+      console.log("error : ", error);
+      console.log("에러났다!!!!!!!!!!!!!!!!!");
+    });
+
+    socket.emit("hello", "world", (response) => {
+      console.log(response);
+    })
   }
 }
 

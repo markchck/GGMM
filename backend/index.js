@@ -6,6 +6,8 @@ var OpenVidu = require("openvidu-node-client").OpenVidu;
 var cors = require("cors");
 var app = express();
 
+const Server = require("socket.io")
+
 // /* ---------------- 몽고디비 사용 -------------------- 
 const mongoose = require("mongoose")
 const QuestWord = require("./models/theme");
@@ -52,6 +54,27 @@ var openvidu = new OpenVidu(
   process.env.OPENVIDU_URL,
   process.env.OPENVIDU_SECRET
 );
+
+// /* ---------------- Socket.io 사용 -------------------- 
+const io = Server(server, {
+  cors: {
+    origin: "*",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("UserConnected hiiii!!!!!");
+  
+  socket.on("hello", (arg, callback) => {
+    console.log(arg);
+    callback("got it");
+  });
+
+});
+
+// /* ---------------- Socket.io 사용 -------------------- 
+
 
 app.post("/api/sessions", async (req, res) => {
   var session = await openvidu.createSession(req.body);
