@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('cursor', (position) => {
-    console.log(position);
+    console.log(socket.id, position);
     socket.broadcast.emit('cursor', position);
   });
 

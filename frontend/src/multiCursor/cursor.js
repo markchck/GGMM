@@ -16,9 +16,27 @@ socket.on("connect_error", (error) => {
 socket.emit("hello", "world", (response) => {
     console.log(response);
 })
-  
 
-function Cursor(user_list){
+const randomRGB = function () {
+    let rgb = "";
+    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
+    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
+    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
+    return "#" + rgb;
+  };
+
+const cursorStyle = {
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  width: '10px',
+  height: '10px',
+  background: randomRGB(),
+  borderRadius: '50%'
+};
+
+
+function Cursor(){
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
@@ -31,9 +49,9 @@ function Cursor(user_list){
     });
     }, []);
       
-    return(<div style={{ cursor: 'pointer' }}>
-      This text will have a pointer cursor when hovered
-    </div>)
+    return (
+    <div style={{ ...cursorStyle, left: position.x, top: position.y }} />
+  );
 }
 
   
