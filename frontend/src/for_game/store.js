@@ -1,8 +1,8 @@
 import create from "zustand";
 import axios from 'axios';
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 
 const useStore = create((set) => ({
   //치우
@@ -83,7 +83,39 @@ const useStore = create((set) => ({
         headers: { 'Content-Type': 'application/json' }
       });
       response && set((state) => ({ gamerWords: (state.gamerWords = response.data) }));
-  }
+  },
+
+  AItem1: false,
+  set_AItem1: (input) =>set({AItem1 : input}),
+  AsignalSent1: false,
+  setASignalSent1: () => set({AsignalSent1 : true}),
+  
+  AItem2: false,
+  set_AItem2: (input) =>set({AItem2 : input}),
+  AsignalSent2: false,
+  setASignalSent2: () => set({AsignalSent2 : true}),
+  
+  AItem3: false,
+  set_AItem3: (input) =>set({AItem3 : input}),
+  AsignalSent3: false,
+  setASignalSent3: () => set({AsignalSent3 : true}),
+  
+
+  BItem1: false,
+  set_BItem1: (input) =>set({BItem1 : input}),
+  BsignalSent1: false,
+  setBSignalSent1: () => set({BsignalSent1 : true}),
+
+  BItem2: false,
+  set_BItem2: (input) =>set({BItem2 : input}),
+  BsignalSent2: false,
+  setBSignalSent2: () => set({BsignalSent2 : true}),
+
+  BItem3: false,
+  set_BItem3: (input) =>set({BItem3 : input}),
+  BsignalSent3: false,
+  setBSignalSent3: () => set({BsignalSent3 : true}),
+
 }));
 
 export default useStore;

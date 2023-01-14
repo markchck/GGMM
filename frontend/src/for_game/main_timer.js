@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
+import ItemOneBlur from "../item_info/Item_1_blur";
+import ItemTwoDecal from "../item_info/Item_2_decalco";
+import ItemThreeCut from "../item_info/Item_3_4cut";
 
 function Main_timer() {
   const { set_CntAns } = useStore();
@@ -24,6 +27,9 @@ function Main_timer() {
     player_count,
     set_player_count,
   } = useStore();
+
+  const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
+
 
   const [sec, setSec] = useState(0);
   const [msec, setMsec] = useState(0);
@@ -74,6 +80,7 @@ function Main_timer() {
       console.log("동기화");
     }
   }, [time_state]);
+
   useEffect(() => {
     if (cur_round > 1) {
       if (curBlue_cnt > curRed_cnt) {
@@ -136,8 +143,8 @@ function Main_timer() {
   }, [my_index]);
   const game_loop = () => {
     if (cur_turn_states === "ready") {
-      time.current = 1500;
-      setSec(15);
+      time.current = 2000;
+      setSec(20);
       setMsec(0);
       set_turn_state_change("game");
     } else if (cur_turn_states === "game") {
@@ -165,14 +172,16 @@ function Main_timer() {
       }
       set_CntAns(0);
     } else if (cur_turn_states === "first_ready") {
-      time.current = 1000;
+      time.current = 500;
       currentIndex.current = 0;
       set_who_turn("red");
-      setSec(10);
+      setSec(5);
       setMsec(0);
       set_turn_state_change("ready");
     }
   };
+
+
 
   return (
     <>
@@ -190,11 +199,10 @@ function Main_timer() {
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
           {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
-            <UserVideoComponent
-              streamManager={
-                { gamers }.gamers[currentIndex.current].streamManager
-              }
-            />
+             (AItem1 == true || BItem1 == true) ? <ItemOneBlur streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> : 
+             (AItem2 == true || BItem2 == true) ? <ItemTwoDecal streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> :
+             (AItem3 == true || BItem3 == true) ? <ItemThreeCut streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> :
+             <UserVideoComponent streamManager={{ gamers }.gamers[currentIndex.current].streamManager}/>
           )}
         </div>
       </div>

@@ -2,29 +2,24 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Item.css";
 
-const ItemThreeCut = ({ videoRef }) => {
-  const [videoSrc, setVideoSrc] = useState();
+const ItemThreeCut = ({ streamManager }) => {
+  const videoRef = React.createRef();
   const canvasRef = useRef(null);
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      })
-      .catch((error) => {
-        console.error("Error accessing webcam:", error);
-      });
-  }, []);
+    streamManager.addVideoElement(videoRef.current);
+  }, [streamManager, videoRef]);
 
   useEffect(() => {
-    videoRef.current.addEventListener("play", () => {
+    
+    // videoRef.current.addEventListener("play", () => {
       canvasRef.current.width = videoRef.current.videoWidth;
       canvasRef.current.height = videoRef.current.videoHeight;
+      const ctx = canvasRef.current.getContext("2d");
       function drawFrame() {
-        if (!videoRef.current.paused && !videoRef.current.ended) {
-          const ctx = canvasRef.current.getContext("2d");
+        if (videoRef.current && !videoRef.current.ended) {
+        // if (!videoRef.current.paused && !videoRef.current.ended) {
+          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+          // ctx.restore();
           ctx.translate(canvasRef.current.width, 0);
           ctx.scale(-1, 1);
           ctx.drawImage(
@@ -72,24 +67,26 @@ const ItemThreeCut = ({ videoRef }) => {
             videoRef.current.videoHeight / 2
           );
           ctx.setTransform(1, 0, 0, 1, 0, 0);
+          // ctx.save();
           console.log("세번째 아이템 작동합니다.");
           setTimeout(drawFrame, 50);
         }
       }
       drawFrame();
-    });
-    if (videoRef.current.style.display === "none") {
-      videoRef.current.play();
-    }
+      
+      return ()=>{
+        ctx.clearRect(0, 0, 0,0);
+      }
   }, [videoRef]);
 
   return (
     <div>
-      <canvas
-        style={{ display: "block" }}
-        ref={canvasRef}
-        className="Video_myturn"
-      />
+      <video
+        style={{ display: "none" }} ref={videoRef} className="Video_myturn"
+        />
+        <canvas
+          style={{ display: "block" }} ref={canvasRef} className="Video_myturn"
+        />
     </div>
   );
 };

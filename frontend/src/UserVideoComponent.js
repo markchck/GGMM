@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import OpenViduVideoComponent from "./OvVideo";
 import "./UserVideo.css";
+import ItemOneBlur from "./item_info/Item_1_blur";
 
 const UserVideoComponent = ({ streamManager }) => {
-  const getNicknameTag = () => {
-    // Gets the nickName of the user
-    return JSON.parse(streamManager.stream.connection.data).clientData;
-  };
+  // const getNicknameTag = () => {
+  //   // Gets the nickName of the user
+  //   return JSON.parse(streamManager.stream.connection.data).clientData;
+  // };
 
   return (
     <div>
       {streamManager !== undefined ? (
         <div>
           <OpenViduVideoComponent streamManager={streamManager} />
-          <div>{getNicknameTag()}</div>
+          
+          {/* <div>{getNicknameTag()}</div> */}
         </div>
       ) : null}
     </div>

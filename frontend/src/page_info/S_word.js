@@ -32,7 +32,7 @@ function S_words() {
   let [number, setNumber] = useState(cnt_answer);
 
   const [showIndex, setShowIndex] = useState(0);
-  const [my_team_turn, set_my_team_turn] = useState(false);
+  const {my_team_turn, set_myteam_turn} = useStore();
 
   useEffect(async ()=>{
     if (cur_round !==0){
@@ -73,11 +73,11 @@ function S_words() {
 
   useEffect(() => {
     if (cur_who_turn === "red" && my_index % 2 === 0) {
-      set_my_team_turn(true);
+      set_myteam_turn(true);
     } else if (cur_who_turn === "blue" && my_index % 2 === 1) {
-      set_my_team_turn(true);
+      set_myteam_turn(true);
     } else {
-      set_my_team_turn(false);
+      set_myteam_turn(false);
     }
   }, [cur_who_turn]);
   useEffect(() => {}, [is_my_turn]);

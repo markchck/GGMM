@@ -10,6 +10,10 @@ import Main_timer from "./for_game/main_timer";
 
 //Item list
 
+//Item by each team
+import AteamItem from "./page_info/A_team_item";
+import BteamItem from "./page_info/B_team_item";
+
 // webRTC
 import { OpenVidu } from "openvidu-browser";
 import UserVideoComponent from "./UserVideoComponent";
@@ -17,9 +21,9 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
-var timer = 1000;
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+var timer = 500;
 
 class webCam extends Component {
   constructor(props) {
@@ -77,6 +81,48 @@ class webCam extends Component {
         if (useStore.getState().cur_who_turn === "blue") {
           useStore.getState().set_CurBlue_cnt(message.score);
         }
+      });
+
+      this.state.session.on("signal:AItem1", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_AItem1(message.AItem1);
+        useStore.getState().setASignalSent1(message.ASignalSent1);
+      });
+
+      this.state.session.on("signal:AItem2", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_AItem2(message.AItem2);
+        useStore.getState().setASignalSent2(message.ASignalSent2);
+      });
+
+      this.state.session.on("signal:AItem3", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_AItem3(message.AItem3);
+        useStore.getState().setASignalSent3(message.ASignalSent3);
+      });
+
+      this.state.session.on("signal:BItem1", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_BItem1(message.BItem1);
+        useStore.getState().setBSignalSent1(message.BSignalSent1);
+      });
+
+      this.state.session.on("signal:BItem2", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_BItem2(message.BItem2);
+        useStore.getState().setBSignalSent2(message.BsignalSent2);
+      });
+
+      this.state.session.on("signal:BItem3", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message)
+        useStore.getState().set_BItem3(message.BItem3);
+        useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
     }
   }
@@ -305,6 +351,7 @@ class webCam extends Component {
                         Total : <Score_board score={"total_red"} />
                       </div>
                     </div>
+                    <AteamItem />
                   </div>
                   <div className="video_box">
                     <div id={0} className="video_frame">
@@ -384,6 +431,7 @@ class webCam extends Component {
                       <Score_board score={"cur_blue"} />
                     </div>
                   </div>
+                  <BteamItem/>
                   <div className="video_box">
                     <div id={3} className="video_frame">
                       {useStore.getState().gamers[1] && (
