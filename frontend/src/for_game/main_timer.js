@@ -30,7 +30,6 @@ function Main_timer() {
 
   const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
 
-
   const [sec, setSec] = useState(0);
   const [msec, setMsec] = useState(0);
   const time = useRef(0);
@@ -124,23 +123,6 @@ function Main_timer() {
     console.log("팀 바꼈냐?" + is_my_team_turn);
   }, [is_my_team_turn]);
 
-  useEffect(() => {
-    console.log("게이머 정보 변경 or 추가");
-    set_player_count(player_count + 1);
-  }, [gamers]);
-
-  useEffect(() => {
-    for (var i = 0; i < player_count; i++) {
-      console.log("player count :" + player_count);
-      if (myUserID === { gamers }.gamers[i].name) {
-        console.log("나의 인덱스 :" + i);
-        set_my_index(i);
-      }
-    }
-  }, [player_count]);
-  useEffect(() => {
-    console.log("인덱스 변경" + my_index);
-  }, [my_index]);
   const game_loop = () => {
     if (cur_turn_states === "ready") {
       time.current = 2000;
@@ -181,8 +163,6 @@ function Main_timer() {
     }
   };
 
-
-
   return (
     <>
       <div className="team_box">
@@ -198,12 +178,33 @@ function Main_timer() {
       </div>
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
-          {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
-             (AItem1 == true || BItem1 == true) ? <ItemOneBlur streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> : 
-             (AItem2 == true || BItem2 == true) ? <ItemTwoDecal streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> :
-             (AItem3 == true || BItem3 == true) ? <ItemThreeCut streamManager={{ gamers }.gamers[currentIndex.current].streamManager} /> :
-             <UserVideoComponent streamManager={{ gamers }.gamers[currentIndex.current].streamManager}/>
-          )}
+          {cur_round > 0 &&
+            { gamers }.gamers[currentIndex.current] &&
+            (AItem1 == true || BItem1 == true ? (
+              <ItemOneBlur
+                streamManager={
+                  { gamers }.gamers[currentIndex.current].streamManager
+                }
+              />
+            ) : AItem2 == true || BItem2 == true ? (
+              <ItemTwoDecal
+                streamManager={
+                  { gamers }.gamers[currentIndex.current].streamManager
+                }
+              />
+            ) : AItem3 == true || BItem3 == true ? (
+              <ItemThreeCut
+                streamManager={
+                  { gamers }.gamers[currentIndex.current].streamManager
+                }
+              />
+            ) : (
+              <UserVideoComponent
+                streamManager={
+                  { gamers }.gamers[currentIndex.current].streamManager
+                }
+              />
+            ))}
         </div>
       </div>
     </>

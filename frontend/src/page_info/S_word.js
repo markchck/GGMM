@@ -10,7 +10,8 @@ import bad_sound from "../audio/bad.mp3";
 function S_words() {
   let [show, setShow] = useState([]);
 
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } = useStore();
+  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } =
+    useStore();
   const {
     is_my_turn,
     cur_who_turn,
@@ -32,31 +33,24 @@ function S_words() {
   let [number, setNumber] = useState(cnt_answer);
 
   const [showIndex, setShowIndex] = useState(0);
-  const {my_team_turn, set_myteam_turn} = useStore();
+  const { is_my_team_turn, set_myteam_turn } = useStore();
 
-  useEffect(async ()=>{
-    if (cur_round !==0){
+  useEffect(async () => {
+    if (cur_round !== 0) {
       setShow([]);
       await fetchGamerWords();
     }
-    
-  },[cur_round]);
+  }, [cur_round]);
 
   useEffect(() => {
-    setShow(show.concat(gamerWords.map(a => a.name)));
-    console.log("show time")
-    console.log(show[showIndex])
-  }, [gamerWords])
-  
-  useEffect(()=>{
-    setShow_name(show[showIndex]);
-  },[show])
+    setShow(show.concat(gamerWords.map((a) => a.name)));
+    console.log("show time");
+    console.log(show[showIndex]);
+  }, [gamerWords]);
 
-  // useEffect(() => {
-  //   if (cur_turn_states === "game") {
-  //     setShow_name(show[0]);
-  //   }
-  // }, [cur_turn_states]);
+  useEffect(() => {
+    setShow_name(show[showIndex]);
+  }, [show]);
 
   useEffect(() => {
     setNumber(cnt_answer);
@@ -112,10 +106,9 @@ function S_words() {
   };
   return (
     <>
-      {cur_turn_states === "room" && <div> 대기방입니다 </div>}
-      {(is_my_turn || !my_team_turn) && <div>{show_name}</div>}
+      {(is_my_turn || !is_my_team_turn) && <div>{show_name}</div>}
       {/* 내 턴이거나 내 팀 턴이 아닐경우에만 문제를 띄움 */}
-      {!is_my_turn && my_team_turn && (
+      {!is_my_turn && is_my_team_turn && (
         // 내 턴이 아니고 우리팀 턴일 경우(이야기꾼을 제외한 나머지)
         <>
           <input
