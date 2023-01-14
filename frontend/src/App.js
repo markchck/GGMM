@@ -20,9 +20,8 @@ import useStore from "./for_game/store";
 const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 1000;
 
-import io from "socket.io-client";
-
-
+// cursor
+import Cursor from "./multiCursor/cursor";
 
 
 
@@ -158,7 +157,6 @@ class webCam extends Component {
           console.warn(exception);
         });
 
-        this.getSocket();
 
         this.getToken().then((token) => {
           mySession
@@ -372,6 +370,8 @@ class webCam extends Component {
                       <div className="team_turn"></div>
                     </div>
 
+                    <Cursor></Cursor>
+
                     <div>
                       <S_words />
                     </div>
@@ -469,23 +469,6 @@ class webCam extends Component {
     return response.data; // The token
   }
 
-  async getSocket() {
-    console.log("연결을 시도합니다");
-    const socket = io("https://practiceggmm.shop",{
-      reconnectionDelayMax: 10000,
-    })
-    socket.on("connect", () => {
-      console.log("front connectedddddddddddddddddddd");
-    });
-    socket.on("connect_error", (error) => {
-      console.log("error : ", error);
-      console.log("에러났다!!!!!!!!!!!!!!!!!");
-    });
-
-    socket.emit("hello", "world", (response) => {
-      console.log(response);
-    })
-  }
 }
 
 export default webCam;

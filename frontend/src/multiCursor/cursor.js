@@ -1,45 +1,39 @@
 import React, { useEffect, useState, useContext } from "react";
+import io from "socket.io-client";
 
-import io from "socket.io-client"
-// const socket = io.connect("http://127.0.0.1:5000")
 console.log("연결을 시도합니다");
-const socket = io.connect("https://practiceggmm.shop/socket")
+const socket = io("https://practiceggmm.shop",{
+    reconnectionDelayMax: 10000,
+})
 socket.on("connect", () => {
-    console.log("front connectedddddddddddddddddddd");
+    console.log("front connected");
+});
+socket.on("connect_error", (error) => {
+    console.log("error : ", error);
+    console.log("에러났다!!!!!!!!!!!!!!!!!");
 });
 
-const user_list =["participant1","participant2"]
-window.addEventListener("mousemove", function(event) {
-    // console.log("X: " + event.clientX + ", Y: " + event.clientY);
-    const userInfo = {user: user_list[0], x: event.clientX , y: event.clientY}
-    // socket.emit("mouse_move", {user: user_list[0], x: event.clientX, y: event.clientY })
-    socket.emit("mouse_move", userInfo)
-});
-
-socket.on("share_location", (userInfo)=>{
-    // console.log(userInfo)
+socket.emit("hello", "world", (response) => {
+    console.log(response);
 })
   
 
 function Cursor(user_list){
-    let cursor;
-    let user_id = user_list[0]
-    const mouseFunc = (e) => {
-        let x = e.clientX;
-        let y = e.clientY;
-        const user_mouse_Info = {};
-        user_mouse_Info[user_id] = {
-            mousePointer: { top: y, left: x },
-            selectedIndex: selectedIndex,
-        };
-        socket.emit("mouse_move", [user_id, user_mouse_Info, selectedIndex]);
-    };
+    const [position, setPosition] = useState({ x: 0, y: 0 });
 
+    useEffect(() => {
+        window.addEventListener('mousemove', (event) => {
+            socket.emit('cursor', { x: event.clientX, y: event.clientY });
+        });
+
+    socket.on('cursor', (position) => {
+      setPosition(position);
+    });
+    }, []);
       
-    return(
-        <>"hihi"</>
-    )
-  
+    return(<div style={{ cursor: 'pointer' }}>
+      This text will have a pointer cursor when hovered
+    </div>)
 }
 
   

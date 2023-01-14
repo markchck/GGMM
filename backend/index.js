@@ -64,11 +64,20 @@ const io = Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("UserConnected hiiii!!!!!");
+  console.log("UserConnected", socket.id);
   
   socket.on("hello", (arg, callback) => {
     console.log(arg);
     callback("got it");
+  });
+
+  socket.on('cursor', (position) => {
+    console.log(position);
+    socket.broadcast.emit('cursor', position);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
   });
 
 });
