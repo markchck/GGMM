@@ -71,9 +71,16 @@ io.on("connection", (socket) => {
     callback("got it");
   });
 
-  socket.on('cursor', (position) => {
-    console.log(socket.id, position);
-    socket.broadcast.emit('cursor', position);
+  // socket join 시켜ㅑ줘야함. socket_session으로
+
+  socket.on("session_join", (sessionId) => {
+    console.log("sessioId : ", sessionId)
+    socket.join(sessionId);
+  })
+
+  socket.on('mouse_move', ([position, cur_session]) => {
+    console.log(socket.id, position, cur_session);
+    socket.broadcast.to(cur_session).emit('cursor', position);
   });
 
   socket.on('disconnect', () => {

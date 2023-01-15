@@ -1,5 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState} from "react";
 import io from "socket.io-client";
+import useStore from "../for_game/store";
+
+
 
 console.log("연결을 시도합니다");
 const socket = io("https://practiceggmm.shop",{
@@ -36,13 +39,17 @@ const cursorStyle = {
 };
 
 
-function Cursor(){
+function Cursor({sessionId}){
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const { cur_session } = useStore();
+    console.log("yesssss", sessionId);
 
     useEffect(() => {
-        window.addEventListener('mousemove', (event) => {
-            socket.emit('cursor', { x: event.clientX, y: event.clientY });
-        });
+      socket.emit("session_join", sessionId);
+
+      window.addEventListener('mousemove', (event) => {
+          socket.emit('mouse_move', [{ x: event.clientX, y: event.clientY }, sessionId]);
+      });
 
     socket.on('cursor', (position) => {
       setPosition(position);

@@ -370,7 +370,7 @@ class webCam extends Component {
                       <div className="team_turn"></div>
                     </div>
 
-                    <Cursor></Cursor>
+                    <Cursor sessionId = {this.state.mySessionId}></Cursor>
 
                     <div>
                       <S_words />
