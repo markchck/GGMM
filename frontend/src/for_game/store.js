@@ -84,7 +84,15 @@ const useStore = create((set) => ({
       });
       console.log(response);
       response && set((state) => ({ gamerWords: (state.gamerWords = response.data) }));
-  }
+  },
+
+  sockets: [],
+  setSockets: (socket) => {
+    set((state) => ({
+      sockets: [...state.sockets, socket],
+    }));
+  },
+ 
 }));
 
 export default useStore;

@@ -1,18 +1,5 @@
 import React, { useEffect, useState} from "react";
-import io from "socket.io-client";
-
-
-console.log("연결을 시도합니다");
-const socket = io("https://practiceggmm.shop",{
-    reconnectionDelayMax: 10000,
-})
-socket.on("connect", () => {
-    console.log("front connected");
-});
-socket.on("connect_error", (error) => {
-    console.log("error : ", error);
-    console.log("에러났다!!!!!!!!!!!!!!!!!");
-});
+import socket from "../socket/socket";
 
 
 const randomRGB = function () {
@@ -47,7 +34,6 @@ function Cursor({sessionId, participantName}){
     
     socket.on('cursor', (position, participantName) => {
       // console.log("participant 현재 위치는:", participantName, position);
-      // setPosition(position);
       setPosition((prevPosition) => {
         const newPostion = { ...prevPosition, [participantName] :position };
         return newPostion;

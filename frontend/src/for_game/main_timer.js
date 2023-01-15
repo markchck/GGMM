@@ -44,7 +44,7 @@ function Main_timer() {
     }, 10);
 
     if (time.current < 0) {
-      console.log("Time's up!");
+      // console.log("Time's up!");
       clearInterval(timer.current);
       game_loop();
 

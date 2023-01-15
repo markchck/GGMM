@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import axios from "axios";
 import S_words from "./page_info/S_word";
 import CreateInvitation from "./page_info/CreateInvitation";
@@ -20,8 +20,8 @@ import useStore from "./for_game/store";
 const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 1000;
 
-// cursor
-import Cursor from "./multiCursor/cursor";
+// cardGame
+import CardGame from "./cardGame/CardGame";
 
 
 
@@ -241,11 +241,8 @@ class webCam extends Component {
         <div className="container">
           {this.state.session === undefined ? (
             <div id="join">
-              {/* <div id="img-div">
-            
-            </div> */}
-              {/* <div id="join-dialog" className="jumbotron vertical-center"> */}
-              {/* <h1> Join a video session </h1> */}
+              
+
 
               <form className="form-group" onSubmit={this.joinSession}>
                 <p>
@@ -370,7 +367,7 @@ class webCam extends Component {
                       <div className="team_turn"></div>
                     </div>
 
-                    <Cursor sessionId = {this.state.mySessionId} participantName = {this.state.myUserName}></Cursor>
+                    <div><CardGame sessionId = {this.state.mySessionId} participantName = {this.state.myUserName}></CardGame></div>
 
                     <div>
                       <S_words />
