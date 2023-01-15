@@ -24,7 +24,8 @@ const handleError = (error) => console.log("❌ DB Error", error)
 db.once("open", handleOpen); //open 이벤트가 발생 시 handleOpen 실행 
 db.on("error", handleError); //error 이벤트가 발생할 때마다 handleError 실행 );
 
-/* ---------------- 몽고디비 사용 -------------------- */
+
+/* ---------------- 몽고디비 사용(끝) -------------------- */
 
 // Enable CORS support
 app.use(
@@ -66,21 +67,21 @@ const io = Server(server, {
 io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
   
-  socket.on("hello", (arg, callback) => {
-    console.log(arg);
-    callback("got it");
-  });
 
   // socket join 시켜ㅑ줘야함. socket_session으로
 
-  socket.on("session_join", (sessionId) => {
-    console.log("sessioId : ", sessionId)
+  socket.on("session_join", (sessionId, participantName) => {
+    console.log("sessioId : ", sessionId, "participant : ", participantName)
     socket.join(sessionId);
   })
 
-  socket.on('mouse_move', ([position, cur_session]) => {
-    console.log(socket.id, position, cur_session);
-    socket.broadcast.to(cur_session).emit('cursor', position);
+  socket.on('mouse_move', (position, sessionId, participantName) => {
+    console.log(position, sessionId, participantName);
+    try{
+      socket.broadcast.to(sessionId).emit('cursor', position, participantName);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on('disconnect', () => {
@@ -110,16 +111,30 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-app.get("/api/sessions/game", async(req, res) => {
+let selectedQuestWords = null;
+
+// 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
+updateSelectedQuestWords();
+
+function updateSelectedQuestWords(){
   QuestWord.aggregate([{ $sample: { size: 15 } }], function(error, QuestWord) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(QuestWord);
-    res.send(QuestWord);
-  }
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords = QuestWord;
+      // console.log(selectedQuestWords)
+      // res.send(selectedQuestWords)
+    }
+  });
+}
+
+app.get("/api/sessions/game", async(req, res) => {
+  console.log(selectedQuestWords)
+  res.send(selectedQuestWords);
 });
-})
+
+setInterval(updateSelectedQuestWords, 1000 * 55); //1min
+
 /* ------- 제시어 받는 api -------- */
 
 process.on('uncaughtException', err => console.error(err));

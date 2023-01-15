@@ -1,7 +1,5 @@
 import React, { useEffect, useState} from "react";
 import io from "socket.io-client";
-import useStore from "../for_game/store";
-
 
 
 console.log("연결을 시도합니다");
@@ -16,9 +14,6 @@ socket.on("connect_error", (error) => {
     console.log("에러났다!!!!!!!!!!!!!!!!!");
 });
 
-socket.emit("hello", "world", (response) => {
-    console.log(response);
-})
 
 const randomRGB = function () {
     let rgb = "";
@@ -32,27 +27,31 @@ const cursorStyle = {
   position: 'absolute',
   left: 0,
   top: 0,
-  width: '10px',
-  height: '10px',
+  width: '25px',
+  height: '25px',
   background: randomRGB(),
   borderRadius: '50%'
 };
 
 
-function Cursor({sessionId}){
+function Cursor({sessionId, participantName}){
     const [position, setPosition] = useState({ x: 0, y: 0 });
-    const { cur_session } = useStore();
-    console.log("yesssss", sessionId);
+    
 
     useEffect(() => {
-      socket.emit("session_join", sessionId);
+      socket.emit("session_join", sessionId, participantName);
 
       window.addEventListener('mousemove', (event) => {
-          socket.emit('mouse_move', [{ x: event.clientX, y: event.clientY }, sessionId]);
+          socket.emit('mouse_move', { x: event.clientX, y: event.clientY }, sessionId , participantName);
       });
-
-    socket.on('cursor', (position) => {
-      setPosition(position);
+    
+    socket.on('cursor', (position, participantName) => {
+      // console.log("participant 현재 위치는:", participantName, position);
+      // setPosition(position);
+      setPosition((prev) => {
+        const newPostion = { ...prev, ...position };
+        return newPostion;
+      })
     });
     }, []);
       
