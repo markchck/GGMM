@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("card_flip", (cardId) => {
+  socket.on("card_flip", (sessionId, cardId) => {
     console.log("카드뒤집힘@@@");
     console.log(cardId);
     socket.broadcast.to(sessionId).emit('flipedCard', cardId);

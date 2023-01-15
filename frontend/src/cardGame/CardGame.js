@@ -13,9 +13,13 @@ function CardGame({sessionId, participantName}) {
 
   function click_handler(cardId){
       const clicked_card= document.getElementById(cardId);
-      socket.emit("card_flip", cardId);
+      socket.emit("card_flip", sessionId, cardId);
       console.log(clicked_card);
   }
+
+  socket.on("flipedCard", (cardId) => {
+    console.log("이미 뒤집힌 카드 번호입니다 : ", cardId);
+});
 
   return (
     <span>
