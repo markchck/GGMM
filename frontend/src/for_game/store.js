@@ -102,6 +102,9 @@ const useStore = create((set) => ({
   cur_round: 0,
   set_cur_round: (input) => set({ cur_round: input }),
 
+  cur_teller : -1,
+  set_cur_teller : (input) => set({cur_teller : input}),
+
   is_my_turn: false, //내가 이야기 꾼인지?
   set_my_turn: (input) => set({ is_my_turn: input }),
 

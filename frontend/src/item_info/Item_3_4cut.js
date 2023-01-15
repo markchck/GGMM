@@ -10,18 +10,18 @@ const ItemThreeCut = ({ streamManager }) => {
   }, [streamManager, videoRef]);
 
   useEffect(() => {
-    
-    // videoRef.current.addEventListener("play", () => {
+    if(canvasRef.current){
+
       canvasRef.current.width = videoRef.current.videoWidth;
       canvasRef.current.height = videoRef.current.videoHeight;
       const ctx = canvasRef.current.getContext("2d");
       function drawFrame() {
         if (videoRef.current && !videoRef.current.ended) {
         // if (!videoRef.current.paused && !videoRef.current.ended) {
-          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+          
           // ctx.restore();
-          ctx.translate(canvasRef.current.width, 0);
-          ctx.scale(-1, 1);
+          // ctx.translate(canvasRef.current.width, 0);
+          // ctx.scale(-1, 1);
           ctx.drawImage(
             videoRef.current,
             0,
@@ -69,24 +69,23 @@ const ItemThreeCut = ({ streamManager }) => {
           ctx.setTransform(1, 0, 0, 1, 0, 0);
           // ctx.save();
           console.log("세번째 아이템 작동합니다.");
+          // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           setTimeout(drawFrame, 50);
         }
       }
       drawFrame();
       
       return ()=>{
-        ctx.clearRect(0, 0, 0,0);
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       }
+    }
+    // videoRef.current.addEventListener("play", () => {
   }, [videoRef]);
 
   return (
     <div>
-      <video
-        style={{ display: "none" }} ref={videoRef} className="Video_myturn"
-        />
-        <canvas
-          style={{ display: "block" }} ref={canvasRef} className="Video_myturn"
-        />
+      <canvas style={{ display: "block" }} ref={canvasRef} className="Video_myturn"/>
+      <video ref={videoRef} className="Video_myturn Video_hidden" />
     </div>
   );
 };

@@ -88,44 +88,45 @@ class webCam extends Component {
 
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_AItem1(message.AItem1);
         useStore.getState().setASignalSent1(message.ASignalSent1);
       });
 
       this.state.session.on("signal:AItem2", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_AItem2(message.AItem2);
         useStore.getState().setASignalSent2(message.ASignalSent2);
       });
 
       this.state.session.on("signal:AItem3", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_AItem3(message.AItem3);
         useStore.getState().setASignalSent3(message.ASignalSent3);
       });
 
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_BItem1(message.BItem1);
         useStore.getState().setBSignalSent1(message.BSignalSent1);
       });
 
       this.state.session.on("signal:BItem2", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_BItem2(message.BItem2);
         useStore.getState().setBSignalSent2(message.BsignalSent2);
       });
 
       this.state.session.on("signal:BItem3", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message);
         useStore.getState().set_BItem3(message.BItem3);
         useStore.getState().setBSignalSent3(message.BsignalSent3);
+      });
+
+      this.state.session.on("signal:cur_teller", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("무슨 메시지 인가: ", message.cur_teller, typeof(message.cur_teller));
+        useStore.getState().set_cur_teller(message.cur_teller);
+        // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
     }
   }
@@ -220,7 +221,7 @@ class webCam extends Component {
                 resolution: "640x480", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: true, // Whether to mirror your local video or not
+                mirror: false, // Whether to mirror your local video or not
               });
               mySession.publish(publisher);
 
@@ -374,12 +375,12 @@ class webCam extends Component {
                           <div id={0} className="video_frame">
                             {useStore.getState().gamers[0] && (
                               <div className="video_frame">
-                                {" "}
                                 <UserVideoComponent
                                   streamManager={
                                     useStore.getState().gamers[0].streamManager
                                   }
                                   my_name={useStore.getState().gamers[0].name}
+                                  video_index={0}
                                 />
                               </div>
                             )}
@@ -395,6 +396,7 @@ class webCam extends Component {
                                     useStore.getState().gamers[2].streamManager
                                   }
                                   my_name={useStore.getState().gamers[2].name}
+                                  video_index={2}
                                 />
                               </div>
                             )}
@@ -410,6 +412,7 @@ class webCam extends Component {
                                     useStore.getState().gamers[4].streamManager
                                   }
                                   my_name={useStore.getState().gamers[4].name}
+                                  video_index={4}
                                 />
                               </div>
                             )}
@@ -459,12 +462,12 @@ class webCam extends Component {
                           <div id={3} className="video_frame">
                             {useStore.getState().gamers[1] && (
                               <div className="video_frame">
-                                {" "}
                                 <UserVideoComponent
                                   streamManager={
                                     useStore.getState().gamers[1].streamManager
                                   }
                                   my_name={useStore.getState().gamers[1].name}
+                                  video_index={1}
                                 />
                               </div>
                             )}
@@ -474,12 +477,12 @@ class webCam extends Component {
                           <div id={4} className="video_frame">
                             {useStore.getState().gamers[3] && (
                               <div className="video_frame">
-                                {" "}
                                 <UserVideoComponent
                                   streamManager={
                                     useStore.getState().gamers[3].streamManager
                                   }
                                   my_name={useStore.getState().gamers[3].name}
+                                  video_index={3}
                                 />
                               </div>
                             )}
@@ -489,12 +492,12 @@ class webCam extends Component {
                           <div id={5} className="video_frame">
                             {useStore.getState().gamers[5] && (
                               <div className="video_frame">
-                                {" "}
                                 <UserVideoComponent
                                   streamManager={
                                     useStore.getState().gamers[5].streamManager
                                   }
                                   my_name={useStore.getState().gamers[5].name}
+                                  video_index={5}
                                 />
                               </div>
                             )}

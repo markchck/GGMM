@@ -18,6 +18,7 @@ function Main_timer() {
     useStore();
   const { is_my_turn, set_my_turn } = useStore();
   const { is_my_team_turn, set_myteam_turn, setPublishAudio } = useStore();
+  const { cur_teller, set_cur_teller } = useStore();
 
   const {
     myUserID,
@@ -26,6 +27,7 @@ function Main_timer() {
     set_my_index,
     player_count,
     set_player_count,
+    cur_session,
   } = useStore();
 
   const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
@@ -108,8 +110,10 @@ function Main_timer() {
       }
     }
   }, [is_my_turn]);
+
   useEffect(() => {
     console.log("지금 인덱스는 :" + currentIndex.current);
+    // set_cur_teller(currentIndex.current)
     if (currentIndex.current < 10) {
       if (myUserID === { gamers }.gamers[currentIndex.current].name) {
         set_my_turn(true);
@@ -117,6 +121,17 @@ function Main_timer() {
         set_my_turn(false);
       }
     }
+
+    if (currentIndex.current !== cur_teller) {
+      const message = {
+        cur_teller: currentIndex.current,
+      };
+      cur_session && cur_session.signal({
+        type: "cur_teller",
+        data: JSON.stringify(message),
+      });
+    }
+
   }, [currentIndex.current]);
 
   useEffect(() => {
@@ -180,31 +195,14 @@ function Main_timer() {
         <div id="main_screen" className="main_video_frame">
           {cur_round > 0 &&
             { gamers }.gamers[currentIndex.current] &&
-            (AItem1 == true || BItem1 == true ? (
-              <ItemOneBlur
-                streamManager={
-                  { gamers }.gamers[currentIndex.current].streamManager
-                }
-              />
-            ) : AItem2 == true || BItem2 == true ? (
-              <ItemTwoDecal
-                streamManager={
-                  { gamers }.gamers[currentIndex.current].streamManager
-                }
-              />
-            ) : AItem3 == true || BItem3 == true ? (
-              <ItemThreeCut
-                streamManager={
-                  { gamers }.gamers[currentIndex.current].streamManager
-                }
-              />
-            ) : (
-              <UserVideoComponent
-                streamManager={
-                  { gamers }.gamers[currentIndex.current].streamManager
-                }
-              />
-            ))}
+            <UserVideoComponent
+              streamManager={
+                { gamers }.gamers[currentIndex.current].streamManager
+              }
+              video_index={currentIndex.current}
+              
+            />
+          }
         </div>
       </div>
     </>
