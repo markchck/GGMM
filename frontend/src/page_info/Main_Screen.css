@@ -3,10 +3,9 @@
   width: 23%; /* 원하는 너비 */
   margin: auto;
   top: 30%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-  margin-bottom: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 2%;
   float: left;
 }
 
@@ -18,10 +17,10 @@
 
 .video_frame1 {
   position: absolute;
-  top: 5%;
-  right: 5%;
-  bottom: 5%;
-  left: 5%;
+  top: 2%;
+  right: 2%;
+  bottom: 2%;
+  left: 2%;
   background: beige;
   border-radius: 10px;
 }

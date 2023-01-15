@@ -333,6 +333,7 @@ class webCam extends Component {
                   <div>대기방입니다.</div>
                   <CreateInvitation mySessionId={mySessionId} />
                   <Main_Screen />
+
                   <Button type="submit" onClick={() => this.sendTimer()}>
                     게임시작
                   </Button>
@@ -378,7 +379,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[0].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[0]}
+                                  my_name={useStore.getState().gamers[0].name}
                                 />
                               </div>
                             )}
@@ -393,7 +394,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[2].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[2]}
+                                  my_name={useStore.getState().gamers[2].name}
                                 />
                               </div>
                             )}
@@ -408,7 +409,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[4].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[4]}
+                                  my_name={useStore.getState().gamers[4].name}
                                 />
                               </div>
                             )}
@@ -463,7 +464,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[1].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[1]}
+                                  my_name={useStore.getState().gamers[1].name}
                                 />
                               </div>
                             )}
@@ -478,7 +479,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[3].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[3]}
+                                  my_name={useStore.getState().gamers[3].name}
                                 />
                               </div>
                             )}
@@ -493,7 +494,7 @@ class webCam extends Component {
                                   streamManager={
                                     useStore.getState().gamers[5].streamManager
                                   }
-                                  my_name={useStore.getState().gamers[5]}
+                                  my_name={useStore.getState().gamers[5].name}
                                 />
                               </div>
                             )}

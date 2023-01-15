@@ -45,7 +45,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[0].streamManager}
-                my_name={{ gamers }.gamers[0]}
+                my_name={{ gamers }.gamers[0].name}
               />
             </div>
           )}
@@ -58,7 +58,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[1].streamManager}
-                my_name={{ gamers }.gamers[1]}
+                my_name={{ gamers }.gamers[1].name}
               />
             </div>
           )}
@@ -71,7 +71,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[2].streamManager}
-                my_name={{ gamers }.gamers[2]}
+                my_name={{ gamers }.gamers[2].name}
               />
             </div>
           )}
@@ -84,7 +84,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[3].streamManager}
-                my_name={{ gamers }.gamers[3]}
+                my_name={{ gamers }.gamers[3].name}
               />
             </div>
           )}
@@ -97,7 +97,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[4].streamManager}
-                my_name={{ gamers }.gamers[4]}
+                my_name={{ gamers }.gamers[4].name}
               />
             </div>
           )}
@@ -110,7 +110,7 @@ function Main_Screen() {
               {" "}
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[5].streamManager}
-                my_name={{ gamers }.gamers[5]}
+                my_name={{ gamers }.gamers[5].name}
               />
             </div>
           )}
