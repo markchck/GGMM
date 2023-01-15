@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
   
 
-  // socket join 시켜ㅑ줘야함. socket_session으로
+  // socket join 시켜줘야함. socket_session으로
 
   socket.on("session_join", (sessionId, participantName) => {
     console.log("sessioId : ", sessionId, "participant : ", participantName)

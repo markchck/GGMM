@@ -48,15 +48,30 @@ function Cursor({sessionId, participantName}){
     socket.on('cursor', (position, participantName) => {
       // console.log("participant 현재 위치는:", participantName, position);
       // setPosition(position);
-      setPosition((prev) => {
-        const newPostion = { ...prev, ...position };
+      setPosition((prevPosition) => {
+        const newPostion = { ...prevPosition, [participantName] :position };
         return newPostion;
       })
     });
     }, []);
       
     return (
-    <div style={{ ...cursorStyle, left: position.x, top: position.y }} />
+      <div>
+        {Object.values(position).map(({ x, y }) => (
+          <div
+            key={`${x},${y}`}
+            style={{
+              position: 'absolute',
+              left: `${x}px`,
+              top: `${y}px`,
+              width: '25px',
+              height: '25px',
+              backgroundColor: 'red',
+              borderRadius: '50%'
+            }}
+          />
+        ))}
+      </div>
   );
 }
 
