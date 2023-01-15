@@ -27,9 +27,11 @@ function Main_Screen() {
     if (cur_session !== undefined) {
       for (var i = 0; i < player_count; i++) {
         console.log("player count :" + player_count);
-        if (myUserID === { gamers }.gamers[i].name) {
-          console.log("나의 인덱스 :" + i);
-          set_my_index(i);
+        if (gamers[i]) {
+          if (myUserID === { gamers }.gamers[i].name) {
+            console.log("나의 인덱스 :" + i);
+            set_my_index(i);
+          }
         }
       }
     }
@@ -41,21 +43,23 @@ function Main_Screen() {
 
   useEffect(() => {
     console.log("cur_teller 변경", cur_teller);
-
-  }, [cur_teller])
+  }, [cur_teller]);
 
   return (
     <>
       <div className="video_box1">
         <div id={0} className="video_frame1">
-          {gamers[0] && (cur_teller == 0 ? <div> 이야기 꾼입니다.</div> : 
-          <div className="video_frame1">
-            <UserVideoComponent
-              streamManager={{ gamers }.gamers[0].streamManager}
-              my_name={{ gamers }.gamers[0].name}
-            />
-          </div>)
-          }
+          {gamers[0] &&
+            (cur_teller == 0 ? (
+              <div> 이야기 꾼입니다.</div>
+            ) : (
+              <div className="video_frame1">
+                <UserVideoComponent
+                  streamManager={{ gamers }.gamers[0].streamManager}
+                  my_name={{ gamers }.gamers[0].name}
+                />
+              </div>
+            ))}
         </div>
       </div>
       <div className="video_box1">
@@ -108,14 +112,7 @@ function Main_Screen() {
       </div>
       <div className="video_box1">
         <div id={0} className="video_frame1">
-          {gamers[5] && (
-            <div className="video_frame1">
-              <UserVideoComponent
-                streamManager={{ gamers }.gamers[5].streamManager}
-                my_name={{ gamers }.gamers[5].name}
-              />
-            </div>
-          )}
+          {gamers[5] && <div className="video_frame1"></div>}
         </div>
       </div>
     </>

@@ -124,7 +124,11 @@ class webCam extends Component {
 
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
-        console.log("무슨 메시지 인가: ", message.cur_teller, typeof(message.cur_teller));
+        console.log(
+          "무슨 메시지 인가: ",
+          message.cur_teller,
+          typeof message.cur_teller
+        );
         useStore.getState().set_cur_teller(message.cur_teller);
         // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
@@ -332,9 +336,15 @@ class webCam extends Component {
               <div className="maing_bg">
                 <div className="container">
                   <div>대기방입니다.</div>
+                  <input
+                    className="btn btn-large btn-danger"
+                    type="button"
+                    id="buttonLeaveSession"
+                    onClick={this.leaveSession}
+                    value="방 나가기"
+                  />
                   <CreateInvitation mySessionId={mySessionId} />
                   <Main_Screen />
-
                   <Button type="submit" onClick={() => this.sendTimer()}>
                     게임시작
                   </Button>
@@ -346,13 +356,6 @@ class webCam extends Component {
                   <div id="session">
                     <div id="session-header">
                       <h1 id="session-title">{mySessionId}</h1>
-                      <input
-                        className="btn btn-large btn-danger"
-                        type="button"
-                        id="buttonLeaveSession"
-                        onClick={this.leaveSession}
-                        value="방 나가기"
-                      />
                     </div>
 
                     <div className="wide-frame">
@@ -432,10 +435,6 @@ class webCam extends Component {
                         <div>
                           <div className="team_box">
                             <div className="team_turn"></div>
-                            {/* <Button onClick={renderCam4}>원본</Button>
-                      <Button onClick={renderCam}>blur</Button>
-                      <Button onClick={renderCam2}>좌좌우우</Button>
-                      <Button onClick={renderCam3}>퍼즐(4)</Button> */}
                           </div>
 
                           <div>
