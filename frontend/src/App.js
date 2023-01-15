@@ -16,10 +16,14 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 1000;
+
+// cursor
+import Cursor from "./multiCursor/cursor";
+
+
 
 class webCam extends Component {
   constructor(props) {
@@ -152,6 +156,8 @@ class webCam extends Component {
         mySession.on("exception", (exception) => {
           console.warn(exception);
         });
+
+
         this.getToken().then((token) => {
           mySession
             .connect(token, { clientData: this.state.myUserName })
@@ -364,6 +370,8 @@ class webCam extends Component {
                       <div className="team_turn"></div>
                     </div>
 
+                    <Cursor sessionId = {this.state.mySessionId} participantName = {this.state.myUserName}></Cursor>
+
                     <div>
                       <S_words />
                     </div>
@@ -460,6 +468,7 @@ class webCam extends Component {
     );
     return response.data; // The token
   }
+
 }
 
 export default webCam;

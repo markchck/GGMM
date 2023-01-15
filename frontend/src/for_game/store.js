@@ -82,6 +82,7 @@ const useStore = create((set) => ({
       const response = await axios.get(APPLICATION_SERVER_URL + 'api/sessions/game', {
         headers: { 'Content-Type': 'application/json' }
       });
+      console.log(response);
       response && set((state) => ({ gamerWords: (state.gamerWords = response.data) }));
   }
 }));
