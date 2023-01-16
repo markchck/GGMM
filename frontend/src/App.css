@@ -4,6 +4,7 @@
 
 .container {
   margin: auto;
+  width: 50%;
   /* max-width: 600px; */
 }
 
@@ -197,7 +198,15 @@
 }
 
 .main_bg {
-  background-image: url("../public/resources/images/GGMM_main.jpg");
+  position: fixed;
+  top: 70%;
+  left: 25%;
+  width: 50%;
+  background-image: url("../public/resources/images/main_page.jpg");
   background-size: cover;
   background-position: center;
+}
+
+.text-center{
+  margin-top: 5%;
 }

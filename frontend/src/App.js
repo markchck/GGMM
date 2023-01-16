@@ -21,8 +21,8 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 500;
 
 class webCam extends Component {
@@ -298,7 +298,7 @@ class webCam extends Component {
               <div id="join">
                 <form className="form-group" onSubmit={this.joinSession}>
                   <p>
-                    <label>Participant: </label>
+                    <label>참여자: </label>
                     <input
                       className="form-control"
                       type="text"
@@ -309,7 +309,7 @@ class webCam extends Component {
                     />
                   </p>
                   <p>
-                    <label> Session: </label>
+                    <label> 방 이름: </label>
                     <input
                       className="form-control"
                       type="text"
@@ -324,7 +324,7 @@ class webCam extends Component {
                       className="btn btn-lg btn-success"
                       name="commit"
                       type="submit"
-                      value="JOIN"
+                      value="방 입장"
                     />
                   </p>
                 </form>
