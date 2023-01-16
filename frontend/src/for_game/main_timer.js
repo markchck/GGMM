@@ -44,6 +44,8 @@ function Main_timer() {
   const videoBoxes = useRef(null);
   const currentIndex = useRef(10000);
 
+  const [mic, setMic] = useState(true);
+
 
   function turnOnMicrophone() {
     navigator.getUserMedia(
@@ -57,18 +59,28 @@ function Main_timer() {
       }
     );
   }
+
   function turnOffMicrophone() {
-    navigator.getUserMedia(
-      { audio: true },
-      function (stream) {
-        const microphone = stream.getAudioTracks()[0];
-        microphone.enabled = false;
-      },
-      function (error) {
-        console.log("Error: " + error);
-      }
-    );
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+      navigator.mediaDevices.getUserMedia(
+        { audio: true }.then(stream =>{
+          const microphone = stream.getAudioTracks()[0];
+          if (mic){
+            microphone.enabled = false;
+            setMic(false)
+          }
+          else{
+            microphone.enabled = true;
+            setMic(true)
+          }
+        })
+        .catch(error =>{
+          console.log("Error: " + error);
+        })
+      );
+    }
   }
+
   useEffect(() => {
     timer.current = setInterval(() => {
       setSec(parseInt(time.current / 100));
@@ -129,6 +141,7 @@ function Main_timer() {
       set_CurRed_cnt(0);
     }
   }, [cur_round]);
+  
   useEffect(() => {
     if (cur_turn_states !== "room") {
       if (is_my_turn === true) {
