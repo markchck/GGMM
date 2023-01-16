@@ -293,8 +293,8 @@ class webCam extends Component {
     return (
       <>
         {this.state.session === undefined ? (
-          <div className="maing_bg">
-            <div className="container">
+          // <div className="maing_bg">
+            <div className="container_before_game">
               <div id="join">
                 <form className="form-group" onSubmit={this.joinSession}>
                   <p>
@@ -321,7 +321,7 @@ class webCam extends Component {
                   </p>
                   <p className="text-center">
                     <input
-                      className="btn btn-lg btn-success"
+                      className="btn btn-primary btn-lg "
                       name="commit"
                       type="submit"
                       value="방 입장"
@@ -330,7 +330,7 @@ class webCam extends Component {
                 </form>
               </div>
             </div>
-          </div>
+          // </div>
         ) : (
           <>
             {useStore.getState().cur_round === 0 ? (

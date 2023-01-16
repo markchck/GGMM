@@ -2,9 +2,17 @@
   padding: 0;
 }
 
+.container_before_game {
+  margin: auto;
+  width: 30%;
+  position: fixed;
+  top: 70%;
+  left: 35%;
+  /* max-width: 600px; */
+}
+
 .container {
   margin: auto;
-  width: 50%;
   /* max-width: 600px; */
 }
 
@@ -198,10 +206,7 @@
 }
 
 .main_bg {
-  position: fixed;
-  top: 70%;
-  left: 25%;
-  width: 50%;
+
   background-image: url("../public/resources/images/main_page.jpg");
   background-size: cover;
   background-position: center;
@@ -209,4 +214,9 @@
 
 .text-center{
   margin-top: 5%;
+
+}
+
+.btn btn-lg btn-success{
+  margin-top: 10%;
 }
