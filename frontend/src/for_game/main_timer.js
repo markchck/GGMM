@@ -44,18 +44,18 @@ function Main_timer() {
   const [mic, setMic] = useState(true);
 
 
-  function turnOnMicrophone() {
-    navigator.getUserMedia(
-      { audio: true },
-      function (stream) {
-        const microphone = stream.getAudioTracks()[0];
-        microphone.enabled = true;
-      },
-      function (error) {
-        console.log("Error: " + error);
-      }
-    );
-  }
+  // function turnOnMicrophone() {
+  //   navigator.getUserMedia(
+  //     { audio: true },
+  //     function (stream) {
+  //       const microphone = stream.getAudioTracks()[0];
+  //       microphone.enabled = true;
+  //     },
+  //     function (error) {
+  //       console.log("Error: " + error);
+  //     }
+  //   );
+  // }
 
   // function turnOffMicrophone() {
   //   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
@@ -78,7 +78,7 @@ function Main_timer() {
   //   }
   // }
 
-  async function turnOffMicrophone() {
+  async function turnOnOffMicrophone() {
     console.log("여기 들어오는가")
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -166,10 +166,10 @@ function Main_timer() {
       if (cur_round > 0) {
         if (currentIndex.current === my_index) {
           console.log("여기 오는가??111 : is_my_turn === true")
-          turnOffMicrophone();
+          turnOnOffMicrophone();
         } else if (currentIndex.current !== my_index) {
           console.log("여기 오는가??2222 : is_my_turn === false")
-          turnOnMicrophone();
+          turnOnOffMicrophone();
         }
       }
     }
