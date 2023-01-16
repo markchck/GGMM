@@ -264,7 +264,6 @@ function Main_timer() {
                 { gamers }.gamers[currentIndex.current].streamManager
               }
               video_index={currentIndex.current}
-
             />
           }
         </div>

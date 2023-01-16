@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useStore from "./for_game/store";
 
 const OpenViduVideoComponent = ({ streamManager }) => {
-  const { myUserID, is_my_turn } = useStore();
+  const { cur_teller, my_index } = useStore();
   const videoRef = React.createRef();
 
   useEffect(() => {
@@ -10,7 +10,8 @@ const OpenViduVideoComponent = ({ streamManager }) => {
   }, [streamManager, videoRef]);
   return (
     <div>
-      <video autoPlay ref={videoRef} />
+      {cur_teller && my_index ? <video autoPlay ref={videoRef} muted/> : <video autoPlay ref={videoRef} />}
+      {/* <video autoPlay ref={videoRef} /> */}
     </div>
   );
 };
