@@ -37,7 +37,14 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
       video_index
     );
   }, [AItem1, BItem1, AItem2, BItem2, AItem3, BItem3, cur_teller, video_index]);
-
+  if(cur_turn_states === "room"){
+      return(
+        <div>
+          <OpenViduVideoComponent streamManager={streamManager} />
+        </div>
+      )
+  }
+  else{
   return (
     <div>
       {streamManager !== undefined ? (
@@ -58,7 +65,7 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
       ) : null}
     </div>
     
-  );
+  );}
 };
 
 export default UserVideoComponent;
