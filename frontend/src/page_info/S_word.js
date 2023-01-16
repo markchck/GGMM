@@ -19,6 +19,7 @@ function S_words() {
     setPublishAudio,
     myUserID,
     gamers,
+    cur_teller,
   } = useStore();
   const { gamerWords, fetchGamerWords } = useStore();
   //ZUSTAND
@@ -40,7 +41,7 @@ function S_words() {
       setShow([]);
       await fetchGamerWords();
     }
-  }, [cur_round]);
+  }, [cur_teller]);
 
   useEffect(() => {
     setShow(show.concat(gamerWords.map((a) => a.name)));
