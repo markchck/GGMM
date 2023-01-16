@@ -22,8 +22,8 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 var timer = 500;
 
 class webCam extends Component {

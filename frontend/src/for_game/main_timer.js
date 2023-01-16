@@ -60,24 +60,41 @@ function Main_timer() {
     );
   }
 
-  function turnOffMicrophone() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
-      navigator.mediaDevices.getUserMedia(
-        { audio: true }.then(stream =>{
-          const microphone = stream.getAudioTracks()[0];
-          if (mic){
-            microphone.enabled = false;
-            setMic(false)
-          }
-          else{
-            microphone.enabled = true;
-            setMic(true)
-          }
-        })
-        .catch(error =>{
-          console.log("Error: " + error);
-        })
-      );
+  // function turnOffMicrophone() {
+  //   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+  //     navigator.mediaDevices.getUserMedia(
+  //       { audio: true }.then(stream =>{
+  //         const microphone = stream.getAudioTracks()[0];
+  //         if (mic){
+  //           microphone.enabled = false;
+  //           setMic(false)
+  //         }
+  //         else{
+  //           microphone.enabled = true;
+  //           setMic(true)
+  //         }
+  //       })
+  //       .catch(error =>{
+  //         console.log("Error: " + error);
+  //       })
+  //     );
+  //   }
+  // }
+
+  async function turnOffMicrophone() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const microphone = stream.getAudioTracks()[0];
+      if (mic) {
+        microphone.enabled = false;
+        setMic(false)
+      }
+      else {
+        microphone.enabled = true;
+        setMic(true)
+      }
+    } catch (error) {
+      console.log("Error: " + error);
     }
   }
 
@@ -141,7 +158,7 @@ function Main_timer() {
       set_CurRed_cnt(0);
     }
   }, [cur_round]);
-  
+
   useEffect(() => {
     if (cur_turn_states !== "room") {
       if (is_my_turn === true) {
@@ -241,7 +258,7 @@ function Main_timer() {
                 { gamers }.gamers[currentIndex.current].streamManager
               }
               video_index={currentIndex.current}
-              
+
             />
           }
         </div>
