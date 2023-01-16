@@ -1,0 +1,26 @@
+.video_box1 {
+  position: relative;
+  width: 23%; /* 원하는 너비 */
+  margin: auto;
+  top: 30%;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 2%;
+  float: left;
+}
+
+.video_box1:before {
+  content: "";
+  display: block;
+  padding-top: 75%;
+}
+
+.video_frame1 {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  bottom: 2%;
+  left: 2%;
+  background: beige;
+  border-radius: 10px;
+}
