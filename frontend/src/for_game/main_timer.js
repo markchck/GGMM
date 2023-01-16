@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import ReactDOM from "react-dom";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
-import ItemOneBlur from "../item_info/Item_1_blur";
-import ItemTwoDecal from "../item_info/Item_2_decalco";
-import ItemThreeCut from "../item_info/Item_3_4cut";
+
 
 navigator.getUserMedia =
   navigator.getUserMedia ||
@@ -167,10 +164,10 @@ function Main_timer() {
   useEffect(() => {
     if (cur_turn_states !== "room") {
       if (cur_round > 0) {
-        if (is_my_turn === true) {
+        if (currentIndex.current === my_index) {
           console.log("여기 오는가??111 : is_my_turn === true")
           turnOffMicrophone();
-        } else if (is_my_turn === false) {
+        } else if (currentIndex.current !== my_index) {
           console.log("여기 오는가??2222 : is_my_turn === false")
           turnOnMicrophone();
         }
