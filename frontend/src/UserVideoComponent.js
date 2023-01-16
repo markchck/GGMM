@@ -41,7 +41,7 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
     <div>
       {streamManager !== undefined ? (
         <div>
-          {console.log("cur_teller 와 video_index : ", cur_teller, video_index)}
+          {/* {console.log("cur_teller 와 video_index : ", cur_teller, video_index)} */}
           {!(cur_teller === video_index) ? (
             <OpenViduVideoComponent streamManager={streamManager} />
           ) : AItem3 == true || BItem3 == true ? (
@@ -55,7 +55,9 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
           )}
         </div>
       ) : null}
+      {/* <div>{my_name}</div> */}
     </div>
+    
   );
 };
 

@@ -13,6 +13,7 @@ function Main_Screen() {
     my_index,
     cur_session,
     cur_teller,
+    sortGamer,
   } = useStore();
 
   useEffect(() => {
@@ -21,6 +22,12 @@ function Main_Screen() {
       set_player_count(player_count + 1);
       console.log(gamers);
     }
+    sortGamer();
+    gamers.map((a,i)=>{
+      
+      console.log("sorting이 제대로 되는가",a.name)
+    })
+    
   }, [gamers]);
 
   useEffect(() => {

@@ -23,6 +23,21 @@ const useStore = create((set) => ({
       gamers: [],
     }));
   },
+  sortGamer: ()=>{
+    set((state)=>({
+      gamers : state.gamers.sort((a, b) => {
+        if (a.name < b.name){
+          return -1;
+        }
+        else if (a.name > b.name){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      })
+    }));
+  },
 
   red_gamers: [],
   red_setGamers: (gamer) => {
