@@ -6,6 +6,11 @@ import ItemOneBlur from "../item_info/Item_1_blur";
 import ItemTwoDecal from "../item_info/Item_2_decalco";
 import ItemThreeCut from "../item_info/Item_3_4cut";
 
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
+
 function Main_timer() {
   const { set_CntAns } = useStore();
   const { cur_time, time_state, set_time_change } = useStore();
@@ -39,6 +44,31 @@ function Main_timer() {
   const videoBoxes = useRef(null);
   const currentIndex = useRef(10000);
 
+
+  function turnOnMicrophone() {
+    navigator.getUserMedia(
+      { audio: true },
+      function (stream) {
+        const microphone = stream.getAudioTracks()[0];
+        microphone.enabled = true;
+      },
+      function (error) {
+        console.log("Error: " + error);
+      }
+    );
+  }
+  function turnOffMicrophone() {
+    navigator.getUserMedia(
+      { audio: true },
+      function (stream) {
+        const microphone = stream.getAudioTracks()[0];
+        microphone.enabled = false;
+      },
+      function (error) {
+        console.log("Error: " + error);
+      }
+    );
+  }
   useEffect(() => {
     timer.current = setInterval(() => {
       setSec(parseInt(time.current / 100));
@@ -102,11 +132,9 @@ function Main_timer() {
   useEffect(() => {
     if (cur_turn_states !== "room") {
       if (is_my_turn === true) {
-        setPublishAudio(myUserID, false);
-        console.log("내 턴이라 오디오 꺼진다아아");
+        turnOffMicrophone();
       } else if (is_my_turn === false) {
-        setPublishAudio(myUserID, true);
-        console.log("내 턴 끝났다아아아아");
+        turnOnMicrophone();
       }
     }
   }, [is_my_turn]);
