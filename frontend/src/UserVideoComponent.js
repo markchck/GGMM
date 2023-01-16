@@ -5,6 +5,7 @@ import "./UserVideo.css";
 import ItemOneBlur from "./item_info/Item_1_blur";
 import ItemTwoDecal from "./item_info/Item_2_decalco";
 import ItemThreeCut from "./item_info/Item_3_4cut";
+import OpenViduVideoComponent_sulae from './item_info/OvVideo_sulea'
 
 import useStore from "./for_game/store";
 
@@ -51,11 +52,10 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
           ) : AItem1 == true || BItem1 == true ? (
             <ItemOneBlur streamManager={streamManager} />
           ) : (
-            <OpenViduVideoComponent streamManager={streamManager} />
+            <OpenViduVideoComponent_sulae streamManager={streamManager} />
           )}
         </div>
       ) : null}
-      {/* <div>{my_name}</div> */}
     </div>
     
   );

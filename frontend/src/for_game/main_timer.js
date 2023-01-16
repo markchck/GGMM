@@ -83,18 +83,21 @@ function Main_timer() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const microphone = stream.getAudioTracks()[0];
-      if (mic) {
-        console.log("여기 들어옴???????", microphone)
-        console.log("여기 들어옴??????? 내가 teller 이고 mic가 true", microphone.enabled)
-        microphone.enabled = false;
-        setMic(false)
-        console.log("여기 들어옴???????22222222", microphone.enabled)
-      }
-      else {
-        microphone.enabled = true;
-        setMic(true)
-        console.log("여기 들어옴???????3333333 나 teller 끝났음", microphone.enabled)
-      }
+      microphone.enabled = false
+      console.log("microphone false : ", microphone.enabled)
+      console.log("microphone false : ", microphone)
+      // if (mic) {
+      //   console.log("여기 들어옴???????", microphone)
+      //   console.log("여기 들어옴??????? 내가 teller 이고 mic가 true", microphone.enabled)
+      //   microphone.enabled = false;
+      //   setMic(false)
+      //   console.log("여기 들어옴???????22222222", microphone.enabled)
+      // }
+      // else {
+      //   microphone.enabled = true;
+      //   setMic(true)
+      //   console.log("여기 들어옴???????3333333 나 teller 끝났음", microphone.enabled)
+      // }
     } catch (error) {
       console.log("Error: " + error);
     }
@@ -162,15 +165,20 @@ function Main_timer() {
   }, [cur_round]);
 
   useEffect(() => {
+    console.log("동작 check 1")
     if (cur_turn_states !== "room") {
+      console.log("동작 check 2")
       if (cur_round > 0) {
-        if (currentIndex.current === my_index) {
-          console.log("여기 오는가??111 : is_my_turn === true")
-          turnOnOffMicrophone();
-        } else if (currentIndex.current !== my_index) {
-          console.log("여기 오는가??2222 : is_my_turn === false")
-          turnOnOffMicrophone();
-        }
+        console.log("동작 check 3")
+        console.log(gamers[currentIndex.current].streamManager)
+  
+        // if (currentIndex.current === my_index) {
+        //   console.log("여기 오는가??111 : is_my_turn === true")
+        //   turnOnOffMicrophone();
+        // } else if (currentIndex.current !== my_index) {
+        //   console.log("여기 오는가??2222 : is_my_turn === false")
+        //   turnOnOffMicrophone();
+        // }
       }
     }
   }, [currentIndex.current]);

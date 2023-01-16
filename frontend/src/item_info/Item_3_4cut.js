@@ -84,7 +84,7 @@ const ItemThreeCut = ({ streamManager }) => {
   return (
     <div>
       <canvas style={{ display: "block" }} ref={canvasRef} className="Video_myturn"/>
-      <video ref={videoRef} className="Video_myturn Video_hidden" />
+      <video ref={videoRef} className="Video_myturn Video_hidden" muted/>
     </div>
   );
 };
