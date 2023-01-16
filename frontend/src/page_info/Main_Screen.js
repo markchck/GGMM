@@ -56,21 +56,18 @@ function Main_Screen() {
     <>
       <div className="video_box1">
         <div id={0} className="video_frame1">
-          {gamers[0] &&
-            (cur_teller == 0 ? (
-              <div> 이야기 꾼입니다.</div>
-            ) : (
+          {gamers[0] &&(
               <div className="video_frame1">
                 <UserVideoComponent
                   streamManager={{ gamers }.gamers[0].streamManager}
                   my_name={{ gamers }.gamers[0].name}
                 />
-              </div>
-            ))}
+              </div>)
+            }
         </div>
       </div>
       <div className="video_box1">
-        <div id={0} className="video_frame1">
+        <div id={1} className="video_frame1">
           {gamers[1] && (
             <div className="video_frame1">
               <UserVideoComponent
@@ -80,9 +77,9 @@ function Main_Screen() {
             </div>
           )}
         </div>
-      </div>{" "}
+      </div>
       <div className="video_box1">
-        <div id={0} className="video_frame1">
+        <div id={2} className="video_frame1">
           {gamers[2] && (
             <div className="video_frame1">
               <UserVideoComponent
@@ -94,7 +91,7 @@ function Main_Screen() {
         </div>
       </div>
       <div className="video_box1">
-        <div id={0} className="video_frame1">
+        <div id={3} className="video_frame1">
           {gamers[3] && (
             <div className="video_frame1">
               <UserVideoComponent
@@ -106,7 +103,7 @@ function Main_Screen() {
         </div>
       </div>
       <div className="video_box1">
-        <div id={0} className="video_frame1">
+        <div id={4} className="video_frame1">
           {gamers[4] && (
             <div className="video_frame1">
               <UserVideoComponent
@@ -118,8 +115,12 @@ function Main_Screen() {
         </div>
       </div>
       <div className="video_box1">
-        <div id={0} className="video_frame1">
+        <div id={5} className="video_frame1">
           {gamers[5] && <div className="video_frame1"></div>}
+          <UserVideoComponent
+                streamManager={{ gamers }.gamers[5].streamManager}
+                my_name={{ gamers }.gamers[5].name}
+              />
         </div>
       </div>
     </>
