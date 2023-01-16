@@ -87,16 +87,16 @@ function Main_timer() {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const microphone = stream.getAudioTracks()[0];
       if (mic) {
-        console.log("여기 들어옴???????" , microphone)
-        console.log("여기 들어옴??????? 내가 teller 이고 mic가 true" , microphone.enabled)
+        console.log("여기 들어옴???????", microphone)
+        console.log("여기 들어옴??????? 내가 teller 이고 mic가 true", microphone.enabled)
         microphone.enabled = false;
         setMic(false)
-        console.log("여기 들어옴???????22222222" , microphone.enabled)
+        console.log("여기 들어옴???????22222222", microphone.enabled)
       }
       else {
         microphone.enabled = true;
         setMic(true)
-        console.log("여기 들어옴???????3333333 나 teller 끝났음" , microphone.enabled)
+        console.log("여기 들어옴???????3333333 나 teller 끝났음", microphone.enabled)
       }
     } catch (error) {
       console.log("Error: " + error);
@@ -165,8 +165,8 @@ function Main_timer() {
   }, [cur_round]);
 
   useEffect(() => {
-    if(cur_round > 0){
-      if (cur_turn_states !== "room") {
+    if (cur_turn_states !== "room") {
+      if (cur_round > 0) {
         if (is_my_turn === true) {
           console.log("여기 오는가??111 : is_my_turn === true")
           turnOffMicrophone();
@@ -176,7 +176,7 @@ function Main_timer() {
         }
       }
     }
-  }, [is_my_turn]);
+  }, [currentIndex.current]);
 
   useEffect(() => {
     console.log("지금 인덱스는 :" + currentIndex.current);

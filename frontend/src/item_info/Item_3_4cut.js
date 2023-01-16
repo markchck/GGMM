@@ -68,7 +68,6 @@ const ItemThreeCut = ({ streamManager }) => {
           );
           ctx.setTransform(1, 0, 0, 1, 0, 0);
           // ctx.save();
-          console.log("세번째 아이템 작동합니다.");
           // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           setTimeout(drawFrame, 50);
         }
