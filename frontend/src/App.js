@@ -293,49 +293,47 @@ class webCam extends Component {
     return (
       <>
         {this.state.session === undefined ? (
-          // <div className="maing_bg">
-            <div className="container_before_game">
-              <div id="join">
-                <form className="form-group" onSubmit={this.joinSession}>
-                  <p>
-                    <label>참여자: </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="userName"
-                      value={myUserName}
-                      onChange={this.handleChangeUserName}
-                      required
-                    />
-                  </p>
-                  <p>
-                    <label> 방 이름: </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      id="sessionId"
-                      value={mySessionId}
-                      onChange={this.handleChangeSessionId}
-                      required
-                    />
-                  </p>
-                  <p className="text-center">
-                    <input
-                      className="btn btn-primary btn-lg "
-                      name="commit"
-                      type="submit"
-                      value="방 입장"
-                    />
-                  </p>
-                </form>
-              </div>
+          <div className="container_before_game">
+            <div id="join">
+              <form className="form-group" onSubmit={this.joinSession}>
+                <p>
+                  <label>참여자: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="userName"
+                    value={myUserName}
+                    onChange={this.handleChangeUserName}
+                    required
+                  />
+                </p>
+                <p>
+                  <label> 방 이름: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="sessionId"
+                    value={mySessionId}
+                    onChange={this.handleChangeSessionId}
+                    required
+                  />
+                </p>
+                <p className="text-center">
+                  <input
+                    className="btn btn-primary btn-lg "
+                    name="commit"
+                    type="submit"
+                    value="방 입장"
+                  />
+                </p>
+              </form>
             </div>
-          // </div>
+          </div>
         ) : (
           <>
             {useStore.getState().cur_round === 0 ? (
-              <div className="maing_bg">
-                <div className="container">
+              <div className="main_wait_room">
+                <div className="container_main_wait_room">
                   <div>대기방입니다.</div>
                   <input
                     className="btn btn-large btn-danger"
