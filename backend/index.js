@@ -68,27 +68,21 @@ io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
   
 
-  // socket join 시켜줘야함. socket_session으로
+  // socket join 시켜ㅑ줘야함. socket_session으로
 
   socket.on("session_join", (sessionId, participantName) => {
-    // console.log("sessioId : ", sessionId, "participant : ", participantName)
+    console.log("sessioId : ", sessionId, "participant : ", participantName)
     socket.join(sessionId);
   })
 
   socket.on('mouse_move', (position, sessionId, participantName) => {
-    // console.log(position, sessionId, participantName);
+    console.log(position, sessionId, participantName);
     try{
       socket.broadcast.to(sessionId).emit('cursor', position, participantName);
     } catch (error) {
       console.log(error);
     }
   });
-
-  socket.on("card_flip", (sessionId, cardId) => {
-    console.log("카드뒤집힘@@@");
-    console.log(cardId);
-    socket.broadcast.to(sessionId).emit('flipedCard', cardId);
-  })
 
   socket.on('disconnect', () => {
     console.log('A user disconnected');
@@ -139,7 +133,7 @@ app.get("/api/sessions/game", async(req, res) => {
   res.send(selectedQuestWords);
 });
 
-setInterval(updateSelectedQuestWords, 1000 * 55); //1min
+setInterval(updateSelectedQuestWords, 1000 * 59); //1min
 
 /* ------- 제시어 받는 api -------- */
 
