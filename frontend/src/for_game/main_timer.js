@@ -165,8 +165,8 @@ function Main_timer() {
   }, [cur_round]);
 
   useEffect(() => {
-    if (cur_turn_states !== "room") {
-      if(cur_round > 0){
+    if(cur_round > 0){
+      if (cur_turn_states !== "room") {
         if (is_my_turn === true) {
           console.log("여기 오는가??111 : is_my_turn === true")
           turnOffMicrophone();
