@@ -40,14 +40,6 @@ function CreateInvitation({ mySessionId }) {
   return (
     <>
       <Stack direction="row" spacing={2}>
-          {/* <Button
-            variant="contained"
-            color="success"
-            onClick={createLink_and_copy}
-            size="large"
-          >
-            초대링크
-          </Button> */}
           <div
             class="btn btn-primary invite_button "
             onClick={createLink_and_copy}
@@ -55,7 +47,7 @@ function CreateInvitation({ mySessionId }) {
             초대링크
           </div>
 
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert
             onClose={handleClose}
             severity="success"
