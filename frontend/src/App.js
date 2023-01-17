@@ -29,10 +29,14 @@ class webCam extends Component {
   constructor(props) {
     super(props);
 
+    let currentTime = new Date().getTime();
+    console.log(currentTime);
+    console.log("currentTime 확인");
+
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "Session" + Math.floor(Math.random() * 100),
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: "Participant" + currentTime,
       session: undefined,
       publisher: undefined,
       subscribers: [],
@@ -52,7 +56,7 @@ class webCam extends Component {
     const sessionId = url.searchParams.get("sessionId");
     if (sessionId) {
       this.setState({
-        myUserName: "Participant" + Math.floor(Math.random() * 100),
+        myUserName: "Participant" + new Date().getTime(),
         mySessionId: sessionId,
       });
       this.joinSession();
@@ -170,7 +174,8 @@ class webCam extends Component {
           const addSubscriber = (subscriber, subscribers) => {
             subscribers.push(subscriber); // subscribers에 subscriber(나) 를 집어 넣음
             useStore.getState().setGamers({
-              name: JSON.parse(event.stream.connection.data).clientData,
+              // name: JSON.parse(event.stream.connection.data).clientData,
+              name : this.state.myUserName,
               streamManager: subscriber,
             });
             return subscribers;
@@ -262,7 +267,6 @@ class webCam extends Component {
     if (mySession) {
       mySession.disconnect();
     }
-
     useStore.getState().clearGamer();
     console.log("leaveSession : ");
     console.log(useStore.getState().gamers);
@@ -271,7 +275,7 @@ class webCam extends Component {
       session: undefined,
       subscribers: [],
       mySessionId: "Session" + Math.floor(Math.random() * 100),
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: "Participant" + currentTime,
       publisher: undefined,
     });
   }
@@ -310,9 +314,9 @@ class webCam extends Component {
                   />
                 </p>
                 <p>
-                  <label> 방 이름: </label>
                   <input
                     className="form-control"
+                    class = "roomname"
                     type="text"
                     id="sessionId"
                     value={mySessionId}
