@@ -350,11 +350,11 @@ class webCam extends Component {
                 </div>
               </div>
             ) : (
-              <div className="maing_bg">
+              <div className="main_wait_room">
                 <div className="container">
                   <div id="session">
-                    <div id="session-header">
-                      <h1 id="session-title">{mySessionId}</h1>
+                    {/* <div id="session-header">
+                      <h1 id="session-title">{mySessionId}</h1> */}
                     </div>
 
                     <div className="wide-frame">
@@ -371,7 +371,7 @@ class webCam extends Component {
                               Total : <Score_board score={"total_red"} />
                             </div>
                           </div>
-                          <AteamItem />
+                          {/* <AteamItem /> */}
                         </div>
                         <div className="video_box">
                           <div id={0} className="video_frame">
@@ -433,7 +433,9 @@ class webCam extends Component {
 
                         <div>
                           <div className="team_box">
-                            <div className="team_turn"></div>
+                            <div className="team_turn"><AteamItem /> <BteamItem />
+                            </div>
+
                           </div>
 
                           <div>
@@ -455,7 +457,7 @@ class webCam extends Component {
                             <Score_board score={"cur_blue"} />
                           </div>
                         </div>
-                        <BteamItem />
+                        {/* <BteamItem /> */}
                         <div className="video_box">
                           <div id={3} className="video_frame">
                             {useStore.getState().gamers[1] && (
@@ -505,7 +507,7 @@ class webCam extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
+              // </div>
             )}
           </>
         )}

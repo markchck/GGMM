@@ -183,10 +183,11 @@ function Main_timer() {
       <div className="team_box">
         <div className="team_turn">
           <center>
-            <h6>
-              상태 : {cur_turn_states} Timer : {sec}.{msec}
+            <h6 className="text_highlight">
+              시간제한 : {sec}.
+              {/* 상태 : {cur_turn_states} Timer : {sec}.{msec}
               {currentIndex.current}, round : {cur_round} turn : {cur_who_turn}
-              is my turn : {is_my_turn}, 내 인덱스 : {my_index}
+              is my turn : {is_my_turn}, 내 인덱스 : {my_index} */}
             </h6>
           </center>
         </div>

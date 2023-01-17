@@ -49,37 +49,43 @@
 
 .wide-frame {
   position: relative;
-  height: 800px;
-  width: 100%x;
+  height: 90vh;;
+  width: 100%;
   background-color: beige;
   margin: auto;
+  top: 5vh;
   padding: 2%;
   align-items: center;
-}
+  border-radius: 3%;
+  /* border: 5px solid rgb(28, 29, 28); */
+} 
 .middle-frame {
-  height: 800px;
+  height: 85vh;;
   width: 25%;
   background-color: #ffffff;
   float: left;
   margin-left: 2%;
+  border-radius: 3%;
 }
 
 .a-screen {
-  height: 800px;
+  height: 85vh;
   width: 22%;
   background-color: lightcoral;
   float: left;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
 }
 
 .b-screen {
-  height: 800px;
+  height: 85vh;
   width: 22%;
   float: left;
   background-color: lightskyblue;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
 }
 
 .box {
@@ -111,13 +117,25 @@
   align-items: center;
 }
 
+/* .session-header {
+  position: relative;
+  height: 10vh;
+  width: 100%;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 2%;
+  align-items: center;
+} */
+
 .mid-screen {
-  height: 800px;
+  height: 85vh;
   width: 50%;
   background-color: lightgray;
   float: left;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
+  /* border: 3px solid green; */
 }
 
 .video_box {
@@ -126,6 +144,7 @@
   margin: auto;
   top: 15%;
   margin-bottom: 7%;
+  border-radius: 3%;
 }
 
 .video_box:before {
@@ -221,6 +240,13 @@
 
 .text-center{
   margin-top: 5%;
+}
+
+.text_highlight{
+  font-size: 24px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #ff0000;
+  font-weight: bold;
 }
 
 .btn btn-lg btn-success{
