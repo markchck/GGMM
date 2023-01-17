@@ -44,6 +44,7 @@ function CreateInvitation({ mySessionId }) {
           variant="contained"
           color="success"
           onClick={createLink_and_copy}
+          className="invite_button"
         >
           초대링크
         </Button>

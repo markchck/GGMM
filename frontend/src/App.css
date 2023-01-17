@@ -226,3 +226,39 @@
 .btn btn-lg btn-success{
   margin-top: 10%;
 }
+
+.gameStart_button{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 10%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  background-color: orange;
+  
+}
+
+#buttonLeaveSession{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 10%;
+  margin: 0%;
+  left: 74%;
+  font-size: 25px;
+  /* margin-left: 10px; */
+  transform: translateY(-50%);
+}
+
+.invite_button{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 10%;
+  margin: 0%;
+  left: 12%;
+  font-size: 25px;
+  /* margin-left: 10px; */
+  transform: translateY(-50%);
+}

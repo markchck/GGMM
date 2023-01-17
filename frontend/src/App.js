@@ -344,7 +344,7 @@ class webCam extends Component {
                   />
                   <CreateInvitation mySessionId={mySessionId} />
                   <Main_Screen />
-                  <Button type="submit" onClick={() => this.sendTimer()}>
+                  <Button type="submit" className ="gameStart_button"onClick={() => this.sendTimer()}>
                     게임시작
                   </Button>
                 </div>
