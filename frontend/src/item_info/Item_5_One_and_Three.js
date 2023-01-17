@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Item.css";
 
-const ItemThreeCut = ({ streamManager }) => {
+const ItemFive = ({ streamManager }) => {
   const videoRef = React.createRef();
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -22,6 +22,7 @@ const ItemThreeCut = ({ streamManager }) => {
           // ctx.restore();
           // ctx.translate(canvasRef.current.width, 0);
           // ctx.scale(-1, 1);
+          ctx.filter = "blur(20px)";
           ctx.drawImage(
             videoRef.current,
             0,
@@ -67,6 +68,7 @@ const ItemThreeCut = ({ streamManager }) => {
             videoRef.current.videoHeight / 2
           );
           ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.filter = "none";
           // ctx.save();
           // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           setTimeout(drawFrame, 50);
@@ -89,4 +91,4 @@ const ItemThreeCut = ({ streamManager }) => {
   );
 };
 
-export default ItemThreeCut;
+export default ItemFive;

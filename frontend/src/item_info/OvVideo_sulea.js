@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import useStore from "./for_game/store";
+import useStore from "../for_game/store";
 
-const OpenViduVideoComponent = ({ streamManager }) => {
+const OpenViduVideoComponent_sulae = ({ streamManager }) => {
   const { cur_round, cur_teller, my_index, gamers, cur_turn_states } = useStore();
   const videoRef = React.createRef();
 
@@ -13,8 +13,8 @@ const OpenViduVideoComponent = ({ streamManager }) => {
 
   return (
     <div>
-      <video autoPlay ref={videoRef} />
+      <video autoPlay ref={videoRef} muted/>
     </div>
   );
 };
-export default OpenViduVideoComponent;
+export default OpenViduVideoComponent_sulae;

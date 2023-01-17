@@ -40,19 +40,19 @@ function CreateInvitation({ mySessionId }) {
   return (
     <>
       <Stack direction="row" spacing={2}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={createLink_and_copy}
-        >
-          초대링크
-        </Button>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <div
+            class="btn btn-primary invite_button "
+            onClick={createLink_and_copy}
+          >
+            초대링크
+          </div>
+
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert
             onClose={handleClose}
             severity="success"
             sx={{ width: "100%" }}
-          >
+            >
             초대링크 복사에 성공했습니다.
           </Alert>
         </Snackbar>

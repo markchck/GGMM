@@ -2,6 +2,15 @@
   padding: 0;
 }
 
+.container_before_game {
+  margin: auto;
+  width: 30%;
+  position: fixed;
+  top: 70%;
+  left: 35%;
+  /* max-width: 600px; */
+}
+
 .container {
   margin: auto;
   /* max-width: 600px; */
@@ -40,37 +49,43 @@
 
 .wide-frame {
   position: relative;
-  height: 800px;
-  width: 100%x;
+  height: 90vh;;
+  width: 100%;
   background-color: beige;
   margin: auto;
+  top: 5vh;
   padding: 2%;
   align-items: center;
-}
+  border-radius: 3%;
+  /* border: 5px solid rgb(28, 29, 28); */
+} 
 .middle-frame {
-  height: 800px;
+  height: 85vh;;
   width: 25%;
   background-color: #ffffff;
   float: left;
   margin-left: 2%;
+  border-radius: 3%;
 }
 
 .a-screen {
-  height: 800px;
+  height: 85vh;
   width: 22%;
   background-color: lightcoral;
   float: left;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
 }
 
 .b-screen {
-  height: 800px;
+  height: 85vh;
   width: 22%;
   float: left;
   background-color: lightskyblue;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
 }
 
 .box {
@@ -102,13 +117,25 @@
   align-items: center;
 }
 
+/* .session-header {
+  position: relative;
+  height: 10vh;
+  width: 100%;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 2%;
+  align-items: center;
+} */
+
 .mid-screen {
-  height: 800px;
+  height: 85vh;
   width: 50%;
   background-color: lightgray;
   float: left;
   margin-left: 1%;
   margin-right: 1%;
+  border-radius: 3%;
+  /* border: 3px solid green; */
 }
 
 .video_box {
@@ -117,6 +144,7 @@
   margin: auto;
   top: 15%;
   margin-bottom: 7%;
+  border-radius: 3%;
 }
 
 .video_box:before {
@@ -196,8 +224,87 @@
   /* border: 3px solid green; */
 }
 
+
 .main_bg {
-  background-image: url("../public/resources/images/GGMM_main.jpg");
+  background-image: url("../public/resources/images/main_page.jpg");
   background-size: cover;
   background-position: center;
+}
+
+.main_wait_room{
+  background-image: url("../public/resources/images/sub_page.jpg"); 
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.text-center{
+  margin-top: 5%;
+}
+
+.text_highlight{
+  font-size: 24px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.btn btn-lg btn-success{
+  margin-top: 10%;
+}
+
+.gameStart_button{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  background-color: orange;
+}
+
+#buttonLeaveSession{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 10%;
+  margin: 0%;
+  left: 76.5%;
+  font-size: 25px;
+  transform: translateY(-50%);
+  
+}
+
+.invite_button{
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  top: 6vh;
+  margin: 0%;
+  left: 14%;
+  font-size: 25px;
+  background-color: green;
+  padding-top: 0.9%;
+}
+
+.participant{
+  display: none;
+}
+
+.enter_button{
+  width: 29vh;
+  height: 6vh;
+  /* color: white; */
+  /* font-size: 30px; */
+  /* background-color:rgb(141, 135, 250); */
+  border: none;
+  /* border-radius: 10%; */
+  background-image: url("../public/resources/images/start_button.png");
+  background-size: contain;
+  /* background-size: cover; */
+}
+
+.roomname{
+  display: none;
 }

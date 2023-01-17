@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import ReactDOM from "react-dom";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
-import ItemOneBlur from "../item_info/Item_1_blur";
-import ItemTwoDecal from "../item_info/Item_2_decalco";
-import ItemThreeCut from "../item_info/Item_3_4cut";
+
+
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
 
 function Main_timer() {
   const { set_CntAns } = useStore();
@@ -38,6 +40,8 @@ function Main_timer() {
   const timer = useRef(null);
   const videoBoxes = useRef(null);
   const currentIndex = useRef(10000);
+
+ 
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -99,17 +103,6 @@ function Main_timer() {
       set_CurRed_cnt(0);
     }
   }, [cur_round]);
-  useEffect(() => {
-    if (cur_turn_states !== "room") {
-      if (is_my_turn === true) {
-        setPublishAudio(myUserID, false);
-        console.log("내 턴이라 오디오 꺼진다아아");
-      } else if (is_my_turn === false) {
-        setPublishAudio(myUserID, true);
-        console.log("내 턴 끝났다아아아아");
-      }
-    }
-  }, [is_my_turn]);
 
   useEffect(() => {
     console.log("지금 인덱스는 :" + currentIndex.current);
@@ -183,10 +176,11 @@ function Main_timer() {
       <div className="team_box">
         <div className="team_turn">
           <center>
-            <h6>
-              상태 : {cur_turn_states} Timer : {sec}.{msec}
+            <h6 className="text_highlight">
+              시간제한 : {sec}.
+              {/* 상태 : {cur_turn_states} Timer : {sec}.{msec}
               {currentIndex.current}, round : {cur_round} turn : {cur_who_turn}
-              is my turn : {is_my_turn}, 내 인덱스 : {my_index}
+              is my turn : {is_my_turn}, 내 인덱스 : {my_index} */}
             </h6>
           </center>
         </div>
@@ -200,7 +194,6 @@ function Main_timer() {
                 { gamers }.gamers[currentIndex.current].streamManager
               }
               video_index={currentIndex.current}
-              
             />
           }
         </div>
