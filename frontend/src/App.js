@@ -88,37 +88,37 @@ class webCam extends Component {
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem1(message.AItem1);
-        useStore.getState().setASignalSent1(message.ASignalSent1);
+        // useStore.getState().setASignalSent1(message.ASignalSent1);
       });
 
       this.state.session.on("signal:AItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem2(message.AItem2);
-        useStore.getState().setASignalSent2(message.ASignalSent2);
+        // useStore.getState().setASignalSent2(message.ASignalSent2);
       });
 
       this.state.session.on("signal:AItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem3(message.AItem3);
-        useStore.getState().setASignalSent3(message.ASignalSent3);
+        // useStore.getState().setASignalSent3(message.ASignalSent3);
       });
 
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem1(message.BItem1);
-        useStore.getState().setBSignalSent1(message.BSignalSent1);
+        // useStore.getState().setBSignalSent1(message.BSignalSent1);
       });
 
       this.state.session.on("signal:BItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem2(message.BItem2);
-        useStore.getState().setBSignalSent2(message.BsignalSent2);
+        // useStore.getState().setBSignalSent2(message.BsignalSent2);
       });
 
       this.state.session.on("signal:BItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem3(message.BItem3);
-        useStore.getState().setBSignalSent3(message.BsignalSent3);
+        // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
 
       this.state.session.on("signal:cur_teller", (event) => {

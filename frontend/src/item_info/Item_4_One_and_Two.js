@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Item.css";
 
-const ItemTwoDecal = ({ streamManager }) => {
+const ItemFour = ({ streamManager }) => {
   
   const videoRef = React.createRef();
   const canvasRef = useRef(null);
@@ -32,6 +32,7 @@ const ItemTwoDecal = ({ streamManager }) => {
             // ctx.restore();
             ctx.translate(canvasRef.current.width, 0);
             ctx.scale(-1, 1);
+            ctx.filter = "blur(20px)";
             ctx.drawImage(
               videoRef.current,
               videoRef.current.videoWidth / 2,
@@ -58,6 +59,8 @@ const ItemTwoDecal = ({ streamManager }) => {
               videoRef.current.videoHeight
             );
             ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.filter = "none";
+            // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
             setTimeout(drawFrame, 50);
           }
         }
@@ -77,4 +80,4 @@ const ItemTwoDecal = ({ streamManager }) => {
   );
 };
 
-export default ItemTwoDecal;
+export default ItemFour;
