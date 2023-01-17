@@ -11,7 +11,7 @@ function BteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", BItem1);
             const message = {
                 BItem1: true,
-                BsignalSent1: true,
+                BsignalSent1: false,
             };
 
             cur_session && cur_session.signal({
@@ -39,7 +39,7 @@ function BteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", BItem2);
             const message = {
                 BItem2: true,
-                BsignalSent2: true,
+                BsignalSent2: false,
             };
 
             cur_session && cur_session.signal({
@@ -67,7 +67,7 @@ function BteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", BItem3);
             const message = {
                 BItem3: true,
-                BsignalSent3: true,
+                BsignalSent3: false,
             };
 
             cur_session && cur_session.signal({
