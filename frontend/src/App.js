@@ -334,7 +334,7 @@ class webCam extends Component {
             {useStore.getState().cur_round === 0 ? (
               <div className="main_wait_room">
                 <div className="container_main_wait_room">
-                  <div>대기방입니다.</div>
+                  {/* <div>대기방입니다.</div> */}
                   <input
                     className="btn btn-large btn-danger"
                     type="button"
@@ -342,7 +342,7 @@ class webCam extends Component {
                     onClick={this.leaveSession}
                     value="방 나가기"
                   />
-                  <CreateInvitation mySessionId={mySessionId} />
+                  <CreateInvitation mySessionId={mySessionId}/>
                   <Main_Screen />
                   <Button type="submit" className ="gameStart_button"onClick={() => this.sendTimer()}>
                     게임시작

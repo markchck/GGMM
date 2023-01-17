@@ -258,11 +258,10 @@
   width: 10%;
   height: 8%;
   top: 10%;
-  left: 48%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 25px;
   background-color: orange;
-  
 }
 
 #buttonLeaveSession{
@@ -271,20 +270,20 @@
   height: 8%;
   top: 10%;
   margin: 0%;
-  left: 74%;
+  left: 76.5%;
   font-size: 25px;
-  /* margin-left: 10px; */
   transform: translateY(-50%);
+  
 }
 
 .invite_button{
   position: absolute;
   width: 10%;
   height: 8%;
-  top: 10%;
+  top: 6vh;
   margin: 0%;
-  left: 12%;
+  left: 14%;
   font-size: 25px;
-  /* margin-left: 10px; */
-  transform: translateY(-50%);
+  background-color: green;
+  padding-top: 0.8%;
 }
