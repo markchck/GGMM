@@ -17,10 +17,11 @@
 
 .video_frame1 {
   position: absolute;
-  top: 2%;
+  top: 22%;
   right: 2%;
   bottom: 2%;
-  left: 2%;
+  left: 10%;
+  margin-left: 10px;
   background: beige;
   border-radius: 10px;
   width: 100%;
