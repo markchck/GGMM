@@ -234,6 +234,7 @@ class webCam extends Component {
                 name: this.state.myUserName,
                 streamManager: publisher,
               });
+              
               useStore.getState().set_myUserID(this.state.myUserName);
               console.log("publisher setGamers : after");
               console.log(useStore.getState().gamers);

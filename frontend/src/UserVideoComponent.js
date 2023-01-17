@@ -5,6 +5,7 @@ import "./UserVideo.css";
 import ItemOneBlur from "./item_info/Item_1_blur";
 import ItemTwoDecal from "./item_info/Item_2_decalco";
 import ItemThreeCut from "./item_info/Item_3_4cut";
+import OpenViduVideoComponent_sulae from './item_info/OvVideo_sulea'
 
 import useStore from "./for_game/store";
 
@@ -36,12 +37,19 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
       video_index
     );
   }, [AItem1, BItem1, AItem2, BItem2, AItem3, BItem3, cur_teller, video_index]);
-
+  if(cur_turn_states === "room"){
+      return(
+        <div>
+          <OpenViduVideoComponent streamManager={streamManager} />
+        </div>
+      )
+  }
+  else{
   return (
     <div>
       {streamManager !== undefined ? (
         <div>
-          {console.log("cur_teller 와 video_index : ", cur_teller, video_index)}
+          {/* {console.log("cur_teller 와 video_index : ", cur_teller, video_index)} */}
           {!(cur_teller === video_index) ? (
             <OpenViduVideoComponent streamManager={streamManager} />
           ) : AItem3 == true || BItem3 == true ? (
@@ -51,12 +59,13 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
           ) : AItem1 == true || BItem1 == true ? (
             <ItemOneBlur streamManager={streamManager} />
           ) : (
-            <OpenViduVideoComponent streamManager={streamManager} />
+            <OpenViduVideoComponent_sulae streamManager={streamManager} />
           )}
         </div>
       ) : null}
     </div>
-  );
+    
+  );}
 };
 
 export default UserVideoComponent;
