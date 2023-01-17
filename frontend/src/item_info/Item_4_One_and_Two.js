@@ -30,9 +30,9 @@ const ItemFour = ({ streamManager }) => {
             // Draw the video frame to the canvas
             // Call this function again to draw the next frame
             // ctx.restore();
-            ctx.filter = "blur(20px)";
             ctx.translate(canvasRef.current.width, 0);
             ctx.scale(-1, 1);
+            ctx.filter = "blur(20px)";
             ctx.drawImage(
               videoRef.current,
               videoRef.current.videoWidth / 2,

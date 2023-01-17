@@ -12,7 +12,7 @@ function AteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", AItem1);
             const message = {
                 AItem1: true,
-                AsignalSent1: false,
+                // AsignalSent1: false,
             };
 
             cur_session && cur_session.signal({
@@ -30,7 +30,7 @@ function AteamItem() {
                     data: JSON.stringify(message),
                 });
 
-            }, 5000)
+            }, 10000)
         }
     }
 
@@ -40,7 +40,7 @@ function AteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", AItem2);
             const message = {
                 AItem2: true,
-                AsignalSent2: false,
+                // AsignalSent2: false,
             };
 
             cur_session && cur_session.signal({
@@ -58,7 +58,7 @@ function AteamItem() {
                     data: JSON.stringify(message),
                 });
 
-            }, 5000)
+            }, 10000)
         }
     }
 
@@ -68,7 +68,7 @@ function AteamItem() {
             console.log("여기는 시그널을 보내는 곳 : ", AItem3);
             const message = {
                 AItem3: true,
-                AsignalSent3: false,
+                // AsignalSent3: false,
             };
 
             cur_session && cur_session.signal({
@@ -86,7 +86,7 @@ function AteamItem() {
                     data: JSON.stringify(message),
                 });
 
-            }, 5000)
+            }, 10000)
         }
     }
 

@@ -68,9 +68,9 @@ const ItemFive = ({ streamManager }) => {
             videoRef.current.videoHeight / 2
           );
           ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.filter = "none";
           // ctx.save();
           // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-          ctx.filter = "none";
           setTimeout(drawFrame, 50);
         }
       }

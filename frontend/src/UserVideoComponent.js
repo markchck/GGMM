@@ -5,7 +5,7 @@ import "./UserVideo.css";
 import ItemOneBlur from "./item_info/Item_1_blur";
 import ItemTwoDecal from "./item_info/Item_2_decalco";
 import ItemThreeCut from "./item_info/Item_3_4cut";
-import ItemFour from "./item_info/Item_4_One_and_Two copy";
+import ItemFour from "./item_info/Item_4_One_and_Two";
 import ItemFive from "./item_info/Item_5_One_and_Three";
 import ItemSix from "./item_info/Item_6_Two_and_Three";
 import ItemSevenAll from "./item_info/Item_7_All";

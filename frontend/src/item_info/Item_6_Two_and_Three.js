@@ -19,63 +19,58 @@ const ItemSix = ({ streamManager }) => {
         if (videoRef.current && !videoRef.current.ended) {
         // if (!videoRef.current.paused && !videoRef.current.ended) {
           
-          // ctx.restore();
-          ctx.translate(canvasRef.current.width, 0);
-          ctx.scale(-1, 1);
-          ctx.drawImage(
-            videoRef.current,
-            0,
-            0,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            0,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2
-          );
-          ctx.translate(0, 0);
-          ctx.scale(1, 1);
-          ctx.drawImage(
-            videoRef.current,
-            0,
-            0,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            0,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2
-          );
-          ctx.translate(canvasRef.current.width, 0);
-          ctx.scale(-1, 1);
-          ctx.drawImage(
-            videoRef.current,
-            0,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2
-          );
-          ctx.translate(0, 0);
-          ctx.scale(1, 1);
-          ctx.drawImage(
-            videoRef.current,
-            0,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2,
-            videoRef.current.videoWidth / 2,
-            videoRef.current.videoHeight / 2
-          );
+        // ctx.translate(canvasRef.current.width, 0);
+        // ctx.scale(-1, 1);
+        ctx.translate(0, 0);
+        ctx.scale(1, 1);
+        ctx.drawImage(
+          videoRef.current,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          0,
+          0,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2
+        );
+        ctx.drawImage(
+          videoRef.current,
+          0,
+          0,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          0,
+          videoRef.current.videoHeight / 2,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2
+        );
+        ctx.translate(canvasRef.current.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(
+          videoRef.current,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          0,
+          0,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2
+        );
+        ctx.drawImage(
+          videoRef.current,
+          0,
+          0,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2,
+          0,
+          videoRef.current.videoHeight / 2,
+          videoRef.current.videoWidth / 2,
+          videoRef.current.videoHeight / 2
+        );
           
           ctx.setTransform(1, 0, 0, 1, 0, 0);
-          // ctx.save();
-          // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           setTimeout(drawFrame, 50);
         }
       }
