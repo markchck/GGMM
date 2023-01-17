@@ -326,7 +326,7 @@ class webCam extends Component {
                     class="enter_button"
                     name="commit"
                     type="submit"
-                    value="방 만들기 "
+                    value=""
                   />
                 </p>
               </form>

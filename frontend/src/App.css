@@ -285,7 +285,7 @@
   left: 14%;
   font-size: 25px;
   background-color: green;
-  padding-top: 0.8%;
+  padding-top: 0.9%;
 }
 
 .participant{
@@ -293,14 +293,14 @@
 }
 
 .enter_button{
-  width: 100%;
+  width: 29vh;
   height: 6vh;
-  color: white;
-  font-size: 30px;
-  
-  background-color:rgb(141, 135, 250);
+  /* color: white; */
+  /* font-size: 30px; */
+  /* background-color:rgb(141, 135, 250); */
   border: none;
   /* border-radius: 10%; */
-  /* background-image: url("../public/resources/images/start_button.jpg"); */
-  /* background-size: contain; */
+  background-image: url("../public/resources/images/start_button.jpg");
+  background-size: contain;
+  /* background-size: cover; */
 }
