@@ -298,9 +298,10 @@ class webCam extends Component {
             <div id="join">
               <form className="form-group" onSubmit={this.joinSession}>
                 <p>
-                  <label>참여자: </label>
+                  
                   <input
                     className="form-control"
+                    class="participant"
                     type="text"
                     id="userName"
                     value={myUserName}
@@ -321,10 +322,11 @@ class webCam extends Component {
                 </p>
                 <p className="text-center">
                   <input
-                    className="btn btn-primary btn-lg "
+                    // className="btn btn-primary btn-lg"
+                    class="enter_button"
                     name="commit"
                     type="submit"
-                    value="방 입장"
+                    value="방 만들기 "
                   />
                 </p>
               </form>

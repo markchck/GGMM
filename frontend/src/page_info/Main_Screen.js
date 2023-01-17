@@ -57,7 +57,7 @@ function Main_Screen() {
       <div className="video_box1">
         <div id={0} className="video_frame1">
           {gamers[0] && (
-            <div className="video_frame1">
+            <div className="video_frame2">
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[0].streamManager}
                 my_name={{ gamers }.gamers[0].name}
@@ -69,7 +69,7 @@ function Main_Screen() {
       <div className="video_box1">
         <div id={1} className="video_frame1">
           {gamers[1] && (
-            <div className="video_frame1">
+            <div className="video_frame2">
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[1].streamManager}
                 my_name={{ gamers }.gamers[1].name}
@@ -81,7 +81,7 @@ function Main_Screen() {
       <div className="video_box1">
         <div id={2} className="video_frame1">
           {gamers[2] && (
-            <div className="video_frame1">
+            <div className="video_frame2">
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[2].streamManager}
                 my_name={{ gamers }.gamers[2].name}
@@ -93,7 +93,7 @@ function Main_Screen() {
       <div className="video_box1">
         <div id={3} className="video_frame1">
           {gamers[3] && (
-            <div className="video_frame1">
+            <div className="video_frame2">
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[3].streamManager}
                 my_name={{ gamers }.gamers[3].name}
@@ -105,7 +105,7 @@ function Main_Screen() {
       <div className="video_box1">
         <div id={4} className="video_frame1">
           {gamers[4] && (
-            <div className="video_frame1">
+            <div className="video_frame2">
               <UserVideoComponent
                 streamManager={{ gamers }.gamers[4].streamManager}
                 my_name={{ gamers }.gamers[4].name}
@@ -116,7 +116,7 @@ function Main_Screen() {
       </div>
       <div className="video_box1">
         <div id={5} className="video_frame1">
-          {gamers[5] && (<div className="video_frame1">
+          {gamers[5] && (<div className="video_frame2">
             <UserVideoComponent
               streamManager={{ gamers }.gamers[5].streamManager}
               my_name={{ gamers }.gamers[5].name}
