@@ -8,9 +8,6 @@ const OpenViduVideoComponent = ({ streamManager }) => {
   useEffect(() => {
     streamManager.stream.audioActive = false
     streamManager.stream.hasAudio = false
-    // console.log("11111",streamManager.stream.audioActive)
-    // console.log("22222",streamManager.stream.hasAudio)
-    // console.log(streamManager)
     console.log("==========================================스트레스=====================")
     console.log(videoRef.current)
     streamManager.addVideoElement(videoRef.current);
