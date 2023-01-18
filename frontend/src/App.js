@@ -449,7 +449,7 @@ class webCam extends Component {
 
                       <div>
                         <div className="team_box">
-                          <div className="team_turn">
+                          <div className="team_turn2">
                             <S_words />
                           </div>
                         </div>

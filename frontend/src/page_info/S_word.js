@@ -132,21 +132,19 @@ function S_words() {
   };
   return (
     <>
-      {is_my_team_turn && cur_turn_states === "game" && (
-        // <button
-        //   className="btn-15"
-        //   onClick={() => {
-        //     pass_question();
-        //   }}
-        // >
-        //   Pass
-        // </button>
-        <button class="w-btn w-btn-gra1" type="button" onClick={pass_question}>
-          PASS
-        </button>
-      )}
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
-        <h5>{show_name}</h5>
+        <>
+          <h5>{show_name}</h5>
+          {is_my_team_turn && cur_turn_states === "game" && (
+            <button
+              class="w-btn w-btn-gra1_1"
+              type="button"
+              onClick={pass_question}
+            >
+              PASS
+            </button>
+          )}
+        </>
       )}
       {/* 내 턴이거나 내 팀 턴이 아닐경우에만 문제를 띄움 */}
       {!is_my_turn && is_my_team_turn && (
@@ -162,14 +160,18 @@ function S_words() {
               handleKeyPress(e);
             }}
           />
-          <Button
-            type="submit"
-            onClick={() => {
-              check_Score();
-            }}
-          >
+          <button class="w-btn w-btn-gra2" type="button">
             제출
-          </Button>
+          </button>
+          {is_my_team_turn && cur_turn_states === "game" && (
+            <button
+              class="w-btn w-btn-gra1"
+              type="button"
+              onClick={pass_question}
+            >
+              PASS
+            </button>
+          )}
         </>
       )}
     </>
