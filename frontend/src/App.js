@@ -145,12 +145,13 @@ class webCam extends Component {
       
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
-        console.log("game over");
+        console.log("mini game_over");
         useStore.getState().set_card_game_end(message.Total_score);
 
         if (useStore.getState().card_game_end === 41){
           useStore.getState().set_cur_round(1)
         }
+        this.forceUpdate();
       });
     }
   }
