@@ -5,12 +5,12 @@ import './card.css'
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
-let card_number = 5;
+let card_number = 41;
 
 function CardGame({ sessionId, participantName }) {
 
   const [state, setState] = useState("뒤집은 카드");
-  const { my_index } = useStore();
+  const { my_index, cur_session } = useStore();
   const [red_team, setRed_team] = useState(0);
   const [blue_team, setBlue_team] = useState(0);
 
@@ -22,8 +22,28 @@ function CardGame({ sessionId, participantName }) {
     if ((my_index + 1) % 2 === 0) {
       console.log("blue : ", blue_team);
       socket.emit("score", red_team, blue_team+1, sessionId, cardId);
+      const message = {
+        Total_score: red_team+blue_team+1,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
+
     } else {
       socket.emit("score", red_team+1, blue_team, sessionId, cardId);
+      
+      const message = {
+        Total_score: red_team+blue_team+1,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
     }
   }
 
