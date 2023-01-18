@@ -5,7 +5,7 @@ const socket = io("https://practiceggmm.shop",{
 })
 
 socket.on("connect", () => {
-    console.log("front connected");
+    console.log("first socket connected");
 });
 socket.on("connect_error", (error) => {
     console.log("error : ", error);

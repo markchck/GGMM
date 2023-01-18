@@ -21,8 +21,12 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+
+// Cursor
+import CardGame from './cardGame/CardGame'
+
 var timer = 500;
 
 class webCam extends Component {
@@ -345,6 +349,7 @@ class webCam extends Component {
           <>
             {useStore.getState().cur_round === 0 ? (
               <div className="main_wait_room">
+                <CardGame sessionId={this.state.mySessionId} participantName={this.state.myUserName}/>
                 <div className="container_main_wait_room">
                   <div className="btn_div">
                     <Button

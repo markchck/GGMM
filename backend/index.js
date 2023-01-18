@@ -70,17 +70,74 @@ io.on("connection", (socket) => {
 
   // socket join 시켜ㅑ줘야함. socket_session으로
 
-  socket.on("session_join", (sessionId, participantName) => {
-    console.log("sessioId : ", sessionId, "participant : ", participantName)
+  socket.on("session_join", (sessionId) => {
+    console.log("sessioId : ", sessionId)
     socket.join(sessionId);
   })
 
-  socket.on('mouse_move', (position, sessionId, participantName) => {
-    console.log(position, sessionId, participantName);
-    try{
-      socket.broadcast.to(sessionId).emit('cursor', position, participantName);
+  socket.on('mouse_move', ([sessionId, userInfo]) => {
+    try {
+      socket.broadcast.to(sessionId).emit('cursor', userInfo);
     } catch (error) {
       console.log(error);
+    }
+  });
+
+  socket.on("session_leave", ([sessionId, participantName]) => {
+    try {
+      socket.broadcast.to(sessionId).emit('deleteCursor', participantName);
+    } catch (error) {
+      console.log(error);
+    }
+    socket.leave(sessionId);
+  })
+
+  socket.on("exitShareEditing", ([sessionId, participantName]) => {
+    console.log("커서 삭제 완료 :", sessionId, participantName);
+    try {
+      socket.broadcast.to(sessionId).emit('deleteCursor', participantName);
+    } catch (error) {
+      console.log(error);
+    };
+  });
+
+  // flip card
+  let cardlist = {};
+  for (let i = 0; i < 42; i++) {
+    cardlist[i] = false;
+  }
+  socket.on("flipingcard", async (sessionId, my_index, cardId) => {
+    console.log("My index is: ", my_index, "Flipped card is: ", cardId);
+    if (cardlist[cardId.i] !== false) {
+      console.log("This card has already been used.")
+    }
+    else {
+      cardlist[cardId.i] = true;
+      try {
+        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+
+
+  let cardScoreList = {};
+  for (let i = 0; i < 42; i++) {
+    cardScoreList[i] = false;
+  }
+  socket.on("score", (red_team, blue_team, sessionId, cardId) => {
+   if (cardScoreList[cardId.i] !== false){
+      console.log("This score has already been scored.")
+    }
+    else {
+      cardScoreList[cardId.i] = true;
+      try {
+        socket.to(sessionId).emit("score", red_team, blue_team);
+        socket.emit("score", red_team, blue_team);
+      } catch (error) {
+        console.log(error);
+      };
     }
   });
 
@@ -128,8 +185,8 @@ function updateSelectedQuestWords(){
   });
 }
 
-app.get("/api/sessions/game", async(req, res) => {
-  console.log(selectedQuestWords)
+app.get("/api/sessions/game", async (req, res) => {
+  // console.log(selectedQuestWords)
   res.send(selectedQuestWords);
 });
 

@@ -1,65 +1,95 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useCallback, useMemo} from "react";
 import socket from "../socket/socket";
-
-
-const randomRGB = function () {
-    let rgb = "";
-    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
-    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
-    rgb += (Math.floor(Math.random() * 90 + 1) + 130).toString(16).padStart(2, "0");
-    return "#" + rgb;
-  };
-
-const cursorStyle = {
-  position: 'absolute',
-  left: 0,
-  top: 0,
-  width: '25px',
-  height: '25px',
-  background: randomRGB(),
-  borderRadius: '50%'
-};
+import useStore from "../for_game/store";
+import cloneDeep from "lodash/cloneDeep";
+import MousePointerUsers from "./MousePointerUsers";
 
 
 function Cursor({sessionId, participantName}){
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({});
+    const {my_index, player_count, gamers} = useStore();
+    let mouse_color;
+    if (player_count>0){
+    let idx = gamers.findIndex((a)=>{
+      if(a.name === participantName){
+        return a;
+      };
+    });
+    if ((idx + 1 ) % 2 == 0){
+      mouse_color = "blue";
+    } else {
+      mouse_color = "red";
+    }
+  };
     
+      
+  
+    let cursor;
+    const mouseFunc = (e) => {
+      let x = e.clientX;
+      let y = e.clientY;
+      const userInfo = {};
+      userInfo[participantName] = {
+        mousePointer: { top: y, left: x },
+        mousecolor : mouse_color
+      };
+      socket.emit("mouse_move", [sessionId, userInfo]);
+    };
 
     useEffect(() => {
-      socket.emit("session_join", sessionId, participantName);
+      socket.emit("session_join", sessionId);
 
-      window.addEventListener('mousemove', (event) => {
-          socket.emit('mouse_move', { x: event.clientX, y: event.clientY }, sessionId , participantName);
-      });
+      cursor = document.querySelector("#cursor_item");
+      window.addEventListener('mousemove', mouseFunc);
+      return() => {
+        socket.emit("session_leave", [sessionId, participantName])
+        window.removeEventListener("mousemove", mouseFunc);
+      }}, [gamers]);
     
-    socket.on('cursor', (position, participantName) => {
-      // console.log("participant 현재 위치는:", participantName, position);
+    useEffect(() => {
+      socket.on("deleteCursor", (participantName) => {
+        setPosition((prev) => {
+          const newState = cloneDeep(prev);
+          delete newState[participantName];
+
+          return newState;
+        });
+      });
+      return() => {
+        console.log("나간 유저는 : ", participantName);
+        socket.removeAllListeners("deleteCursor");
+        socket.emit("exitShareEditing", [sessionId, participantName]);
+        setPosition({});
+        window.removeEventListener("mousemove", mouseFunc);
+      };
+    }, []);
+
+    // 다른 유저의 마우스 커서 정보를 받아 온다.
+  const cursorUpdateEvent = useCallback(() => {
+    socket.on("cursor", (userInfo) => {
+
       setPosition((prevPosition) => {
-        const newPostion = { ...prevPosition, [participantName] :position };
+        const newPostion = { ...prevPosition, ...userInfo };
         return newPostion;
       })
     });
-    }, []);
+  }, [gamers]);
+
+  useEffect(() => {
+    cursorUpdateEvent();
+    return () => {
+      socket.removeAllListeners("cursor");
+    };
+  }, [gamers]);
+
       
     return (
-      <div>
-        {Object.values(position).map(({ x, y }) => (
-          <div
-            key={`${x},${y}`}
-            style={{
-              position: 'absolute',
-              left: `${x}px`,
-              top: `${y}px`,
-              width: '25px',
-              height: '25px',
-              backgroundColor: 'red',
-              borderRadius: '50%'
-            }}
-          />
-        ))}
-      </div>
-  );
-}
-
+      <>
+        <div id="editor-container"></div>
+        <div id="cursor_item"></div>
+        {<MousePointerUsers positions={position}/>}
+      </>
+    );
+  }
   
-export default Cursor;
+  export default React.memo(Cursor);
