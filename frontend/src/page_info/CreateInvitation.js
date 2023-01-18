@@ -15,7 +15,8 @@ function CreateInvitation({ mySessionId }) {
   function createLink_and_copy() {
     let sessionId = mySessionId;
     // let invitationLink = "http://localhost:3000/join?sessionId=" + sessionId;
-    let invitationLink = "https://practiceggmm.shop/join?sessionId=" + sessionId;
+    let invitationLink =
+      "https://practiceggmm.shop/join?sessionId=" + sessionId;
 
     navigator.clipboard
       .writeText(invitationLink)
@@ -40,19 +41,19 @@ function CreateInvitation({ mySessionId }) {
   return (
     <>
       <Stack direction="row" spacing={2}>
-          <div
-            class="btn btn-primary invite_button "
-            onClick={createLink_and_copy}
-          >
-            초대링크
-          </div>
+        <div
+          class="btn btn-primary invite_button "
+          onClick={createLink_and_copy}
+        >
+          Invite
+        </div>
 
         <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert
             onClose={handleClose}
             severity="success"
             sx={{ width: "100%" }}
-            >
+          >
             초대링크 복사에 성공했습니다.
           </Alert>
         </Snackbar>

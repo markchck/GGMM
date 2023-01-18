@@ -343,39 +343,44 @@ h5 {
 }
 
 .gameStart_button {
-  position: absolute;
-  width: 10%;
-  height: 8%;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  width: 20vh;
+  height: 8.2vh;
+  left: 5%;
+  top: -26%;
   font-size: 3rem;
+  float: left;
   background-color: orange;
+  padding-top: 0.5%;
   border: none;
-}
-
-#buttonLeaveSession {
-  position: absolute;
-  width: 10%;
-  height: 8%;
-  top: 10%;
-  margin: 0%;
-  left: 76.5%;
-  font-size: 3rem;
-  transform: translateY(-50%);
-  border: none;
+  border-radius: 20px;
 }
 
 .invite_button {
-  position: absolute;
-  width: 10%;
-  height: 8%;
-  top: 6vh;
-  margin: 0%;
-  left: 14%;
+  position: relative;
+  width: 20vh;
+  height: 8vh;
+  left: -27%;
+
   font-size: 3rem;
+  float: left;
   background-color: green;
-  padding-top: 0.9%;
+  padding-top: 1.2%;
+  border: none;
+  border-radius: 20px;
+}
+.exit_button {
+  position: relative;
+  width: 20vh;
+  height: 8.2vh;
+  left: 80%;
+  top: -25%;
+  font-size: 3rem;
+  float: left;
+  background-color: red;
+  padding-top: 0.5%;
+  border: none;
+  border-radius: 20px;
 }
 
 .participant {
@@ -625,4 +630,14 @@ h6 {
   margin: auto;
   float: left;
   z-index: 11;
+}
+
+.btn_div {
+  width: 100%;
+  height: 10%;
+
+  top: 5%;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 5;
+  position: absolute;
 }
