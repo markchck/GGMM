@@ -263,6 +263,19 @@
   margin-top: 1%;
   color: white;
 }
+
+.team_turn2 {
+  background-color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  height: 100%;
+  /* right: 0;
+  bottom: 0; */
+  top: 0;
+  width: 100%;
+  border-radius: 13px;
+
+  margin-top: 1%;
+}
 h5 {
   position: relative;
   font-family: "Black Han Sans", sans-serif;
