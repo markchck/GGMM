@@ -2,7 +2,7 @@ import create from "zustand";
 import axios from "axios";
 
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
 
 const useStore = create((set) => ({
   //치우
@@ -23,19 +23,17 @@ const useStore = create((set) => ({
       gamers: [],
     }));
   },
-  sortGamer: ()=>{
-    set((state)=>({
-      gamers : state.gamers.sort((a, b) => {
-        if (a.name < b.name){
+  sortGamer: () => {
+    set((state) => ({
+      gamers: state.gamers.sort((a, b) => {
+        if (a.name < b.name) {
           return -1;
-        }
-        else if (a.name > b.name){
+        } else if (a.name > b.name) {
           return 1;
-        }
-        else{
+        } else {
           return 0;
         }
-      })
+      }),
     }));
   },
 
@@ -117,8 +115,8 @@ const useStore = create((set) => ({
   cur_round: 0,
   set_cur_round: (input) => set({ cur_round: input }),
 
-  cur_teller : -1,
-  set_cur_teller : (input) => set({cur_teller : input}),
+  cur_teller: -1,
+  set_cur_teller: (input) => set({ cur_teller: input }),
 
   is_my_turn: false, //내가 이야기 꾼인지?
   set_my_turn: (input) => set({ is_my_turn: input }),
@@ -173,6 +171,12 @@ const useStore = create((set) => ({
   set_BItem3: (input) => set({ BItem3: input }),
   BsignalSent3: false,
   setBSignalSent3: () => set({ BsignalSent3: true }),
+
+  pass_cnt: 0,
+  set_pass_cnt: (input) => set({ pass_cnt: input }),
+
+  my_team_win: "none",
+  set_my_team_win: (input) => set({ my_team_win: input }),
 }));
 
 export default useStore;

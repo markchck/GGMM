@@ -21,8 +21,8 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
 var timer = 500;
 
 class webCam extends Component {
@@ -47,6 +47,7 @@ class webCam extends Component {
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
+    this.oneMoregame = this.oneMoregame.bind(this);
   }
 
   componentDidMount() {
@@ -92,48 +93,47 @@ class webCam extends Component {
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem1(message.AItem1);
-        // useStore.getState().setASignalSent1(message.ASignalSent1);
       });
 
       this.state.session.on("signal:AItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem2(message.AItem2);
-        // useStore.getState().setASignalSent2(message.ASignalSent2);
       });
 
       this.state.session.on("signal:AItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem3(message.AItem3);
-        // useStore.getState().setASignalSent3(message.ASignalSent3);
       });
 
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem1(message.BItem1);
-        // useStore.getState().setBSignalSent1(message.BSignalSent1);
       });
 
       this.state.session.on("signal:BItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem2(message.BItem2);
-        // useStore.getState().setBSignalSent2(message.BsignalSent2);
       });
 
       this.state.session.on("signal:BItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem3(message.BItem3);
-        // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
 
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
-        console.log(
-          "무슨 메시지 인가: ",
-          message.cur_teller,
-          typeof message.cur_teller
-        );
         useStore.getState().set_cur_teller(message.cur_teller);
-        // useStore.getState().setBSignalSent3(message.BsignalSent3);
+      });
+
+      this.state.session.on("signal:pass", (event) => {
+        let message = JSON.parse(event.data);
+        useStore.getState().set_pass_cnt(message.pass_cnt);
+      });
+
+      this.state.session.on("signal:game_end", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("game over");
+        this.forceUpdate();
       });
     }
   }
@@ -174,8 +174,8 @@ class webCam extends Component {
           const addSubscriber = (subscriber, subscribers) => {
             subscribers.push(subscriber); // subscribers에 subscriber(나) 를 집어 넣음
             useStore.getState().setGamers({
-              // name: JSON.parse(event.stream.connection.data).clientData,
-              name : this.state.myUserName,
+              name: JSON.parse(event.stream.connection.data).clientData,
+              // name: this.state.myUserName,
               streamManager: subscriber,
             });
             return subscribers;
@@ -216,7 +216,6 @@ class webCam extends Component {
           console.warn(exception);
         });
 
-
         this.getToken().then((token) => {
           mySession
             .connect(token, { clientData: this.state.myUserName })
@@ -239,7 +238,7 @@ class webCam extends Component {
                 name: this.state.myUserName,
                 streamManager: publisher,
               });
-              
+
               useStore.getState().set_myUserID(this.state.myUserName);
               console.log("publisher setGamers : after");
               console.log(useStore.getState().gamers);
@@ -261,23 +260,32 @@ class webCam extends Component {
       }
     );
   }
-
+  oneMoregame() {
+    useStore.getState().set_Curtime(1000000);
+    useStore.getState().set_time_change("no_change");
+    useStore.getState().set_cur_round(0);
+    useStore.getState().set_cur_teller(-1);
+    useStore.getState().set_turn_state_change("room");
+    useStore.getState().set_my_index(10000);
+    useStore.getState().set_my_team_win("none");
+    this.forceUpdate();
+  }
   leaveSession() {
     const mySession = this.state.session;
     if (mySession) {
       mySession.disconnect();
     }
     useStore.getState().clearGamer();
-    console.log("leaveSession : ");
-    console.log(useStore.getState().gamers);
+
     this.OV = null;
     this.setState({
       session: undefined,
       subscribers: [],
       mySessionId: "Session" + Math.floor(Math.random() * 100),
-      myUserName: "Participant" + currentTime,
+      myUserName: "Participant",
       publisher: undefined,
     });
+    location.replace("http://localhost:3000/");
   }
 
   sendTimer() {
@@ -294,7 +302,6 @@ class webCam extends Component {
   render() {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
-
     return (
       <>
         {this.state.session === undefined ? (
@@ -302,7 +309,6 @@ class webCam extends Component {
             <div id="join">
               <form className="form-group" onSubmit={this.joinSession}>
                 <p>
-                  
                   <input
                     className="form-control"
                     class="participant"
@@ -316,7 +322,7 @@ class webCam extends Component {
                 <p>
                   <input
                     className="form-control"
-                    class = "roomname"
+                    class="roomname"
                     type="text"
                     id="sessionId"
                     value={mySessionId}
@@ -326,7 +332,6 @@ class webCam extends Component {
                 </p>
                 <p className="text-center">
                   <input
-                    // className="btn btn-primary btn-lg"
                     class="enter_button"
                     name="commit"
                     type="submit"
@@ -341,180 +346,231 @@ class webCam extends Component {
             {useStore.getState().cur_round === 0 ? (
               <div className="main_wait_room">
                 <div className="container_main_wait_room">
-                  {/* <div>대기방입니다.</div> */}
-                  <input
-                    className="btn btn-large btn-danger"
-                    type="button"
-                    id="buttonLeaveSession"
-                    onClick={this.leaveSession}
-                    value="방 나가기"
-                  />
-                  <CreateInvitation mySessionId={mySessionId}/>
+                  <div className="btn_div">
+                    <Button
+                      className="exit_button"
+                      onClick={this.leaveSession}
+                      value="Exit"
+                    >
+                      Exit
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="gameStart_button"
+                      onClick={() => this.sendTimer()}
+                    >
+                      Start
+                    </Button>
+                    <CreateInvitation mySessionId={mySessionId} />
+                  </div>
                   <Main_Screen />
-                  <Button type="submit" className ="gameStart_button"onClick={() => this.sendTimer()}>
-                    게임시작
-                  </Button>
                 </div>
               </div>
             ) : (
               <div className="main_wait_room">
                 <div className="container">
-                  <div id="session">
-                    {/* <div id="session-header">
-                      <h1 id="session-title">{mySessionId}</h1> */}
-                    </div>
-
-                    <div className="wide-frame">
-                      {/* A팀 프레임 */}
-                      <div className="a-screen">
-                        <div className="score_box">
-                          <div className="box">
-                            <div className="Score" id="A_currentScore">
-                              Current : <Score_board score={"cur_red"} />
+                  <div id="session"></div>
+                  <div className="wide-frame">
+                    {/* A팀 프레임 */}
+                    <div className="a-screen">
+                      <div className="score_box">
+                        <div className="box">
+                          <div className="A_cur" id="A_currentScore">
+                            점수 : <Score_board score={"cur_red"} />
+                          </div>
+                        </div>
+                        <div className="box">
+                          <div className="A_total" id="A_totalScore">
+                            총점 : <Score_board score={"total_red"} />
+                          </div>
+                        </div>
+                        {/* <AteamItem /> */}
+                      </div>
+                      <div className="video_box">
+                        <div id={0} className="video_frame">
+                          {useStore.getState().gamers[0] && (
+                            <div className="video_frame">
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[0].streamManager
+                                }
+                                my_name={useStore.getState().gamers[0].name}
+                                video_index={0}
+                              />
                             </div>
-                          </div>
-                          <div className="box">
-                            <div className="Score" id="A_totalScore">
-                              Total : <Score_board score={"total_red"} />
-                            </div>
-                          </div>
-                          {/* <AteamItem /> */}
-                        </div>
-                        <div className="video_box">
-                          <div id={0} className="video_frame">
-                            {useStore.getState().gamers[0] && (
-                              <div className="video_frame">
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[0].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[0].name}
-                                  video_index={0}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="video_box">
-                          <div id={1} className="video_frame">
-                            {useStore.getState().gamers[2] && (
-                              <div className="video_frame">
-                                {" "}
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[2].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[2].name}
-                                  video_index={2}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="video_box">
-                          <div id={2} className="video_frame">
-                            {useStore.getState().gamers[4] && (
-                              <div className="video_frame">
-                                {" "}
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[4].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[4].name}
-                                  video_index={4}
-                                />
-                              </div>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
-
-                      {/* 중앙 freame */}
-                      <div className="mid-screen">
-                        {(useStore.getState().gamers[0] ||
-                          useStore.getState().gamers[1] ||
-                          useStore.getState().gamers[2] ||
-                          useStore.getState().gamers[3] ||
-                          useStore.getState().gamers[4] ||
-                          useStore.getState().gamers[5]) && <Main_timer />}
-
-                        <div>
-                          <div className="team_box">
-                            <div className="team_turn"><AteamItem /> <BteamItem />
+                      <div className="video_box">
+                        <div id={1} className="video_frame">
+                          {useStore.getState().gamers[2] && (
+                            <div className="video_frame">
+                              {" "}
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[2].streamManager
+                                }
+                                my_name={useStore.getState().gamers[2].name}
+                                video_index={2}
+                              />
                             </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="video_box">
+                        <div id={2} className="video_frame">
+                          {useStore.getState().gamers[4] && (
+                            <div className="video_frame">
+                              {" "}
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[4].streamManager
+                                }
+                                my_name={useStore.getState().gamers[4].name}
+                                video_index={4}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="item_box">
+                        <AteamItem />
+                      </div>
+                    </div>
 
-                          </div>
+                    {/* 중앙 freame */}
+                    <div className="mid-screen">
+                      {(useStore.getState().gamers[0] ||
+                        useStore.getState().gamers[1] ||
+                        useStore.getState().gamers[2] ||
+                        useStore.getState().gamers[3] ||
+                        useStore.getState().gamers[4] ||
+                        useStore.getState().gamers[5]) && <Main_timer />}
 
-                          <div>
+                      <div>
+                        <div className="team_box">
+                          <div className="team_turn">
                             <S_words />
                           </div>
                         </div>
                       </div>
-                      {/* B팀 프레임 */}
-                      <div className="b-screen">
-                        <div className="box">
-                          <div className="Score" id="B_totalScore">
-                            Total :
-                            <Score_board score={"total_blue"} />
-                          </div>
+                    </div>
+                    {/* B팀 프레임 */}
+                    <div className="b-screen">
+                      <div className="box">
+                        <div className="B_total" id="B_totalScore">
+                          총점 :
+                          <Score_board score={"total_blue"} />
                         </div>
-                        <div className="box">
-                          <div className="Score" id="B_currentScore">
-                            Current :
-                            <Score_board score={"cur_blue"} />
-                          </div>
+                      </div>
+                      <div className="box">
+                        <div className="B_cur" id="B_currentScore">
+                          점수 :
+                          <Score_board score={"cur_blue"} />
                         </div>
-                        {/* <BteamItem /> */}
-                        <div className="video_box">
-                          <div id={3} className="video_frame">
-                            {useStore.getState().gamers[1] && (
-                              <div className="video_frame">
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[1].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[1].name}
-                                  video_index={1}
-                                />
-                              </div>
-                            )}
-                          </div>
+                      </div>
+                      <div className="video_box">
+                        <div id={3} className="video_frame">
+                          {useStore.getState().gamers[1] && (
+                            <div className="video_frame">
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[1].streamManager
+                                }
+                                my_name={useStore.getState().gamers[1].name}
+                                video_index={1}
+                              />
+                            </div>
+                          )}
                         </div>
-                        <div className="video_box">
-                          <div id={4} className="video_frame">
-                            {useStore.getState().gamers[3] && (
-                              <div className="video_frame">
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[3].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[3].name}
-                                  video_index={3}
-                                />
-                              </div>
-                            )}
-                          </div>
+                      </div>
+                      <div className="video_box">
+                        <div id={4} className="video_frame">
+                          {useStore.getState().gamers[3] && (
+                            <div className="video_frame">
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[3].streamManager
+                                }
+                                my_name={useStore.getState().gamers[3].name}
+                                video_index={3}
+                              />
+                            </div>
+                          )}
                         </div>
-                        <div className="video_box">
-                          <div id={5} className="video_frame">
-                            {useStore.getState().gamers[5] && (
-                              <div className="video_frame">
-                                <UserVideoComponent
-                                  streamManager={
-                                    useStore.getState().gamers[5].streamManager
-                                  }
-                                  my_name={useStore.getState().gamers[5].name}
-                                  video_index={5}
-                                />
-                              </div>
-                            )}
-                          </div>
+                      </div>
+                      <div className="video_box">
+                        <div id={5} className="video_frame">
+                          {useStore.getState().gamers[5] && (
+                            <div className="video_frame">
+                              <UserVideoComponent
+                                streamManager={
+                                  useStore.getState().gamers[5].streamManager
+                                }
+                                my_name={useStore.getState().gamers[5].name}
+                                video_index={5}
+                              />
+                            </div>
+                          )}
                         </div>
+                      </div>
+                      <div className="item_box">
+                        <BteamItem />
                       </div>
                     </div>
                   </div>
                 </div>
-              // </div>
+                {useStore.getState().cur_turn_states === "end" ? (
+                  <>
+                    {useStore.getState().my_team_win === "none" ? null : (
+                      <>
+                        {useStore.getState().my_team_win === "win" ? (
+                          <div className={"container2"}>
+                            <div className="win_board"></div>
+                            <div className="win_img"></div>
+                            <div className="btn_box">
+                              <input
+                                type="button"
+                                className="restart_room"
+                                onClick={this.oneMoregame}
+                              />
+                            </div>
+                            <div className="btn_box2">
+                              <input
+                                className="leave_room"
+                                onClick={this.leaveSession}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={"container2"}>
+                            <div className="lose_board"></div>
+                            <div className="lose_img"></div>
+                            <div className="btn_box3">
+                              <input
+                                type="button"
+                                id="buttonRestart"
+                                className="restart_room"
+                                onClick={this.oneMoregame}
+                              />
+                            </div>
+                            <div className="btn_box4">
+                              <input
+                                type="button"
+                                className="leave_room"
+                                onClick={this.leaveSession}
+                              />
+                            </div>
+                          </div>
+                        )}
+                        ;
+                      </>
+                    )}
+                    ;
+                  </>
+                ) : null}
+                ;
+              </div>
             )}
           </>
         )}
@@ -547,7 +603,6 @@ class webCam extends Component {
     );
     return response.data; // The token
   }
-
 }
 
 export default webCam;

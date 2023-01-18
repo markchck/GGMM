@@ -6,7 +6,7 @@ import useSound from "use-sound";
 
 import good_sound from "../audio/good.mp3";
 import bad_sound from "../audio/bad.mp3";
-
+import "./S_word.css";
 function S_words() {
   let [show, setShow] = useState([]);
 
@@ -35,7 +35,7 @@ function S_words() {
 
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
-
+  const { pass_cnt, set_pass_cnt } = useStore();
   useEffect(async () => {
     if (cur_round !== 0) {
       setShow([]);
@@ -67,19 +67,44 @@ function S_words() {
   }, [number]);
 
   useEffect(() => {
-    if (cur_who_turn === "red" && my_index % 2 === 0) {
+    console.log("누구 턴 ? :", cur_who_turn);
+    console.log("내 인덱스 :", my_index);
+    if (my_index % 2 === 0 && cur_who_turn === "red") {
       set_myteam_turn(true);
-    } else if (cur_who_turn === "blue" && my_index % 2 === 1) {
+      console.log("내 팀 레드 맞음");
+    } else if (my_index % 2 === 1 && cur_who_turn === "blue") {
       set_myteam_turn(true);
+      console.log("내 팀 블루 맞음");
     } else {
       set_myteam_turn(false);
+      console.log("현재 우리 팀 턴 아님");
     }
   }, [cur_who_turn]);
-  useEffect(() => {}, [is_my_turn]);
+
+  useEffect(() => {
+    console.log("내 팀 차례인가? ", is_my_team_turn);
+  });
+  useEffect(() => {}, [is_my_team_turn]);
   const nextShow = () => {
     setShowIndex(showIndex + 1);
     setShow_name(show[showIndex + 1]);
   };
+  const pass_question = () => {
+    const message = {
+      pass_cnt: pass_cnt + 1,
+    };
+    cur_session.signal({
+      type: "pass",
+      data: JSON.stringify(message),
+    });
+  };
+
+  useEffect(() => {
+    if (pass_cnt > 0) {
+      console.log("pass_cnt 변경", pass_cnt);
+      nextShow();
+    }
+  }, [pass_cnt]);
 
   const sendScore = () => {
     const message = {
@@ -107,7 +132,22 @@ function S_words() {
   };
   return (
     <>
-      {(is_my_turn || !is_my_team_turn) && <div>{show_name}</div>}
+      {is_my_team_turn && cur_turn_states === "game" && (
+        // <button
+        //   className="btn-15"
+        //   onClick={() => {
+        //     pass_question();
+        //   }}
+        // >
+        //   Pass
+        // </button>
+        <button class="w-btn w-btn-gra1" type="button" onClick={pass_question}>
+          PASS
+        </button>
+      )}
+      {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
+        <h5>{show_name}</h5>
+      )}
       {/* 내 턴이거나 내 팀 턴이 아닐경우에만 문제를 띄움 */}
       {!is_my_turn && is_my_team_turn && (
         // 내 턴이 아니고 우리팀 턴일 경우(이야기꾼을 제외한 나머지)

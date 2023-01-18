@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
 
-
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
@@ -21,7 +20,7 @@ function Main_timer() {
   const { is_my_turn, set_my_turn } = useStore();
   const { is_my_team_turn, set_myteam_turn, setPublishAudio } = useStore();
   const { cur_teller, set_cur_teller } = useStore();
-
+  const { my_team_win, set_my_team_win } = useStore();
   const {
     myUserID,
     gamers,
@@ -40,8 +39,6 @@ function Main_timer() {
   const timer = useRef(null);
   const videoBoxes = useRef(null);
   const currentIndex = useRef(10000);
-
- 
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -103,6 +100,34 @@ function Main_timer() {
       set_CurRed_cnt(0);
     }
   }, [cur_round]);
+  useEffect(() => {
+    if (cur_round > 3) {
+      console.log("레드, 블루 점수 : ", curRed_total, curBlue_total);
+      if (
+        (my_index % 2 === 0 && curRed_total >= curBlue_total) ||
+        (my_index % 2 === 1 && curBlue_total >= curRed_total)
+      ) {
+        set_my_team_win("win");
+      } else {
+        set_my_team_win("lose");
+      }
+    }
+  }, [curBlue_total, curRed_total]);
+
+  useEffect(() => {
+    if (cur_round > 1) {
+      console.log("결과 : ", my_team_win);
+      set_turn_state_change("end");
+      const message = {
+        strings: "game_end",
+      };
+      cur_session.signal({
+        type: "game_end",
+        data: JSON.stringify(message),
+      });
+      clearInterval(timer.current);
+    }
+  }, [my_team_win]);
 
   useEffect(() => {
     console.log("지금 인덱스는 :" + currentIndex.current);
@@ -119,12 +144,12 @@ function Main_timer() {
       const message = {
         cur_teller: currentIndex.current,
       };
-      cur_session && cur_session.signal({
-        type: "cur_teller",
-        data: JSON.stringify(message),
-      });
+      cur_session &&
+        cur_session.signal({
+          type: "cur_teller",
+          data: JSON.stringify(message),
+        });
     }
-
   }, [currentIndex.current]);
 
   useEffect(() => {
@@ -141,25 +166,26 @@ function Main_timer() {
       time.current = 1000;
       setSec(10);
       setMsec(0);
+      if (cur_who_turn === "blue") {
+        set_cur_round(cur_round + 1);
+      }
       set_turn_state_change("ready");
-      if (cur_round === 6) {
-        return () => clearInterval(timer.current);
-      } else if (currentIndex.current == player_count - 1) {
-        currentIndex.current = 0;
-        if (currentIndex.current % 2 == 0) {
+
+      if (currentIndex.current === player_count - 1) {
+        if (currentIndex.current % 2 === 0) {
           set_who_turn("blue");
         } else {
           set_who_turn("red");
-          set_cur_round(cur_round + 1);
         }
-      } else if (currentIndex.current % 2 == 0) {
+        currentIndex.current = 0;
+      } else if (currentIndex.current % 2 === 0) {
         currentIndex.current += 1;
         set_who_turn("blue");
-      } else if (currentIndex.current % 2 == 1) {
+      } else if (currentIndex.current % 2 === 1) {
         currentIndex.current += 1;
         set_who_turn("red");
-        set_cur_round(cur_round + 1);
       }
+
       set_CntAns(0);
     } else if (cur_turn_states === "first_ready") {
       time.current = 500;
@@ -175,27 +201,31 @@ function Main_timer() {
     <>
       <div className="team_box">
         <div className="team_turn">
-          <center>
-            <h6 className="text_highlight">
-              시간제한 : {sec}.
-              {/* 상태 : {cur_turn_states} Timer : {sec}.{msec}
-              {currentIndex.current}, round : {cur_round} turn : {cur_who_turn}
-              is my turn : {is_my_turn}, 내 인덱스 : {my_index} */}
-            </h6>
-          </center>
+          {cur_turn_states === "first_ready" && (
+            <div className="turn_box">잠시 후 게임이 시작됩니다.</div>
+          )}
+          {cur_turn_states === "ready" && (
+            <div className="turn_box">
+              {cur_who_turn.toUpperCase()}팀은 게임을 준비해주세요
+            </div>
+          )}
+          {cur_turn_states === "game" && (
+            <div className="turn_box">
+              {cur_who_turn.toUpperCase()}팀 Turn : {sec}
+            </div>
+          )}
         </div>
       </div>
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
-          {cur_round > 0 &&
-            { gamers }.gamers[currentIndex.current] &&
+          {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
             <UserVideoComponent
               streamManager={
                 { gamers }.gamers[currentIndex.current].streamManager
               }
               video_index={currentIndex.current}
             />
-          }
+          )}
         </div>
       </div>
     </>
