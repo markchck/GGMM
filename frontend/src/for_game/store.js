@@ -100,7 +100,7 @@ const useStore = create((set) => ({
   set_CurBlue_cnt: (input) => set(() => ({ curBlue_cnt: input })),
   curRed_total: 0,
   set_CurRed_total: (input) => set(() => ({ curRed_total: input })),
-  curBlue_total: 1,
+  curBlue_total: 0,
   set_CurBlue_total: (input) => set(() => ({ curBlue_total: input })),
 
   cur_session: undefined,

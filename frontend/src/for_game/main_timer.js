@@ -101,7 +101,7 @@ function Main_timer() {
     }
   }, [cur_round]);
   useEffect(() => {
-    if (cur_round > 1) {
+    if (cur_round > 3) {
       console.log("레드, 블루 점수 : ", curRed_total, curBlue_total);
       if (
         (my_index % 2 === 0 && curRed_total >= curBlue_total) ||
