@@ -49,7 +49,7 @@
 
 .wide-frame {
   position: relative;
-  height: 90vh;;
+  height: 90vh;
   width: 100%;
   background-color: beige;
   margin: auto;
@@ -58,9 +58,9 @@
   align-items: center;
   border-radius: 3%;
   /* border: 5px solid rgb(28, 29, 28); */
-} 
+}
 .middle-frame {
-  height: 85vh;;
+  height: 85vh;
   width: 25%;
   background-color: #ffffff;
   float: left;
@@ -224,36 +224,35 @@
   /* border: 3px solid green; */
 }
 
-
 .main_bg {
   background-image: url("../public/resources/images/main_page.jpg");
   background-size: cover;
   background-position: center;
 }
 
-.main_wait_room{
-  background-image: url("../public/resources/images/sub_page.jpg"); 
+.main_wait_room {
+  background-image: url("../public/resources/images/sub_page.jpg");
   height: 100vh;
   background-size: cover;
   background-position: center;
 }
 
-.text-center{
+.text-center {
   margin-top: 5%;
 }
 
-.text_highlight{
+.text_highlight {
   font-size: 24px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   color: #ff0000;
   font-weight: bold;
 }
 
-.btn btn-lg btn-success{
+.btn btn-lg btn-success {
   margin-top: 10%;
 }
 
-.gameStart_button{
+.gameStart_button {
   position: absolute;
   width: 10%;
   height: 8%;
@@ -264,7 +263,7 @@
   background-color: orange;
 }
 
-#buttonLeaveSession{
+#buttonLeaveSession {
   position: absolute;
   width: 10%;
   height: 8%;
@@ -273,10 +272,9 @@
   left: 76.5%;
   font-size: 25px;
   transform: translateY(-50%);
-  
 }
 
-.invite_button{
+.invite_button {
   position: absolute;
   width: 10%;
   height: 8%;
@@ -288,11 +286,11 @@
   padding-top: 0.9%;
 }
 
-.participant{
+.participant {
   display: none;
 }
 
-.enter_button{
+.enter_button {
   width: 29vh;
   height: 6vh;
   /* color: white; */
@@ -305,6 +303,146 @@
   /* background-size: cover; */
 }
 
-.roomname{
+.roomname {
   display: none;
+}
+
+.container2 {
+  /* 모달창 크기 */
+  width: 85%;
+  height: 65%;
+  /* 최상단 위치 */
+  z-index: 999;
+  /* 중앙 배치 */
+  /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
+  /* translate는 본인의 크기 기준으로 작동한다. */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* 모달창 디자인 */
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/result_frame.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 15px;
+}
+
+.win_img {
+  width: 40%;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/win_img.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: relative;
+  margin: auto;
+  top: 25%;
+}
+.lose_img {
+  width: 50%;
+  height: 80%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/lose_img.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: relative;
+  margin: auto;
+  top: 16%;
+}
+.win_board {
+  width: 100%;
+  height: 20%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/win_board.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  top: 16%;
+  margin: auto;
+  position: absolute;
+  z-index: 11;
+}
+.lose_board {
+  width: 100%;
+  height: 20%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/lose_board.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  top: 20%;
+  margin: auto;
+  position: absolute;
+  z-index: 10;
+}
+.leave_room {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/exit.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  position: absolute;
+  z-index: 10;
+  border: none;
+}
+.restart_room {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../public/resources/images/restart.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  position: absolute;
+  z-index: 10;
+  border: none;
+}
+
+.btn_box {
+  width: 20%;
+  height: 12%;
+  background-color: rgba(255, 255, 255, 0);
+  position: relative;
+  top: 25%;
+  left: 30%;
+  margin: auto;
+  float: left;
+}
+.btn_box2 {
+  width: 20%;
+  height: 12%;
+  background-color: rgba(0, 255, 255, 0);
+  position: relative;
+  top: 25%;
+  left: 33%;
+  margin: auto;
+  float: left;
+}
+
+.btn_box3 {
+  width: 20%;
+  height: 12%;
+  background-color: rgba(255, 255, 255, 0);
+  position: relative;
+  top: -1%;
+  left: 30%;
+  margin: auto;
+  float: left;
+}
+.btn_box4 {
+  width: 20%;
+  height: 12%;
+  background-color: rgba(0, 255, 255, 0);
+  position: relative;
+  top: -1%;
+  left: 32%;
+  margin: auto;
+  float: left;
 }

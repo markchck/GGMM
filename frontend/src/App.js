@@ -47,6 +47,7 @@ class webCam extends Component {
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
+    this.oneMoregame = this.oneMoregame.bind(this);
   }
 
   componentDidMount() {
@@ -92,53 +93,46 @@ class webCam extends Component {
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem1(message.AItem1);
-        // useStore.getState().setASignalSent1(message.ASignalSent1);
       });
 
       this.state.session.on("signal:AItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem2(message.AItem2);
-        // useStore.getState().setASignalSent2(message.ASignalSent2);
       });
 
       this.state.session.on("signal:AItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem3(message.AItem3);
-        // useStore.getState().setASignalSent3(message.ASignalSent3);
       });
 
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem1(message.BItem1);
-        // useStore.getState().setBSignalSent1(message.BSignalSent1);
       });
 
       this.state.session.on("signal:BItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem2(message.BItem2);
-        // useStore.getState().setBSignalSent2(message.BsignalSent2);
       });
 
       this.state.session.on("signal:BItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem3(message.BItem3);
-        // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
 
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
-        console.log(
-          "무슨 메시지 인가: ",
-          message.cur_teller,
-          typeof message.cur_teller
-        );
         useStore.getState().set_cur_teller(message.cur_teller);
-        // useStore.getState().setBSignalSent3(message.BsignalSent3);
       });
 
       this.state.session.on("signal:pass", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_pass_cnt(message.pass_cnt);
+      });
+
+      this.state.session.on("signal:game_end", (event) => {
+        let message = JSON.parse(event.data);
+        this.forceUpdate();
       });
     }
   }
@@ -265,15 +259,23 @@ class webCam extends Component {
       }
     );
   }
-
+  oneMoregame() {
+    useStore.getState().set_Curtime(1000000);
+    useStore.getState().set_time_change("no_change");
+    useStore.getState().set_cur_round(0);
+    useStore.getState().set_cur_teller(-1);
+    useStore.getState().set_turn_state_change("room");
+    useStore.getState().set_my_index(10000);
+    useStore.getState().set_my_team_win("none");
+    this.forceUpdate();
+  }
   leaveSession() {
     const mySession = this.state.session;
     if (mySession) {
       mySession.disconnect();
     }
     useStore.getState().clearGamer();
-    console.log("leaveSession : ");
-    console.log(useStore.getState().gamers);
+
     this.OV = null;
     this.setState({
       session: undefined,
@@ -282,7 +284,7 @@ class webCam extends Component {
       myUserName: "Participant" + currentTime,
       publisher: undefined,
     });
-    location.replace("https://practiceggmm.shop/");
+    location.replace("http://localhost:3000/");
   }
 
   sendTimer() {
@@ -299,7 +301,6 @@ class webCam extends Component {
   render() {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
-
     return (
       <>
         {this.state.session === undefined ? (
@@ -308,8 +309,8 @@ class webCam extends Component {
               <form className="form-group" onSubmit={this.joinSession}>
                 <p>
                   <input
-                    className="form-control"
-                    class="participant"
+                    className="participant"
+                    // class="participant"
                     type="text"
                     id="userName"
                     value={myUserName}
@@ -319,8 +320,7 @@ class webCam extends Component {
                 </p>
                 <p>
                   <input
-                    className="form-control"
-                    class="roomname"
+                    className="roomname"
                     type="text"
                     id="sessionId"
                     value={mySessionId}
@@ -328,10 +328,10 @@ class webCam extends Component {
                     required
                   />
                 </p>
-                <p className="text-center">
+                <p className="enter_button">
                   <input
-                    // className="btn btn-primary btn-lg"
-                    class="enter_button"
+                    className="enter_button"
+                    // class="enter_button"
                     name="commit"
                     type="submit"
                     value=""
@@ -345,7 +345,6 @@ class webCam extends Component {
             {useStore.getState().cur_round === 0 ? (
               <div className="main_wait_room">
                 <div className="container_main_wait_room">
-                  {/* <div>대기방입니다.</div> */}
                   <input
                     className="btn btn-large btn-danger"
                     type="button"
@@ -369,7 +368,7 @@ class webCam extends Component {
                 <div className="container">
                   <div id="session">
                     {/* <div id="session-header">
-                      <h1 id="session-title">{mySessionId}</h1> */}
+                    <h1 id="session-title">{mySessionId}</h1> */}
                   </div>
 
                   <div className="wide-frame">
@@ -521,8 +520,59 @@ class webCam extends Component {
                     </div>
                   </div>
                 </div>
+                {useStore.getState().cur_turn_states === "end" ? (
+                  <>
+                    {useStore.getState().my_team_win === "none" ? null : (
+                      <>
+                        {useStore.getState().my_team_win === "win" ? (
+                          <div className={"container2"}>
+                            <div className="win_board"></div>
+                            <div className="win_img"></div>
+                            <div className="btn_box">
+                              <input
+                                type="button"
+                                className="restart_room"
+                                onClick={this.oneMoregame}
+                              />
+                            </div>
+                            <div className="btn_box2">
+                              <input
+                                type="button"
+                                className="leave_room"
+                                onClick={this.leaveSession}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={"container2"}>
+                            <div className="lose_board"></div>
+                            <div className="lose_img"></div>
+                            <div className="btn_box3">
+                              <input
+                                type="button"
+                                id="buttonRestart"
+                                className="restart_room"
+                                onClick={this.oneMoregame}
+                              />
+                            </div>
+                            <div className="btn_box4">
+                              <input
+                                type="button"
+                                id="buttonLeaveSession"
+                                className="leave_room"
+                                onClick={this.leaveSession}
+                              />
+                            </div>
+                          </div>
+                        )}
+                        ;
+                      </>
+                    )}
+                    ;
+                  </>
+                ) : null}
+                ;
               </div>
-              // </div>
             )}
           </>
         )}

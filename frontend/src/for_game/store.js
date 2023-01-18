@@ -174,6 +174,9 @@ const useStore = create((set) => ({
 
   pass_cnt: 0,
   set_pass_cnt: (input) => set({ pass_cnt: input }),
+
+  my_team_win: "none",
+  set_my_team_win: (input) => set({ my_team_win: input }),
 }));
 
 export default useStore;
