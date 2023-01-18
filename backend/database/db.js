@@ -131,6 +131,6 @@ QuestWord.insertMany(QuestWords, function(error, docs) {
   if (error) {
     console.log(error);
   } else {
-    console.log(docs + "성공했다!! DB확인해보자!");
+    console.log("성공했다!! DB확인해보자!");
   }
 });
