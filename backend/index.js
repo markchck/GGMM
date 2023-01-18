@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
     else {
       cardlist[cardId.i] = true;
       try {
-        socket.to(sessionId).emit("CardFliped", my_index, cardId);
+        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
       } catch (error) {
         console.log(error);
       }
