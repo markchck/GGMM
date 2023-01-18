@@ -35,7 +35,7 @@ function S_words() {
 
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
-
+  const { pass_cnt, set_pass_cnt } = useStore();
   useEffect(async () => {
     if (cur_round !== 0) {
       setShow([]);
@@ -75,11 +75,31 @@ function S_words() {
       set_myteam_turn(false);
     }
   }, [cur_who_turn]);
-  useEffect(() => {}, [is_my_turn]);
+
+  useEffect(() => {
+    console.log("내 팀 차례인가? ", is_my_team_turn);
+  });
+  useEffect(() => {}, [is_my_team_turn]);
   const nextShow = () => {
     setShowIndex(showIndex + 1);
     setShow_name(show[showIndex + 1]);
   };
+  const pass_question = (e) => {
+    const message = {
+      pass_cnt: pass_cnt + 1,
+    };
+    cur_session.signal({
+      type: "pass",
+      data: JSON.stringify(message),
+    });
+  };
+
+  useEffect(() => {
+    if (pass_cnt > 0) {
+      console.log("pass_cnt 변경", pass_cnt);
+      nextShow();
+    }
+  }, [pass_cnt]);
 
   const sendScore = () => {
     const message = {
@@ -107,6 +127,16 @@ function S_words() {
   };
   return (
     <>
+      <div>
+        <Button
+          onClick={() => {
+            pass_question();
+          }}
+        >
+          패스
+        </Button>
+      </div>
+
       {(is_my_turn || !is_my_team_turn) && <div>{show_name}</div>}
       {/* 내 턴이거나 내 팀 턴이 아닐경우에만 문제를 띄움 */}
       {!is_my_turn && is_my_team_turn && (
