@@ -13,7 +13,7 @@
 
 .container {
   margin: auto;
-  /* max-width: 600px; */
+  width: 90%;
 }
 
 .todoBlock {
@@ -49,14 +49,13 @@
 
 .wide-frame {
   position: relative;
-  height: 90vh;
   width: 100%;
-  background-color: beige;
+  height: 90vh;
+
+  background-color: none;
   margin: auto;
   top: 5vh;
-  padding: 2%;
-  align-items: center;
-  border-radius: 3%;
+  border-radius: 15px;
   /* border: 5px solid rgb(28, 29, 28); */
 }
 .middle-frame {
@@ -64,28 +63,30 @@
   width: 25%;
   background-color: #ffffff;
   float: left;
-  margin-left: 2%;
   border-radius: 3%;
 }
 
 .a-screen {
+  position: relative;
   height: 85vh;
   width: 22%;
-  background-color: lightcoral;
+  background-image: linear-gradient(
+    -225deg,
+    #ffe29f 0%,
+    #ffa99f 48%,
+    #ff719a 100%
+  );
   float: left;
-  margin-left: 1%;
-  margin-right: 1%;
-  border-radius: 3%;
+  border-radius: 25px;
 }
 
 .b-screen {
   height: 85vh;
   width: 22%;
   float: left;
-  background-color: lightskyblue;
-  margin-left: 1%;
-  margin-right: 1%;
   border-radius: 3%;
+  background-image: linear-gradient(120deg, #89f7fe 40%, #66a6ff 100%);
+  z-index: 2;
 }
 
 .box {
@@ -105,6 +106,7 @@
 
 .Score {
   position: absolute;
+  font-family: "Black Han Sans", sans-serif;
   top: 0;
   right: 0;
   bottom: 0;
@@ -115,25 +117,96 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
 }
 
-/* .session-header {
-  position: relative;
-  height: 10vh;
-  width: 100%;
-  background-color: #ffffff;
-  margin: auto;
-  padding: 2%;
+.A_total {
+  position: absolute;
+  font-family: "Black Han Sans", sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 70%);
+  border-radius: 10px;
+  float: left;
+  display: flex;
+  justify-content: center;
   align-items: center;
-} */
+  margin-bottom: 2%;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.A_cur {
+  position: absolute;
+  font-family: "Black Han Sans", sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 70%);
+  border-radius: 10px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.B_total {
+  position: absolute;
+  font-family: "Black Han Sans", sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  border-radius: 10px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.B_cur {
+  position: absolute;
+  font-family: "Black Han Sans", sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  border-radius: 10px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  opacity: 0.9;
+}
 
 .mid-screen {
+  position: relative;
   height: 85vh;
   width: 50%;
-  background-color: lightgray;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
   float: left;
-  margin-left: 1%;
-  margin-right: 1%;
+
   border-radius: 3%;
   /* border: 3px solid green; */
 }
@@ -142,7 +215,7 @@
   position: relative;
   width: 77%; /* 원하는 너비 */
   margin: auto;
-  top: 15%;
+  top: 10%;
   margin-bottom: 7%;
   border-radius: 3%;
 }
@@ -155,9 +228,9 @@
 
 .video_frame {
   position: absolute;
-  top: 0;
+  top: -0px;
   right: 0;
-  bottom: 0;
+  bottom: 0px;
   left: 0;
   background: white;
   border-radius: 10px;
@@ -168,7 +241,7 @@
   height: 9%; /* 원하는 너비 */
   margin: auto;
   margin: 1%;
-  top: 1%;
+  top: 3vh;
 }
 .team_box:before {
   content: "";
@@ -178,21 +251,36 @@
 }
 
 .team_turn {
-  background-color: beige;
+  background-color: rgba(255, 255, 255, 0.3);
   position: absolute;
+  height: 100%;
+  /* right: 0;
+  bottom: 0; */
   top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100%;
   border-radius: 13px;
-}
 
+  margin-top: 1%;
+  color: white;
+}
+h5 {
+  position: relative;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 35px;
+  text-align: center;
+  font-weight: 350;
+  color: black;
+  margin: auto;
+  font-style: normal;
+  font-weight: 500;
+  top: 35%;
+}
 .main_video_box {
   position: relative;
   width: 97%; /* 원하는 너비 */
   margin: auto;
-  top: 2%;
-  margin-bottom: 5%;
+  /* top: 5%; */
+  margin-bottom: 3%;
 }
 
 .main_video_box:before {
@@ -203,12 +291,13 @@
 
 .main_video_frame {
   position: absolute;
-  top: 0;
+  top: 5%;
   right: 0;
   bottom: 0;
   left: 0;
-  background: white;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
+  margin-top: 5%;
 }
 
 .Video {
@@ -231,6 +320,7 @@
 }
 
 .main_wait_room {
+  /* background-color: #F9F871; */
   background-image: url("../public/resources/images/sub_page.jpg");
   height: 100vh;
   background-size: cover;
@@ -259,8 +349,9 @@
   top: 10%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 25px;
+  font-size: 3rem;
   background-color: orange;
+  border: none;
 }
 
 #buttonLeaveSession {
@@ -270,8 +361,9 @@
   top: 10%;
   margin: 0%;
   left: 76.5%;
-  font-size: 25px;
+  font-size: 3rem;
   transform: translateY(-50%);
+  border: none;
 }
 
 .invite_button {
@@ -281,7 +373,7 @@
   top: 6vh;
   margin: 0%;
   left: 14%;
-  font-size: 25px;
+  font-size: 3rem;
   background-color: green;
   padding-top: 0.9%;
 }
@@ -290,21 +382,104 @@
   display: none;
 }
 
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
 .enter_button {
-  width: 29vh;
-  height: 6vh;
-  /* color: white; */
-  /* font-size: 30px; */
-  /* background-color:rgb(141, 135, 250); */
+  height: 10vh;
+  width: 25vw;
+  background-image: url("../public/resources/images/enter_button.png");
+  background-size: cover;
+  animation: pulse 1s infinite;
   border: none;
-  /* border-radius: 10%; */
-  background-image: url("../public/resources/images/start_button.png");
-  background-size: contain;
-  /* background-size: cover; */
 }
 
 .roomname {
   display: none;
+}
+
+/* 그림 이미지 넣기 */
+
+.image-button_blur {
+  /* position: absolute; */
+  background-image: url("../public/resources/images/blur2.jpg");
+  /* background-size: cover; */
+  object-fit: contain;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  width: 22%;
+  height: 52px;
+  margin-left: 7px;
+  border: 0px;
+}
+
+.image-button_mirr {
+  /* position: absolute; */
+  background-image: url("../public/resources/images/mirr2.jpg");
+  object-fit: contain;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  width: 22%;
+  height: 52px;
+  margin-left: 7px;
+  border: 0px;
+}
+
+.image-button_4div {
+  /* position: absolute; */
+  background-image: url("../public/resources/images/4div2.jpg");
+
+  object-fit: contain;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  width: 22%;
+  height: 52px;
+  margin-left: 7px;
+  border: 0px;
+}
+
+h6 {
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 50px;
+  text-align: center;
+  font-weight: 350;
+  color: #000000;
+  margin-top: 3%;
+}
+
+.turn_box {
+  position: relative;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  line-height: 70px;
+  font-weight: 350;
+  color: white;
+  margin: auto;
+}
+
+#Answer_input {
+  position: absolute;
+  width: 30%;
+  top: 24%;
+  left: 25%;
+  font-size: 20px;
+}
+
+.item_box {
+  position: relative;
+  top: 6%;
+  left: 7%;
 }
 
 .container2 {
@@ -381,14 +556,18 @@
   z-index: 10;
 }
 .leave_room {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+
   background-color: rgba(255, 255, 255, 0);
   background-image: url(../public/resources/images/exit.png);
   background-repeat: no-repeat;
   background-size: contain;
-  margin: auto;
-  position: absolute;
+
+  position: relative;
   z-index: 10;
   border: none;
 }
@@ -400,7 +579,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   margin: auto;
-  position: absolute;
+  position: relative;
   z-index: 10;
   border: none;
 }
@@ -431,7 +610,7 @@
   height: 12%;
   background-color: rgba(255, 255, 255, 0);
   position: relative;
-  top: -1%;
+  top: -1.5%;
   left: 30%;
   margin: auto;
   float: left;
@@ -441,8 +620,9 @@
   height: 12%;
   background-color: rgba(0, 255, 255, 0);
   position: relative;
-  top: -1%;
-  left: 32%;
+  top: -1.5%;
+  left: 30%;
   margin: auto;
   float: left;
+  z-index: 11;
 }

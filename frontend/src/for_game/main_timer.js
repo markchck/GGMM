@@ -201,14 +201,19 @@ function Main_timer() {
     <>
       <div className="team_box">
         <div className="team_turn">
-          <center>
-            <h6 className="text_highlight">
-              시간제한 : {sec}
-              {/* 상태 : {cur_turn_states} Timer : {sec}.{msec}
-              {currentIndex.current}, round : {cur_round} turn : {cur_who_turn}
-              is my turn : {is_my_turn}, 내 인덱스 : {my_index} */}
-            </h6>
-          </center>
+          {cur_turn_states === "first_ready" && (
+            <div className="turn_box">잠시 후 게임이 시작됩니다.</div>
+          )}
+          {cur_turn_states === "ready" && (
+            <div className="turn_box">
+              {cur_who_turn.toUpperCase()}팀은 게임을 준비해주세요
+            </div>
+          )}
+          {cur_turn_states === "game" && (
+            <div className="turn_box">
+              {cur_who_turn.toUpperCase()}팀 Turn : {sec}
+            </div>
+          )}
         </div>
       </div>
       <div className="main_video_box">

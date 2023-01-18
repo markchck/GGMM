@@ -24,10 +24,8 @@ function Main_Screen() {
     }
     sortGamer();
     gamers.map((a, i) => {
-
-      console.log("sorting이 제대로 되는가", a.name)
-    })
-
+      console.log("sorting이 제대로 되는가", a.name);
+    });
   }, [gamers]);
 
   useEffect(() => {
@@ -62,8 +60,8 @@ function Main_Screen() {
                 streamManager={{ gamers }.gamers[0].streamManager}
                 my_name={{ gamers }.gamers[0].name}
               />
-            </div>)
-          }
+            </div>
+          )}
         </div>
       </div>
       <div className="video_box1">
@@ -116,12 +114,13 @@ function Main_Screen() {
       </div>
       <div className="video_box1">
         <div id={5} className="video_frame1">
-          {gamers[5] && (<div className="video_frame2">
-            <UserVideoComponent
-              streamManager={{ gamers }.gamers[5].streamManager}
-              my_name={{ gamers }.gamers[5].name}
-            />
-          </div>
+          {gamers[5] && (
+            <div className="video_frame2">
+              <UserVideoComponent
+                streamManager={{ gamers }.gamers[5].streamManager}
+                my_name={{ gamers }.gamers[5].name}
+              />
+            </div>
           )}
         </div>
       </div>

@@ -132,6 +132,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:game_end", (event) => {
         let message = JSON.parse(event.data);
+        console.log("game over");
         this.forceUpdate();
       });
     }
@@ -173,8 +174,8 @@ class webCam extends Component {
           const addSubscriber = (subscriber, subscribers) => {
             subscribers.push(subscriber); // subscribers에 subscriber(나) 를 집어 넣음
             useStore.getState().setGamers({
-              // name: JSON.parse(event.stream.connection.data).clientData,
-              name: this.state.myUserName,
+              name: JSON.parse(event.stream.connection.data).clientData,
+              // name: this.state.myUserName,
               streamManager: subscriber,
             });
             return subscribers;
@@ -281,7 +282,7 @@ class webCam extends Component {
       session: undefined,
       subscribers: [],
       mySessionId: "Session" + Math.floor(Math.random() * 100),
-      myUserName: "Participant" + currentTime,
+      myUserName: "Participant",
       publisher: undefined,
     });
     location.replace("http://localhost:3000/");
@@ -309,8 +310,8 @@ class webCam extends Component {
               <form className="form-group" onSubmit={this.joinSession}>
                 <p>
                   <input
-                    className="participant"
-                    // class="participant"
+                    className="form-control"
+                    class="participant"
                     type="text"
                     id="userName"
                     value={myUserName}
@@ -320,7 +321,8 @@ class webCam extends Component {
                 </p>
                 <p>
                   <input
-                    className="roomname"
+                    className="form-control"
+                    class="roomname"
                     type="text"
                     id="sessionId"
                     value={mySessionId}
@@ -328,10 +330,9 @@ class webCam extends Component {
                     required
                   />
                 </p>
-                <p className="enter_button">
+                <p className="text-center">
                   <input
-                    className="enter_button"
-                    // class="enter_button"
+                    class="enter_button"
                     name="commit"
                     type="submit"
                     value=""
@@ -350,8 +351,9 @@ class webCam extends Component {
                     type="button"
                     id="buttonLeaveSession"
                     onClick={this.leaveSession}
-                    value="방 나가기"
+                    value="Exit"
                   />
+
                   <CreateInvitation mySessionId={mySessionId} />
                   <Main_Screen />
                   <Button
@@ -359,30 +361,26 @@ class webCam extends Component {
                     className="gameStart_button"
                     onClick={() => this.sendTimer()}
                   >
-                    게임시작
+                    Start
                   </Button>
                 </div>
               </div>
             ) : (
               <div className="main_wait_room">
                 <div className="container">
-                  <div id="session">
-                    {/* <div id="session-header">
-                    <h1 id="session-title">{mySessionId}</h1> */}
-                  </div>
-
+                  <div id="session"></div>
                   <div className="wide-frame">
                     {/* A팀 프레임 */}
                     <div className="a-screen">
                       <div className="score_box">
                         <div className="box">
-                          <div className="Score" id="A_currentScore">
-                            Current : <Score_board score={"cur_red"} />
+                          <div className="A_cur" id="A_currentScore">
+                            점수 : <Score_board score={"cur_red"} />
                           </div>
                         </div>
                         <div className="box">
-                          <div className="Score" id="A_totalScore">
-                            Total : <Score_board score={"total_red"} />
+                          <div className="A_total" id="A_totalScore">
+                            총점 : <Score_board score={"total_red"} />
                           </div>
                         </div>
                         {/* <AteamItem /> */}
@@ -434,6 +432,9 @@ class webCam extends Component {
                           )}
                         </div>
                       </div>
+                      <div className="item_box">
+                        <AteamItem />
+                      </div>
                     </div>
 
                     {/* 중앙 freame */}
@@ -448,30 +449,25 @@ class webCam extends Component {
                       <div>
                         <div className="team_box">
                           <div className="team_turn">
-                            <AteamItem /> <BteamItem />
+                            <S_words />
                           </div>
-                        </div>
-
-                        <div>
-                          <S_words />
                         </div>
                       </div>
                     </div>
                     {/* B팀 프레임 */}
                     <div className="b-screen">
                       <div className="box">
-                        <div className="Score" id="B_totalScore">
-                          Total :
+                        <div className="B_total" id="B_totalScore">
+                          총점 :
                           <Score_board score={"total_blue"} />
                         </div>
                       </div>
                       <div className="box">
-                        <div className="Score" id="B_currentScore">
-                          Current :
+                        <div className="B_cur" id="B_currentScore">
+                          점수 :
                           <Score_board score={"cur_blue"} />
                         </div>
                       </div>
-                      {/* <BteamItem /> */}
                       <div className="video_box">
                         <div id={3} className="video_frame">
                           {useStore.getState().gamers[1] && (
@@ -517,6 +513,9 @@ class webCam extends Component {
                           )}
                         </div>
                       </div>
+                      <div className="item_box">
+                        <BteamItem />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -537,7 +536,6 @@ class webCam extends Component {
                             </div>
                             <div className="btn_box2">
                               <input
-                                type="button"
                                 className="leave_room"
                                 onClick={this.leaveSession}
                               />
@@ -558,7 +556,6 @@ class webCam extends Component {
                             <div className="btn_box4">
                               <input
                                 type="button"
-                                id="buttonLeaveSession"
                                 className="leave_room"
                                 onClick={this.leaveSession}
                               />
