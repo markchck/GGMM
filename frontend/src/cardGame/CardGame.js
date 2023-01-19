@@ -67,7 +67,7 @@ function CardGame({ sessionId, participantName }) {
   return (
     <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
-      <div>red : {red_team} : blue : {blue_team} </div>
+      
       {/* <span id="card"> */}
       <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
@@ -78,6 +78,9 @@ function CardGame({ sessionId, participantName }) {
           </span>
         ))}
       </div>
+      <center className="score_class"> 
+        {red_team} RED : BLUE {blue_team} 
+        </center>
     </div>
   );
 }
