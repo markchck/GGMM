@@ -1,5 +1,9 @@
 .Game_Board{
   background-image:  url('./Card_Game_BG.jpg');
-  width: 100%;
-  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 990;
+  /* width: 100%;
+  height: 100%; */
 }
+

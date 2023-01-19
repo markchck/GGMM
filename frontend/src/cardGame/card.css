@@ -1,26 +1,20 @@
 .Card_align {
-	width: 100; 
-	margin: 10px;
-	height: 100px; 
-	border: 1px; 
-	float: left; 
-	position: relative;
-	margin-right:10px;
+
+	width: 10vw;
+	height: 8vh;
+	border: 3px;
   }
 
   .card {
-	/* Sizing */
 	height: 100%;
 	width: 100%;
 	
 	transform-style: preserve-3d;
   
-	/* Content Alignment */
 	position: relative;
   
-	/* Styling */
 	border-radius: 5px;
-	/* border: 5px solid white; */
+	
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
   
 	user-select: none;
@@ -29,22 +23,18 @@
   
   .card-front,
   .card-back {
-	/* Sizing */
 	height: 100%;
 	width: 100%;
   
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
   
-	/* Alignment */
-	position: absolute;
+	position: static;
   
-	/* Content Alignment */
 	display: flex;
 	justify-content: center;
 	align-items: center;
   
-	/* Content Styling */
 	font-family: Montserrat;
 	font-weight: 800;
 	font-size: 60px;
@@ -53,10 +43,22 @@
   }
   
   .card-front {
-	background-color: #73d0ff;
+
+	background-image: url("./CardGame_FT.jpg");
+	background-size: cover;
+	background-position: center;
+	width: 12vw;
+	height: 8vh;
+	border: 2px;
   }
   
   .card-back {
-	/* background-color: #ffad66; */
 	transform: rotateY(180deg);
+  }
+
+  #card {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-gap: 57px;
   }

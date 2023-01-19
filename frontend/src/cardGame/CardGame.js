@@ -5,7 +5,7 @@ import "./card.css";
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
-let card_number = 41;
+let card_number = 35;
 
 function CardGame({ sessionId, participantName }) {
   const [state, setState] = useState("뒤집은 카드");
