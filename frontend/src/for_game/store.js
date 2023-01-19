@@ -179,13 +179,13 @@ const useStore = create((set) => ({
   set_my_team_win: (input) => set({ my_team_win: input }),
 
   card_game_end: 0,
-  set_card_game_end:(input) => set({card_game_end : input}),
+  set_card_game_end: (input) => set({ card_game_end: input }),
 
   card_game_red: 0,
-  set_card_game_red: (input) => set({card_game_end : input}),
+  set_card_game_red: (input) => set({ card_game_red: input }),
 
   card_game_blue: 0,
-  set_card_game_blue: (input) => set({card_game_end : input}),
+  set_card_game_blue: (input) => set({ card_game_blue: input }),
 }));
 
 export default useStore;

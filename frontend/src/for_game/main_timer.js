@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
-
+import "./main_timer.css";
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
@@ -29,6 +29,8 @@ function Main_timer() {
     player_count,
     set_player_count,
     cur_session,
+    card_game_red,
+    card_game_blue,
   } = useStore();
 
   const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
@@ -194,6 +196,11 @@ function Main_timer() {
       setSec(5);
       setMsec(0);
       set_turn_state_change("ready");
+    } else if (cur_turn_states === "result_minigame") {
+      time.current = 500;
+      setSec(5);
+      setMsec(0);
+      set_turn_state_change("first_ready");
     }
   };
 
@@ -201,6 +208,9 @@ function Main_timer() {
     <>
       <div className="team_box">
         <div className="team_turn">
+          {cur_turn_states === "result_minigame" && (
+            <div className="turn_box">미니게임 결과</div>
+          )}
           {cur_turn_states === "first_ready" && (
             <div className="turn_box">잠시 후 게임이 시작됩니다.</div>
           )}
@@ -218,13 +228,41 @@ function Main_timer() {
       </div>
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
-          {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
-            <UserVideoComponent
-              streamManager={
-                { gamers }.gamers[currentIndex.current].streamManager
-              }
-              video_index={currentIndex.current}
-            />
+          {cur_turn_states === "result_minigame" ? (
+            <>
+              {my_index % 2 == 0 ? (
+                <>
+                  {card_game_red > card_game_blue ? (
+                    <>
+                      <div className="mini_win" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="mini_lose" />
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {card_game_blue > card_game_red ? (
+                    <div className="mini_win" />
+                  ) : (
+                    <div className="mini_lose" />
+                  )}
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
+                <UserVideoComponent
+                  streamManager={
+                    { gamers }.gamers[currentIndex.current].streamManager
+                  }
+                  video_index={currentIndex.current}
+                />
+              )}
+            </>
           )}
         </div>
       </div>
