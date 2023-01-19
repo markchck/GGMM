@@ -25,10 +25,10 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
+const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 
 // Cursor
-import CardGame from "./cardGame/CardGame";
+import CardGame from './cardGame/CardGame'
 
 var timer = 500;
 
@@ -145,11 +145,11 @@ class webCam extends Component {
 
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
-        console.log("totalscore : ", message.Total_score);
+        console.log("totalscore : ",message.Total_score)
         useStore.getState().set_card_game_end(message.Total_score);
-
-        if (useStore.getState().card_game_end === 41) {
-          useStore.getState().set_cur_round(1);
+        
+        if (useStore.getState().card_game_end === 35){
+          useStore.getState().set_cur_round(1)
           console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
           this.forceUpdate();
@@ -386,12 +386,11 @@ class webCam extends Component {
                   <Main_Screen />
                 </div>
               </div>
-            ) : useStore.getState().cur_round === 0 ? (
-              <Card_Game_Boad
-                sessionId={this.state.mySessionId}
-                participantName={this.state.myUserName}
-              />
-            ) : (
+            ) : useStore.getState().cur_round === 0 ?
+            <div className="Game_Board">
+            <Card_Game_Boad sessionId={this.state.mySessionId} participantName={this.state.myUserName}/> 
+            </div>
+            : (
               <div className="main_wait_room">
                 <div className="container">
                   <div id="session"></div>
