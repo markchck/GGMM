@@ -5,12 +5,12 @@ import './card.css'
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
-let card_number = 5;
+let card_number = 35;
 
 function CardGame({ sessionId, participantName }) {
 
   const [state, setState] = useState("뒤집은 카드");
-  const { my_index } = useStore();
+  const { my_index, cur_session } = useStore();
   const [red_team, setRed_team] = useState(0);
   const [blue_team, setBlue_team] = useState(0);
 
@@ -22,8 +22,28 @@ function CardGame({ sessionId, participantName }) {
     if ((my_index + 1) % 2 === 0) {
       console.log("blue : ", blue_team);
       socket.emit("score", red_team, blue_team+1, sessionId, cardId);
+      const message = {
+        Total_score: red_team+blue_team+1,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
+
     } else {
       socket.emit("score", red_team+1, blue_team, sessionId, cardId);
+      
+      const message = {
+        Total_score: red_team+blue_team+1,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
     }
   }
 
@@ -36,19 +56,29 @@ function CardGame({ sessionId, participantName }) {
   }, []);
 
 
+  socket.on("CardFliped", (gamer_index, flipedCardId) => {
+    const clicked_card= document.getElementById(flipedCardId);
+    // console.log(clicked_card.className);
+    clicked_card.innerHTML = '';
+    // clicked_card.parentNode.removeChild(clicked_card);
+  });
+
+
   return (
-    <span>
+    <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
       <div>red : {red_team} : blue : {blue_team} </div>
-      <span id="card">
+      {/* <span id="card"> */}
+      <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
           // <span key={i} id={`card-${i}`} className="Card_align" onClick={()=>{click_handler(`card-${i}`)}}>
-          <span key={i} className="Card_align" onClick={(event) => {click_handler({i}); event.preventDefault()}}>
-            <Cards id={i} />
+          <span id={i} key={i} className="Card_align" onClick={(event) => {click_handler({i}); event.preventDefault()}}>
+          {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
+            <Cards  />
           </span>
         ))}
-      </span>
-    </span>
+      </div>
+    </div>
   );
 }
 export default CardGame;

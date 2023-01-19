@@ -112,7 +112,7 @@ const useStore = create((set) => ({
   cur_who_turn: "none", //누구 턴인지
   set_who_turn: (input) => set({ cur_who_turn: input }),
 
-  cur_round: 0,
+  cur_round: -1,
   set_cur_round: (input) => set({ cur_round: input }),
 
   cur_teller: -1,
@@ -177,6 +177,15 @@ const useStore = create((set) => ({
 
   my_team_win: "none",
   set_my_team_win: (input) => set({ my_team_win: input }),
+
+  card_game_end: 0,
+  set_card_game_end: (input) => set({ card_game_end: input }),
+
+  card_game_red: 0,
+  set_card_game_red: (input) => set({ card_game_red: input }),
+
+  card_game_blue: 0,
+  set_card_game_blue: (input) => set({ card_game_blue: input }),
 }));
 
 export default useStore;

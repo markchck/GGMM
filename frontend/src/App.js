@@ -6,6 +6,9 @@ import S_words from "./page_info/S_word";
 import CreateInvitation from "./page_info/CreateInvitation";
 import Main_Screen from "./page_info/Main_Screen";
 
+//miniGame
+import Card_Game_Boad from "./cardGame/Card_Game_Boad";
+
 // Timer
 import Main_timer from "./for_game/main_timer";
 
@@ -77,7 +80,7 @@ class webCam extends Component {
         let message = JSON.parse(event.data);
         useStore.getState().set_Curtime(message.timer);
         useStore.getState().set_time_change("change");
-        useStore.getState().set_cur_round(1);
+        useStore.getState().set_cur_round(0); // 미니게임 시작
 
         this.forceUpdate();
       });
@@ -138,6 +141,19 @@ class webCam extends Component {
         let message = JSON.parse(event.data);
         console.log("game over");
         this.forceUpdate();
+      });
+
+      this.state.session.on("signal:Total_score", (event) => {
+        let message = JSON.parse(event.data);
+        console.log("totalscore : ",message.Total_score)
+        useStore.getState().set_card_game_end(message.Total_score);
+        
+        if (useStore.getState().card_game_end === 35){
+          useStore.getState().set_cur_round(1)
+          console.log("mini game_over");
+          useStore.getState().set_turn_state_change("result_minigame");
+          this.forceUpdate();
+        }
       });
     }
   }
@@ -347,9 +363,8 @@ class webCam extends Component {
           </div>
         ) : (
           <>
-            {useStore.getState().cur_round === 0 ? (
+            {useStore.getState().cur_round === -1 ? (
               <div className="main_wait_room">
-                <CardGame sessionId={this.state.mySessionId} participantName={this.state.myUserName}/>
                 <div className="container_main_wait_room">
                   <div className="btn_div">
                     <Button
@@ -371,7 +386,11 @@ class webCam extends Component {
                   <Main_Screen />
                 </div>
               </div>
-            ) : (
+            ) : useStore.getState().cur_round === 0 ?
+            <div className="Game_Board">
+            <Card_Game_Boad sessionId={this.state.mySessionId} participantName={this.state.myUserName}/> 
+            </div>
+            : (
               <div className="main_wait_room">
                 <div className="container">
                   <div id="session"></div>
