@@ -24,7 +24,7 @@ function Main_timer() {
   const {
     myUserID,
     gamers,
-    my_index,
+    my_index, 
     set_my_index,
     player_count,
     set_player_count,
