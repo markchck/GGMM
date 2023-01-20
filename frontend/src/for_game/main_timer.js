@@ -160,7 +160,7 @@ function Main_timer() {
 
   const game_loop = () => {
     if (cur_turn_states === "ready") {
-      time.current = 2000;
+      time.current = 4000;
       setSec(20);
       setMsec(0);
       set_turn_state_change("game");
