@@ -631,3 +631,26 @@ h6 {
   z-index: 5;
   position: absolute;
 }
+
+.Game_Board{
+  background-image:  url('./cardGame/Card_Game_BG.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 990;
+  /* width: 100%;
+  height: 100%; */
+}
+
+.score_class{
+  position: relative;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 700%;
+  display: flex;
+  justify-content: center;
+  line-height: 70px;
+  font-weight: 800;
+  color: black;
+  margin: auto;
+  margin-top: 12%;
+}

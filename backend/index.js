@@ -190,7 +190,7 @@ app.get("/api/sessions/game", async (req, res) => {
   res.send(selectedQuestWords);
 });
 
-setInterval(updateSelectedQuestWords, 1000 * 59); //1min
+setInterval(updateSelectedQuestWords, 1000 * 39); //1min
 
 /* ------- 제시어 받는 api -------- */
 

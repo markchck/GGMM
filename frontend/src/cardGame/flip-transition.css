@@ -22,6 +22,8 @@ back -> front
 
 .flip-exit-done {
     transform: rotateY(180deg);
+    user-select: none;
+    display: none;
 }
 
 .flip-enter {

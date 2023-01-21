@@ -136,6 +136,7 @@ class webCam extends Component {
         this.forceUpdate();
       });
 
+
       // 미니게임 결과 signal
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
@@ -378,12 +379,13 @@ class webCam extends Component {
                   <Main_Screen />
                 </div>
               </div>
-            ) : useStore.getState().cur_round === 0 ? (
-              <Card_Game_Boad
-                sessionId={this.state.mySessionId}
-                participantName={this.state.myUserName}
-              />
-            ) : (
+
+            ) : useStore.getState().cur_round === 0 ?
+            <div className="Game_Board">
+            <Card_Game_Boad sessionId={this.state.mySessionId} participantName={this.state.myUserName}/> 
+            </div>
+            : (
+
               <div className="main_wait_room">
                 <div className="container">
                   <div id="session"></div>

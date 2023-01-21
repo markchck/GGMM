@@ -5,7 +5,7 @@ import "./card.css";
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
-let card_number = 41;
+let card_number = 35;
 
 function CardGame({ sessionId, participantName }) {
   const [state, setState] = useState("뒤집은 카드");
@@ -69,29 +69,36 @@ function CardGame({ sessionId, participantName }) {
       console.log("red, blue", red_score, blue_score);
     });
   }, []);
-  useEffect(() => {}, [socket]);
+
+
+
+  socket.on("CardFliped", (gamer_index, flipedCardId) => {
+    const clicked_card= document.getElementById(flipedCardId);
+    // console.log(clicked_card.className);
+    clicked_card.innerHTML = '';
+    // clicked_card.parentNode.removeChild(clicked_card);
+  });
+
+
   return (
-    <span>
+    <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
-      <div>
-        red : {card_game_red} : blue : {card_game_blue}{" "}
-      </div>
-      <span id="card">
+
+      
+      {/* <span id="card"> */}
+      <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
           // <span key={i} id={`card-${i}`} className="Card_align" onClick={()=>{click_handler(`card-${i}`)}}>
-          <span
-            key={i}
-            className="Card_align"
-            onClick={(event) => {
-              click_handler({ i });
-              event.preventDefault();
-            }}
-          >
-            <Cards id={i} />
+          <span id={i} key={i} className="Card_align" onClick={(event) => {click_handler({i}); event.preventDefault()}}>
+          {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
+            <Cards  />
           </span>
         ))}
-      </span>
-    </span>
+      </div>
+      <center className="score_class"> 
+        {red_team} RED : BLUE {blue_team} 
+        </center>
+    </div>
   );
 }
 export default CardGame;
