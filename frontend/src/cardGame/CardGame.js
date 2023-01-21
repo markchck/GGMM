@@ -70,34 +70,38 @@ function CardGame({ sessionId, participantName }) {
     });
   }, []);
 
-
-
   socket.on("CardFliped", (gamer_index, flipedCardId) => {
-    const clicked_card= document.getElementById(flipedCardId);
+    const clicked_card = document.getElementById(flipedCardId);
     // console.log(clicked_card.className);
-    clicked_card.innerHTML = '';
+    clicked_card.innerHTML = "";
     // clicked_card.parentNode.removeChild(clicked_card);
   });
-
 
   return (
     <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
 
-      
       {/* <span id="card"> */}
       <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
           // <span key={i} id={`card-${i}`} className="Card_align" onClick={()=>{click_handler(`card-${i}`)}}>
-          <span id={i} key={i} className="Card_align" onClick={(event) => {click_handler({i}); event.preventDefault()}}>
-          {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
-            <Cards  />
+          <span
+            id={i}
+            key={i}
+            className="Card_align"
+            onClick={(event) => {
+              click_handler({ i });
+              event.preventDefault();
+            }}
+          >
+            {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
+            <Cards />
           </span>
         ))}
       </div>
-      <center className="score_class"> 
-        {red_team} RED : BLUE {blue_team} 
-        </center>
+      <center className="score_class">
+        {card_game_red} RED : BLUE {card_game_blue}
+      </center>
     </div>
   );
 }
