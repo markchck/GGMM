@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import useStore from "../for_game/store.js";
 
 const Score_board = (props) => {

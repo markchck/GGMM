@@ -9,7 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 function CreateInvitation({ mySessionId }) {
-  const [invLink, setInvLink] = useState(false);
+  const [setInvLink] = useState(false);
   const [open, setOpen] = useState(false);
 
   function createLink_and_copy() {
@@ -48,7 +48,7 @@ function CreateInvitation({ mySessionId }) {
           Invite
         </div>
 
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
           <Alert
             onClose={handleClose}
             severity="success"

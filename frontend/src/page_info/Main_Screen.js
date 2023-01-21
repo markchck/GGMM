@@ -19,7 +19,7 @@ function Main_Screen() {
   useEffect(() => {
     if (cur_session !== undefined) {
       console.log("게이머 정보 추가");
-      set_player_count(player_count + 1);
+      set_player_count(gamers.length);
       console.log(gamers);
     }
     sortGamer();

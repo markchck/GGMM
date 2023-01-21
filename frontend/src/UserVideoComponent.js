@@ -10,60 +10,50 @@ import ItemFive from "./item_info/Item_5_One_and_Three";
 import ItemSix from "./item_info/Item_6_Two_and_Three";
 import ItemSevenAll from "./item_info/Item_7_All";
 
-
-import OpenViduVideoComponent_sulae from './item_info/OvVideo_sulea'
+import OpenViduVideoComponent_sulae from "./item_info/OvVideo_sulea";
 
 import useStore from "./for_game/store";
 
 const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
-  const { myUserID, cur_turn_states, gamers, player_count } = useStore();
-  const { red_gamers, red_setGamers, blue_gamers, blue_setGamers } = useStore();
-  const {
-    is_my_turn,
-    my_index,
-    AItem1,
-    AItem2,
-    AItem3,
-    BItem1,
-    BItem2,
-    BItem3,
-  } = useStore();
+  const { cur_turn_states } = useStore();
+  const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
   const { cur_teller } = useStore();
 
-  useEffect(() => {
-    console.log(
-      AItem1,
-      BItem1,
-      AItem2,
-      BItem2,
-      AItem3,
-      BItem3,
-      cur_teller,
-      video_index
-    );
-  }, [AItem1, BItem1, AItem2, BItem2, AItem3, BItem3, cur_teller, video_index]);
+  useEffect(() => {}, [
+    AItem1,
+    BItem1,
+    AItem2,
+    BItem2,
+    AItem3,
+    BItem3,
+    cur_teller,
+    video_index,
+  ]);
+
   if (cur_turn_states === "room") {
     return (
       <div>
         <OpenViduVideoComponent streamManager={streamManager} />
       </div>
-    )
-  }
-  else {
+    );
+  } else {
     return (
       <div>
         {streamManager !== undefined ? (
           <div>
-            {/* {console.log("cur_teller 와 video_index : ", cur_teller, video_index)} */}
             {!(cur_teller === video_index) ? (
               <OpenViduVideoComponent streamManager={streamManager} />
-            ) : (AItem1 == true && AItem2 == true && AItem3 == true) || (BItem1 == true && BItem2 == true && BItem3 == true) ? (
+            ) : (AItem1 == true && AItem2 == true && AItem3 == true) ||
+              (BItem1 == true && BItem2 == true && BItem3 == true) ? (
               <ItemSevenAll streamManager={streamManager} />
-            ) : (AItem1 == true && AItem2 == true) || (BItem1 == true && BItem2 == true) ? (
+            ) : (AItem1 == true && AItem2 == true) ||
+              (BItem1 == true && BItem2 == true) ? (
               <ItemFour streamManager={streamManager} />
-            ) : (AItem1 == true && AItem3 == true) || (BItem1 == true && BItem3 == true) ? (
+            ) : (AItem1 == true && AItem3 == true) ||
+              (BItem1 == true && BItem3 == true) ? (
               <ItemFive streamManager={streamManager} />
-            ) : (AItem2 == true && AItem3 == true) || (BItem2 == true && BItem3 == true) ? (
+            ) : (AItem2 == true && AItem3 == true) ||
+              (BItem2 == true && BItem3 == true) ? (
               <ItemSix streamManager={streamManager} />
             ) : AItem3 == true || BItem3 == true ? (
               <ItemThreeCut streamManager={streamManager} />
@@ -77,7 +67,6 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
           </div>
         ) : null}
       </div>
-
     );
   }
 };
