@@ -10,7 +10,15 @@ const Server = require("socket.io")
 
 // /* ---------------- 몽고디비 사용 -------------------- 
 const mongoose = require("mongoose")
-const QuestWord = require("./models/theme");
+const AnimalWord = require("./models/animals");
+const PersonWord = require("./models/Person");
+const EquipmentWord = require("./models/equipment");
+const MovieWord = require("./models/movies");
+const ExercisetWord = require("./models/exercise");
+const ProverbWord = require("./models/proverb");
+const JobWord = require("./models/job");
+
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
 	useNewUrlParser:true, 
@@ -103,7 +111,7 @@ io.on("connection", (socket) => {
 
   // flip card
   let cardlist = {};
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 36; i++) {
     cardlist[i] = false;
   }
   socket.on("flipingcard", (sessionId, my_index, cardId) => {
@@ -125,7 +133,7 @@ io.on("connection", (socket) => {
 
 
   let cardScoreList = {};
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 36; i++) {
     cardScoreList[i] = false;
   }
   socket.on("score", (red_team, blue_team, sessionId, cardId) => {
@@ -170,29 +178,55 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-let selectedQuestWords = null;
+let selectedAnimalWords = null;
+let selectedPersonWords = null;
+let selectedEquipmentWords = null;
+let selectedMovieWords = null;
+let selectedExerciseWords = null;
+let selectedJobWords = null;
+
 
 // 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
 updateSelectedQuestWords();
 
 function updateSelectedQuestWords(){
-  QuestWord.aggregate([{ $sample: { size: 15 } }], function(error, QuestWord) {
+  AnimalWord.aggregate([{ $sample: { size: 15 } }], function(error, AnimalWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedQuestWords = QuestWord;
-      // console.log(selectedQuestWords)
+      selectedAnimalWords = AnimalWord;
+      // console.log(selectedAnimalWords)
+      // res.send(selectedQuestWords)
+    }
+  });
+  EquipmentWord.aggregate([{ $sample: { size: 15 } }], function(error, EquipmentWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedEquipmentWords = EquipmentWord;
+      // console.log(selectedEquipmentWords)
+      // res.send(selectedQuestWords)
+    }
+  });
+  MovieWord.aggregate([{ $sample: { size: 15 } }], function(error, MovieWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedMovieWords = MovieWord;
+      // console.log(selectedMovieWords)
       // res.send(selectedQuestWords)
     }
   });
 }
 
 app.get("/api/sessions/game", async (req, res) => {
-  // console.log(selectedQuestWords)
-  res.send(selectedQuestWords);
+  // console.log(selectedMovieWords)
+  // console.log(selectedEquipmentWords)
+  // console.log(selectedAnimalWords)
+  res.send( {selectedAnimalWords,selectedEquipmentWords, selectedMovieWords});
 });
 
-setInterval(updateSelectedQuestWords, 1000 * 39); //1min
+setInterval(updateSelectedQuestWords, 1000 * 39);
 
 /* ------- 제시어 받는 api -------- */
 
