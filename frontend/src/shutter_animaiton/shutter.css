@@ -27,6 +27,6 @@
     --clip-value: 100%;
   }
   75%, 100%{
-    --clip-value: 0%;
+    --clip-value: 30%;
   }
 }
