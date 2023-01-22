@@ -11,8 +11,6 @@ let card_number = 12;
 function CardGame({ sessionId, participantName }) {
 
   const { my_index, cur_session, card_game_red,card_game_blue, set_card_game_red, set_card_game_blue } = useStore();
-  // const [red_team, setRed_team] = useState(0);
-  // const [blue_team, setBlue_team] = useState(0);
   const [flippedCards, setFlippedCards] = useState([]);
 
   const click_handler = (cardId) => {
@@ -59,9 +57,9 @@ function CardGame({ sessionId, participantName }) {
     socket.on("CardFliped", (flipedCardId) => {
       console.log("@으악!!!!!!!!!!!!!!!!!!!")
       const clicked_card= document.getElementById(flipedCardId);
-      setFlippedCards([...flippedCards, flipedCardId]);
+      // setFlippedCards([...flippedCards, flipedCardId]);
       clicked_card.classList.toggle('flip');
-      // clicked_card.innerHTML = '';
+      clicked_card.innerHTML = '';
     });
   }, [flippedCards, ]);
 
