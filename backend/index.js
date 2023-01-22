@@ -220,9 +220,9 @@ function updateSelectedQuestWords(){
 }
 
 app.get("/api/sessions/game", async (req, res) => {
-  console.log(selectedMovieWords)
-  console.log(selectedEquipmentWords)
-  console.log(selectedAnimalWords)
+  // console.log(selectedMovieWords)
+  // console.log(selectedEquipmentWords)
+  // console.log(selectedAnimalWords)
   res.send( {selectedAnimalWords,selectedEquipmentWords, selectedMovieWords});
 });
 

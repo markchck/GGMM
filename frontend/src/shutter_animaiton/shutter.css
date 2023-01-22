@@ -5,8 +5,8 @@
 }
 
 .main_ani_box {
-	z-index: 1;
-	position: absolute;
+   z-index: 1;
+   position: absolute;
   height: 100%;
   width: 100%;
   background: url('./shutter-IMG.jpg');
@@ -18,14 +18,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: shutters 7s infinite alternate ease-in-out;
+  /* animation-delay: 1s; */
+  animation: shutters 5s infinite alternate ease-in-out;
   }
 
 @keyframes shutters{
   0%, 10%{
-    --clip-value: 0%;
+    --clip-value: 100%;
   }
   75%, 100%{
-    --clip-value: 100%;
+    --clip-value: 0%;
   }
 }

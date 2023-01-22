@@ -33,7 +33,7 @@ function S_words() {
   }, [cur_teller]);
 
   useEffect(() => {
-    // 경준아 이거 임시로 해놓은거야
+    // 이거 임시로 해놓은거임(테마 출력해야함. 지금은 애니멀 주제 1개만 됨.)
     gamerWords.selectedAnimalWords && setShow(show.concat((gamerWords.selectedAnimalWords).map((a) => a.name)));
   }, [gamerWords]);
 

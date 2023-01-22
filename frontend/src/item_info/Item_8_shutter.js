@@ -11,9 +11,17 @@ const Item_8_shutter = ({ streamManager }) => {
     streamManager.addVideoElement(videoRef.current);
   }, [streamManager, videoRef, cur_round, cur_teller, my_index]);
 
+  const element = document.getElementById("Item8")
+  setTimeout(()=>{
+    element.classList.add('main_ani_box')
+    setTimeout(()=>{
+      element.classList.remove();
+    },10000)
+
+  },1000)
+
   return (
-    <div>
-      {videoRef && <Shutter />}
+    <div id="Item8">
       <video autoPlay ref={videoRef} muted />
     </div>
   );
