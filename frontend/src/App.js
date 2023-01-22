@@ -106,6 +106,12 @@ class webCam extends Component {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem3(message.AItem3);
       });
+
+      this.state.session.on("signal:AItem4", (event) => {
+        let message = JSON.parse(event.data);
+        useStore.getState().set_AItem4(message.AItem4);
+      });
+
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem1(message.BItem1);
@@ -119,6 +125,10 @@ class webCam extends Component {
         useStore.getState().set_BItem3(message.BItem3);
       });
 
+      this.state.session.on("signal:BItem4", (event) => {
+        let message = JSON.parse(event.data);
+        useStore.getState().set_BItem4(message.BItem4);
+      });
       //현재 술래 신호
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
@@ -143,7 +153,7 @@ class webCam extends Component {
         console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
 
-        if (useStore.getState().card_game_end === 29) {
+        if (useStore.getState().card_game_end === 35){
           useStore.getState().set_cur_round(1);
           console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");

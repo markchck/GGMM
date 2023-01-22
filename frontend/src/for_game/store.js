@@ -157,6 +157,11 @@ const useStore = create((set) => ({
   AsignalSent3: false,
   setASignalSent3: () => set({ AsignalSent3: true }),
 
+  AItem4: false,
+  set_AItem4: (input) => set({ AItem4: input }),
+  AsignalSent4: false,
+  setASignalSent4: () => set({ AsignalSent4: true }),
+
   BItem1: false,
   set_BItem1: (input) => set({ BItem1: input }),
   BsignalSent1: false,
@@ -171,6 +176,11 @@ const useStore = create((set) => ({
   set_BItem3: (input) => set({ BItem3: input }),
   BsignalSent3: false,
   setBSignalSent3: () => set({ BsignalSent3: true }),
+
+  BItem4: false,
+  set_BItem4: (input) => set({ BItem4: input }),
+  BsignalSent4: false,
+  setBSignalSent4: () => set({ BsignalSent4: true }),
 
   pass_cnt: 0,
   set_pass_cnt: (input) => set({ pass_cnt: input }),

@@ -4,9 +4,14 @@ import useStore from "../for_game/store";
 function BteamItem() {
   const {
     cur_session,
+    BItem1,
+    BItem2,
+    BItem3,
+    BItem4,
     BsignalSent1,
     BsignalSent2,
     BsignalSent3,
+    BsignalSent4,
     my_index,
     is_my_team_turn,
   } = useStore();
@@ -30,7 +35,7 @@ function BteamItem() {
             type: "BItem1",
             data: JSON.stringify(message),
           });
-      }, 10000);
+      }, 7000);
     }
   };
 
@@ -53,7 +58,7 @@ function BteamItem() {
             type: "BItem2",
             data: JSON.stringify(message),
           });
-      }, 10000);
+      }, 7000);
     }
   };
 
@@ -76,15 +81,49 @@ function BteamItem() {
             type: "BItem3",
             data: JSON.stringify(message),
           });
-      }, 10000);
+        }, 7000);
     }
   };
+
+  const sendItem4B = () => {
+    if (!BsignalSent4) {
+      // set_AItem3(true)
+
+      const message = {
+        BItem4: true,
+        // BsignalSent3: false,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "BItem4",
+          data: JSON.stringify(message),
+        });
+
+      setTimeout(() => {
+        const message = {
+          BItem3: false,
+        };
+
+        cur_session &&
+          cur_session.signal({
+            type: "BItem4",
+            data: JSON.stringify(message),
+          });
+      }, 7000);
+    }
 
   useEffect(() => {}, is_my_team_turn);
   return (
     <>
       {my_index % 2 === 1 && is_my_team_turn === false ? (
         <>
+          <button
+            className="image-button_shutter"
+            onClick={() => {
+              sendItem4B();
+            }}
+          ></button>
           <button
             className="image-button_blur"
             onClick={() => {
@@ -107,6 +146,6 @@ function BteamItem() {
       ) : null}
     </>
   );
-}
+}}
 
 export default BteamItem;

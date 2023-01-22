@@ -404,6 +404,20 @@ h5 {
 
 /* 그림 이미지 넣기 */
 
+.image-button_shutter {
+  position: relative; 
+  background-image: url("../public/resources/images/shutter_Item.jpg");
+  background-size: cover;
+  object-fit: contain;
+  background-size: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  width: 33.3%;
+  
+  margin: 0;
+  
+}
+
 .image-button_blur {
   position: relative;
   background-image: url("../public/resources/images/blur2.jpg");
