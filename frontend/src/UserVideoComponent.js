@@ -1,6 +1,5 @@
 import React, { Component, useEffect } from "react";
 import OpenViduVideoComponent from "./OvVideo";
-import Shutter from "./shutter_animaiton/shutter";
 import "./UserVideo.css";
 
 import ItemOneBlur from "./item_info/Item_1_blur";
@@ -27,8 +26,6 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
     BItem2,
     AItem3,
     BItem3,
-    AItem4,
-    BItem4,
     cur_teller,
     video_index,
   ]);
@@ -46,9 +43,11 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
           <div>
             {!(cur_teller === video_index) ? (
               <OpenViduVideoComponent streamManager={streamManager} />
-            ) : (AItem4 == true || BItem4 == true) ? (
-              <> <Shutter/> <OpenViduVideoComponent_sulae streamManager={streamManager} /></>
-            ) : (AItem1 == true && AItem2 == true && AItem3 == true) ||
+            ) 
+            // : (AItem4 == true || BItem4 == true) ? (
+            //   <> <Shutter/> <OpenViduVideoComponent_sulae streamManager={streamManager} /></>
+            // ) 
+            : (AItem1 == true && AItem2 == true && AItem3 == true) ||
               (BItem1 == true && BItem2 == true && BItem3 == true) ? (
               <ItemSevenAll streamManager={streamManager} />
             ) : (AItem1 == true && AItem2 == true) ||
