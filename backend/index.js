@@ -75,9 +75,6 @@ const io = Server(server, {
 io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
   
-
-  // socket join 시켜ㅑ줘야함. socket_session으로
-
   socket.on("session_join", (sessionId) => {
     console.log("sessioId : ", sessionId)
     socket.join(sessionId);
