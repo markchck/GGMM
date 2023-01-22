@@ -9,5 +9,5 @@
 
 .remove-Click{
   user-select: none;
-pointer-events: none;
+  pointer-events: none;
 }

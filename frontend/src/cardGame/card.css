@@ -75,9 +75,11 @@
  .blueborder{
 	border : 5px solid blue;
 	user-select: none;
+	pointer-events: none;
  }
 
  .redborder{
 	border : 5px solid red;
 	user-select: none;
+	pointer-events: none;
  }

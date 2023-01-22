@@ -11,7 +11,6 @@ let card_number = 35;
 function CardGame({ sessionId, participantName }) {
 
   const { my_index, cur_session, card_game_red, card_game_blue, set_card_game_red, set_card_game_blue } = useStore();
-  const [flippedCards, setFlippedCards] = useState([]);
 
   const click_handler = (cardId) => {
     socket.emit("flipingcard", sessionId, my_index, cardId);
@@ -58,15 +57,13 @@ function CardGame({ sessionId, participantName }) {
       const clicked_card = document.getElementById(flipedCardId);
 
       if ((my_index + 1) % 2 === 0) {
-        console.log("comeonblue!?");
         clicked_card.classList && clicked_card.classList.add("flip", "blueborder");
       } else {
-        console.log("comein~red?");
         clicked_card.classList && clicked_card.classList.add("flip", "redborder");
       };
 
     });
-  }, [flippedCards,]);
+  }, []);
 
 
 
@@ -74,10 +71,8 @@ function CardGame({ sessionId, participantName }) {
     <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
 
-      {/* <span id="card"> */}
       <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
-          // <span id={i} key={i} className={`Card_align ${flippedCards.includes(i) ? 'flip' : ''}`} onClick={(event) => {click_handler({i}); event.preventDefault()}}>
           <span id={i} key={i} className="Card_align" onClick={(event) => { click_handler({ i }); event.preventDefault() }}>
 
             <Card />
