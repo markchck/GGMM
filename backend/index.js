@@ -123,8 +123,8 @@ io.on("connection", (socket) => {
       cardlist[cardId.i] = true;
       try {
         console.log("@@@@@@@@@@@@@@@@", cardId);
-        socket.emit("CardFliped", cardId.i);
-        socket.to(sessionId).emit("CardFliped", cardId.i);
+        socket.emit("CardFliped", my_index, cardId.i);
+        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
       } catch (error) {
         console.log(error);
       }

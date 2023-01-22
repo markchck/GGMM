@@ -2,9 +2,8 @@
 
 	transition: transform 0.8s;
 	transform-style: preserve-3d;
-	width: 10vw;
+	width: 100%;
 	height: 8vh;
-	border: 3px;
  }
  
  .card {
@@ -71,4 +70,12 @@
 	width: 100%;
 	height: 100%;
 	transform: rotateY(180deg) scaleX(-1);
+ }
+
+ .blueborder{
+	border : 5px solid blue;
+ }
+
+ .redborder{
+	border : 5px solid red;
  }
