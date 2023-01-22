@@ -33,7 +33,8 @@ function S_words() {
   }, [cur_teller]);
 
   useEffect(() => {
-    setShow(show.concat(gamerWords.map((a) => a.name)));
+    // 경준아 이거 임시로 해놓은거야
+    gamerWords.selectedAnimalWords && setShow(show.concat((gamerWords.selectedAnimalWords).map((a) => a.name)));
   }, [gamerWords]);
 
   useEffect(() => {
