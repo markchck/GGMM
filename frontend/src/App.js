@@ -109,6 +109,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:AItem4", (event) => {
         let message = JSON.parse(event.data);
+        console.log("1111111111")
         useStore.getState().set_AItem4(message.AItem4);
       });
 
@@ -127,6 +128,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:BItem4", (event) => {
         let message = JSON.parse(event.data);
+        console.log("222222222222222")
         useStore.getState().set_BItem4(message.BItem4);
       });
       //현재 술래 신호

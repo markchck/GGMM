@@ -87,11 +87,8 @@ function BteamItem() {
 
   const sendItem4B = () => {
     if (!BsignalSent4) {
-      // set_AItem3(true)
-
       const message = {
         BItem4: true,
-        // BsignalSent3: false,
       };
 
       cur_session &&
@@ -110,8 +107,9 @@ function BteamItem() {
             type: "BItem4",
             data: JSON.stringify(message),
           });
-      }, 7000);
+      }, 10000);
     }
+  };
 
   useEffect(() => {}, is_my_team_turn);
   return (
@@ -146,6 +144,6 @@ function BteamItem() {
       ) : null}
     </>
   );
-}}
+}
 
 export default BteamItem;

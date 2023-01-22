@@ -1,39 +1,29 @@
 import React, { Component, useEffect, useState, useRef } from "react";
-import Cards from "./Flippable_card";
+import Card from './Card_info';
 import Cursor from "../multiCursor/cursor";
-import "./card.css";
+import './card.css'
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
-let card_number = 35;
+
+let card_number = 12;
 
 function CardGame({ sessionId, participantName }) {
-  const [state, setState] = useState("뒤집은 카드");
-  const {
-    my_index,
-    cur_session,
-    card_game_red,
-    set_card_game_red,
-    card_game_blue,
-    set_card_game_blue,
-  } = useStore();
+
+  const { my_index, cur_session, card_game_red,card_game_blue, set_card_game_red, set_card_game_blue } = useStore();
+  // const [red_team, setRed_team] = useState(0);
+  // const [blue_team, setBlue_team] = useState(0);
+  const [flippedCards, setFlippedCards] = useState([]);
 
   const click_handler = (cardId) => {
-    // const clicked_card= document.getElementById(cardId);
-    console.log("지금 누른 카드는 : ", cardId);
     socket.emit("flipingcard", sessionId, my_index, cardId);
+    console.log("지금 누른 카드는 : ", cardId, my_index);
 
     if ((my_index + 1) % 2 === 0) {
       console.log("blue : ", card_game_blue);
-      socket.emit(
-        "score",
-        card_game_red,
-        card_game_blue + 1,
-        sessionId,
-        cardId
-      );
+      socket.emit("score", card_game_red, card_game_blue+1, sessionId, cardId);
       const message = {
-        Total_score: card_game_red + card_game_blue + 1,
+        Total_score: card_game_red+card_game_blue+1,
       };
 
       cur_session &&
@@ -41,17 +31,12 @@ function CardGame({ sessionId, participantName }) {
           type: "Total_score",
           data: JSON.stringify(message),
         });
-    } else {
-      socket.emit(
-        "score",
-        card_game_red + 1,
-        card_game_blue,
-        sessionId,
-        cardId
-      );
 
+    } else {
+      socket.emit("score", card_game_red+1, card_game_blue, sessionId, cardId);
+      
       const message = {
-        Total_score: card_game_red + card_game_blue + 1,
+        Total_score: card_game_red+card_game_blue+1,
       };
 
       cur_session &&
@@ -60,48 +45,43 @@ function CardGame({ sessionId, participantName }) {
           data: JSON.stringify(message),
         });
     }
-  };
+  }
 
   useEffect(() => {
-    socket.on("score", (red_score, blue_score) => {
-      set_card_game_red(red_score);
-      set_card_game_blue(blue_score);
-      console.log("red, blue", red_score, blue_score);
+    socket.on("score", (card_game_red, card_game_blue) => {
+      set_card_game_red(card_game_red);
+      set_card_game_blue(card_game_blue);
+      console.log("red, blue",card_game_red,card_game_blue)
     });
   }, []);
 
-  socket.on("CardFliped", (gamer_index, flipedCardId) => {
-    const clicked_card = document.getElementById(flipedCardId);
-    // console.log(clicked_card.className);
-    clicked_card.innerHTML = "";
-    // clicked_card.parentNode.removeChild(clicked_card);
-  });
+  useEffect(() => {
+    socket.on("CardFliped", (flipedCardId) => {
+      console.log("@으악!!!!!!!!!!!!!!!!!!!")
+      const clicked_card= document.getElementById(flipedCardId);
+      setFlippedCards([...flippedCards, flipedCardId]);
+      clicked_card.classList.toggle('flip');
+      // clicked_card.innerHTML = '';
+    });
+  }, [flippedCards, ]);
+
+
 
   return (
     <div>
       <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
-
+      
       {/* <span id="card"> */}
       <div id="card">
         {Array.from({ length: card_number }, (_, i) => (
-          // <span key={i} id={`card-${i}`} className="Card_align" onClick={()=>{click_handler(`card-${i}`)}}>
-          <span
-            id={i}
-            key={i}
-            className="Card_align"
-            onClick={(event) => {
-              click_handler({ i });
-              event.preventDefault();
-            }}
-          >
-            {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
-            <Cards />
+          <span id={i} key={i} className={`Card_align ${flippedCards.includes(i) ? 'flip' : ''}`} onClick={(event) => {click_handler({i}); event.preventDefault()}}>
+            <Card />
           </span>
         ))}
       </div>
-      <center className="score_class">
-        {card_game_red} RED : BLUE {card_game_blue}
-      </center>
+      <center className="score_class"> 
+        {card_game_red} RED : BLUE {card_game_blue} 
+        </center>
     </div>
   );
 }

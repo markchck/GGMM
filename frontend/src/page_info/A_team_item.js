@@ -87,11 +87,8 @@ function AteamItem() {
 
   const sendItem4 = () => {
     if (!AsignalSent4) {
-      // set_AItem3(true)
-      console.log("여기는 시그널을 보내는 곳 : ", AItem4);
       const message = {
         AItem4: true,
-        // AsignalSent3: false,
       };
 
       cur_session &&
@@ -110,11 +107,11 @@ function AteamItem() {
             type: "AItem4",
             data: JSON.stringify(message),
           });
-      }, 7000);
+      }, 10000);
     }
   };
 
-  useEffect(() => {}, is_my_team_turn);
+  useEffect(() => { }, is_my_team_turn);
   return (
     <>
       {my_index % 2 === 0 && is_my_team_turn === false ? (

@@ -103,10 +103,10 @@ io.on("connection", (socket) => {
 
   // flip card
   let cardlist = {};
-  for (let i = 0; i < 42; i++) {
+  for (let i = 0; i < 12; i++) {
     cardlist[i] = false;
   }
-  socket.on("flipingcard", async (sessionId, my_index, cardId) => {
+  socket.on("flipingcard", (sessionId, my_index, cardId) => {
     console.log("My index is: ", my_index, "Flipped card is: ", cardId);
     if (cardlist[cardId.i] !== false) {
       console.log("This card has already been used.")
@@ -114,7 +114,9 @@ io.on("connection", (socket) => {
     else {
       cardlist[cardId.i] = true;
       try {
-        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
+        console.log("@@@@@@@@@@@@@@@@", cardId);
+        socket.emit("CardFliped", cardId.i);
+        socket.to(sessionId).emit("CardFliped", cardId.i);
       } catch (error) {
         console.log(error);
       }
@@ -123,7 +125,7 @@ io.on("connection", (socket) => {
 
 
   let cardScoreList = {};
-  for (let i = 0; i < 42; i++) {
+  for (let i = 0; i < 12; i++) {
     cardScoreList[i] = false;
   }
   socket.on("score", (red_team, blue_team, sessionId, cardId) => {

@@ -9,7 +9,7 @@ function FlippableCard() {
             <CSSTransition
                 in={showFront}
                 timeout={300}
-                classNames='flip'
+                classNames='flip' 
             >
                 <Card onClick={() => {
                     setShowFront((v) => !v);
