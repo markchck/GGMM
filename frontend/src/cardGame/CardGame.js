@@ -6,7 +6,7 @@ import socket from "../socket/socket";
 import useStore from "../for_game/store";
 
 
-let card_number = 12;
+let card_number = 35;
 
 function CardGame({ sessionId, participantName }) {
 
@@ -59,7 +59,7 @@ function CardGame({ sessionId, participantName }) {
       const clicked_card= document.getElementById(flipedCardId);
       // setFlippedCards([...flippedCards, flipedCardId]);
       clicked_card.classList.toggle('flip');
-      clicked_card.innerHTML = '';
+      // clicked_card.innerHTML = '';
     });
   }, [flippedCards, ]);
 

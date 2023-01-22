@@ -103,7 +103,7 @@ io.on("connection", (socket) => {
 
   // flip card
   let cardlist = {};
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 36; i++) {
     cardlist[i] = false;
   }
   socket.on("flipingcard", (sessionId, my_index, cardId) => {
@@ -125,7 +125,7 @@ io.on("connection", (socket) => {
 
 
   let cardScoreList = {};
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 36; i++) {
     cardScoreList[i] = false;
   }
   socket.on("score", (red_team, blue_team, sessionId, cardId) => {
