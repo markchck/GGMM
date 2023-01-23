@@ -3,7 +3,6 @@ import CardGame from './CardGame'
 import CountDown from './CountDown'
 import './Card_Game_Boad.css'
 
-
 export default function Card_Game_Boad({sessionId, participantName}) {
   const [CountDownShow, setCountDownShow] = useState(true);
   

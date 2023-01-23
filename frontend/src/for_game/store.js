@@ -206,7 +206,9 @@ const useStore = create((set) => ({
       }
     );
     response &&
-      set((state) => ({ MiniCardIndex: (state.MiniCardIndex = response.data) }));
+      set((state) => (
+        { MiniCardIndex: (state.MiniCardIndex = response.data) }
+        ));
   },
 
 }));

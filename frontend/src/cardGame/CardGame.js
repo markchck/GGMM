@@ -11,9 +11,10 @@ let card_number = 35;
 function CardGame({ sessionId, participantName }) {
 
   const { my_index, cur_session, card_game_red, card_game_blue, set_card_game_red, set_card_game_blue } = useStore();
+  const { MiniCardIndex } = useStore();
 
   const click_handler = (cardId) => {
-    socket.emit("flipingcard", sessionId, my_index, cardId);
+    socket.emit("flipingcard", sessionId, my_index, cardId, MiniCardIndex);
     console.log("지금 누른 카드는 : ", cardId, my_index);
 
     if ((my_index + 1) % 2 === 0) {
@@ -53,14 +54,28 @@ function CardGame({ sessionId, participantName }) {
   }, []);
 
   useEffect(() => {
-    socket.on("CardFliped", (my_index, flipedCardId) => {
+    socket.on("CardFliped", (my_index, flipedCardId, ItemIndex) => {
       const clicked_card = document.getElementById(flipedCardId);
-
-      if ((my_index + 1) % 2 === 0) {
-        clicked_card.classList && clicked_card.classList.add("flip", "blueborder");
+      console.log("이 카드는 : ", flipedCardId);
+      console.log("카드의 타입은 ", typeof(flipedCardId));
+      console.log("너 설마 모르냐?", ItemIndex);
+      console.log("true여야 함 : ", ItemIndex.includes(flipedCardId));
+       
+      if (ItemIndex.includes(flipedCardId)){
+        console.log("너 알지???", ItemIndex, "이 카드는 : ",flipedCardId);
+        if ((my_index + 1) % 2 === 0) {
+          clicked_card.classList && clicked_card.classList.add("flip", "blueborder");
+        } else {
+          clicked_card.classList && clicked_card.classList.add("flip", "redborder");
+        };
       } else {
-        clicked_card.classList && clicked_card.classList.add("flip", "redborder");
-      };
+        clicked_card.classList && clicked_card.classList.add("bomb");
+      }
+      // if ((my_index + 1) % 2 === 0) {
+      //   clicked_card.classList && clicked_card.classList.add("flip", "blueborder");
+      // } else {
+      //   clicked_card.classList && clicked_card.classList.add("flip", "redborder");
+      // };
 
     });
   }, []);

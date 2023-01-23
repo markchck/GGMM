@@ -111,8 +111,9 @@ io.on("connection", (socket) => {
   for (let i = 0; i < 36; i++) {
     cardlist[i] = false;
   }
-  socket.on("flipingcard", (sessionId, my_index, cardId) => {
+  socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
     console.log("My index is: ", my_index, "Flipped card is: ", cardId);
+    console.log("아이템카드리스트 잘 받았어요 : ", MiniCardIndex);
     if (cardlist[cardId.i] !== false) {
       console.log("This card has already been used.")
     }
@@ -120,8 +121,8 @@ io.on("connection", (socket) => {
       cardlist[cardId.i] = true;
       try {
         console.log("@@@@@@@@@@@@@@@@", cardId);
-        socket.emit("CardFliped", my_index, cardId.i);
-        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
+        socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+        socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
       } catch (error) {
         console.log(error);
       }
@@ -226,5 +227,24 @@ app.get("/api/sessions/game", async (req, res) => {
 setInterval(updateSelectedQuestWords, 1000 * 39);
 
 /* ------- 제시어 받는 api -------- */
+
+/** 카드 랜덤 섞기*/
+updateRandomCard();
+function updateRandomCard(){
+  const numbers = Array.from({length: 35}, (_, i) => i);
+  const randomCard = [];
+  
+  for (let i = 0; i < 8; i++) {
+    const randomCardIndex = Math.floor(Math.random() * numbers.length);
+    randomCard.push(numbers[randomCardIndex]);
+    numbers.splice(randomCardIndex, 1);
+  }
+  console.log("0부터34까지 8개 뽑아",randomCard);
+  app.get("/api/sessions/cardindex", async (req, res) => {
+    res.send(randomCard);
+  });
+}
+setInterval(updateRandomCard, 1000 * 90);
+/** 카드 랜덤 섞기*/
 
 process.on('uncaughtException', err => console.error(err));

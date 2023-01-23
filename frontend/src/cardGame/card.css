@@ -46,15 +46,6 @@
 	border: 2px;
  }
  
- /* .card-back {
-	background-image: url("./CardGame_Back.jpg");
-	background-size: cover;
-	background-position: center;
-	width: 100%;
-	height: 100%;
-	border: 2px;
-	transform: rotateY(180deg);
- } */
  
  #card {
 	display: grid;
@@ -64,7 +55,7 @@
  }
  
  .flip {
-	background-image: url("./CardGame_Back.jpg");
+	background-image: url("./CardGame_Item.jpg");
 	background-size: cover;
 	background-position: center;
 	width: 100%;
@@ -73,13 +64,20 @@
  }
 
  .blueborder{
-	border : 5px solid blue;
+	border : 10px solid blue;
 	user-select: none;
 	pointer-events: none;
  }
 
  .redborder{
-	border : 5px solid red;
+	border : 10px solid red;
+	user-select: none;
+	pointer-events: none;
+ }
+
+ .bomb{
+	transform: rotateY(180deg) scaleX(-1);
+	visibility: hidden;
 	user-select: none;
 	pointer-events: none;
  }

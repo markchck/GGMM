@@ -7,7 +7,7 @@ import MousePointerUsers from "./MousePointerUsers";
 
 function Cursor({sessionId, participantName}){
     const [position, setPosition] = useState({});
-    const {my_index, player_count, gamers} = useStore();
+    const {player_count, gamers} = useStore();
     let mouse_color;
     if (player_count>0){
     let idx = gamers.findIndex((a)=>{
