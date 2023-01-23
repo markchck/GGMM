@@ -1,4 +1,4 @@
-require("dotenv").config(!!process.env.CONFIG ? {path: process.env.CONFIG} : {});
+require("dotenv").config(!!process.env.CONFIG ? { path: process.env.CONFIG } : {});
 var express = require("express");
 var bodyParser = require("body-parser");
 var http = require("http");
@@ -20,15 +20,15 @@ const JobWord = require("./models/job");
 
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
-	useNewUrlParser:true, 
-	useUnifiedTopology:true, 
-	} //두번째 인자 부분은 아래에서 설명
+mongoose.connect("mongodb://127.0.0.1:27017/namanmu", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} //두번째 인자 부분은 아래에서 설명
 );
 
 const db = mongoose.connection;
 const handleOpen = () => console.log("✅ Connected to DB");
-const handleError = (error) => console.log("❌ DB Error", error) 
+const handleError = (error) => console.log("❌ DB Error", error)
 db.once("open", handleOpen); //open 이벤트가 발생 시 handleOpen 실행 
 db.on("error", handleError); //error 이벤트가 발생할 때마다 handleError 실행 );
 
@@ -74,7 +74,7 @@ const io = Server(server, {
 
 io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
-  
+
   socket.on("session_join", (sessionId) => {
     console.log("sessioId : ", sessionId)
     socket.join(sessionId);
@@ -135,7 +135,7 @@ io.on("connection", (socket) => {
     cardScoreList[i] = false;
   }
   socket.on("score", (red_team, blue_team, sessionId, cardId) => {
-   if (cardScoreList[cardId.i] !== false){
+    if (cardScoreList[cardId.i] !== false) {
       console.log("This score has already been scored.")
     }
     else {
@@ -176,53 +176,40 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-let selectedAnimalWords = null;
-let selectedPersonWords = null;
-let selectedEquipmentWords = null;
-let selectedMovieWords = null;
-let selectedExerciseWords = null;
-let selectedJobWords = null;
-
+let selectedQuestWords = [];
 
 // 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
 updateSelectedQuestWords();
 
-function updateSelectedQuestWords(){
-  AnimalWord.aggregate([{ $sample: { size: 15 } }], function(error, AnimalWord) {
+function updateSelectedQuestWords() {
+  AnimalWord.aggregate([{ $sample: { size: 15 } }], function (error, AnimalWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedAnimalWords = AnimalWord;
-      // console.log(selectedAnimalWords)
-      // res.send(selectedQuestWords)
+      selectedQuestWords.push(AnimalWord);
     }
   });
-  EquipmentWord.aggregate([{ $sample: { size: 15 } }], function(error, EquipmentWord) {
+  EquipmentWord.aggregate([{ $sample: { size: 15 } }], function (error, EquipmentWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedEquipmentWords = EquipmentWord;
-      // console.log(selectedEquipmentWords)
-      // res.send(selectedQuestWords)
+      selectedQuestWords.push(EquipmentWord);
     }
   });
-  MovieWord.aggregate([{ $sample: { size: 15 } }], function(error, MovieWord) {
+  MovieWord.aggregate([{ $sample: { size: 15 } }], function (error, MovieWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedMovieWords = MovieWord;
-      // console.log(selectedMovieWords)
-      // res.send(selectedQuestWords)
+      selectedQuestWords.push(MovieWord);
     }
   });
+
 }
 
-app.get("/api/sessions/game", async (req, res) => {
-  // console.log(selectedMovieWords)
-  // console.log(selectedEquipmentWords)
-  // console.log(selectedAnimalWords)
-  res.send( {selectedAnimalWords,selectedEquipmentWords, selectedMovieWords});
-});
+  app.get("/api/sessions/game", async (req, res) => {
+    res.send(selectedQuestWords);
+  });
+// });
 
 setInterval(updateSelectedQuestWords, 1000 * 39);
 
@@ -230,16 +217,16 @@ setInterval(updateSelectedQuestWords, 1000 * 39);
 
 /** 카드 랜덤 섞기*/
 updateRandomCard();
-function updateRandomCard(){
-  const numbers = Array.from({length: 35}, (_, i) => i);
+function updateRandomCard() {
+  const numbers = Array.from({ length: 35 }, (_, i) => i);
   const randomCard = [];
-  
-  for (let i = 0; i < 8; i++) {
+
+  for (let i = 0; i < 9; i++) {
     const randomCardIndex = Math.floor(Math.random() * numbers.length);
     randomCard.push(numbers[randomCardIndex]);
     numbers.splice(randomCardIndex, 1);
   }
-  console.log("0부터34까지 8개 뽑아",randomCard);
+  console.log("0부터34까지 9개 뽑아", randomCard);
   app.get("/api/sessions/cardindex", async (req, res) => {
     res.send(randomCard);
   });

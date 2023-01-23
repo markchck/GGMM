@@ -34,7 +34,9 @@ function S_words() {
 
   useEffect(() => {
     // 이거 임시로 해놓은거임(테마 출력해야함. 지금은 애니멀 주제 1개만 됨.)
+    console.log("바꿔어!!!!",gamerWords);
     gamerWords.selectedAnimalWords && setShow(show.concat((gamerWords.selectedAnimalWords).map((a) => a.name)));
+
   }, [gamerWords]);
 
   useEffect(() => {
