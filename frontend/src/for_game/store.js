@@ -196,6 +196,19 @@ const useStore = create((set) => ({
 
   card_game_blue: 0,
   set_card_game_blue: (input) => set({ card_game_blue: input }),
+
+  MiniCardIndex: [],
+  fetchCardIndex: async () => {
+    const response = await axios.get(
+      APPLICATION_SERVER_URL + "api/sessions/cardindex",
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    response &&
+      set((state) => ({ MiniCardIndex: (state.MiniCardIndex = response.data) }));
+  },
+
 }));
 
 export default useStore;

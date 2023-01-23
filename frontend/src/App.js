@@ -76,7 +76,7 @@ class webCam extends Component {
         let message = JSON.parse(event.data);
         useStore.getState().set_Curtime(message.timer);
         useStore.getState().set_cur_round(0); // 미니게임 시작
-
+        useStore.getState().fetchCardIndex(); // 미니게임 카드 index 요청
         this.forceUpdate();
       });
 
@@ -323,6 +323,8 @@ class webCam extends Component {
       type: "timer",
       data: JSON.stringify(message),
     });
+
+
   }
   render() {
     const mySessionId = this.state.mySessionId;
