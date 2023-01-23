@@ -150,6 +150,18 @@ io.on("connection", (socket) => {
     console.log('A user disconnected');
   });
 
+  /*-------제시어 틀린거 신호 받기---------*/
+  socket.on("wrong", (wrong_answer, sessionId) => {
+    console.log(" 틀린 답 : ", wrong_answer);
+    try {
+      console.log("wrong_answer", wrong_answer, sessionId)
+      socket.emit('response_wrong', wrong_answer);
+      socket.to(sessionId).emit('response_wrong', wrong_answer);
+    } catch (error) {
+      console.log(error);
+    };
+  });
+
 });
 
 // /* ---------------- Socket.io 사용 -------------------- 

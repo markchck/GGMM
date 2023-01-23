@@ -3,6 +3,7 @@ import useStore from "../for_game/store";
 import useSound from "use-sound";
 import good_sound from "../audio/good.mp3";
 import bad_sound from "../audio/bad.mp3";
+import socket from "../socket/socket";
 import "./S_word.css";
 
 function S_words() {
@@ -16,7 +17,7 @@ function S_words() {
 
   //USE Sound
   const [good] = useSound(good_sound);
-  const [bad] = useSound(bad_sound);
+  // const [bad] = useSound(bad_sound);
 
   let [show_name, setShow_name] = useState("--------");
   let [show_theme, setShow_theme] = useState("");
@@ -25,6 +26,11 @@ function S_words() {
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
   const { pass_cnt } = useStore();
+
+  useEffect(()=>{
+    socket.emit("session_join", cur_session.sessionId);
+    console.log("session  조인은 동작하는가")
+  },[])
 
   useEffect(async () => {
     if (cur_round !== 0) {
@@ -108,7 +114,9 @@ function S_words() {
     if (show_name === answer) {
       set_CntAns(cnt_answer + 1);
     } else {
-      bad();
+      // bad();
+      console.log("wrong", answer, cur_session.sessionId);
+      socket.emit("wrong", answer, cur_session.sessionId);
     }
     setAnswer("");
   };
@@ -117,6 +125,15 @@ function S_words() {
       check_Score(e);
     }
   };
+
+useEffect(()=>{
+  socket.on('response_wrong',(wrong_answer)=>{
+    const [bad] = useSound(bad_sound);
+    console.log("response_wrong : ", wrong_answer);
+    bad();
+  });
+},[])
+  
   return (
     <>
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
