@@ -147,6 +147,7 @@ function S_words() {
               handleKeyPress(e);
             }}
           />
+          <h5>테마 : {show_theme}</h5>
           <button class="w-btn w-btn-gra2" type="button">
             제출
           </button>

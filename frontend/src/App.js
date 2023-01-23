@@ -157,7 +157,7 @@ class webCam extends Component {
         console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
 
-        if (useStore.getState().card_game_end >= 1) {
+        if (useStore.getState().card_game_end >= 10) {
           useStore.getState().set_cur_round(1);
           console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
