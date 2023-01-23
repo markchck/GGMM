@@ -23,9 +23,6 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 
-// Cursor
-import CardGame from "./cardGame/CardGame";
-
 var timer = 500;
 
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";

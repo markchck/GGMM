@@ -112,15 +112,12 @@ io.on("connection", (socket) => {
     cardlist[i] = false;
   }
   socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
-    console.log("My index is: ", my_index, "Flipped card is: ", cardId);
-    console.log("아이템카드리스트 잘 받았어요 : ", MiniCardIndex);
-    if (cardlist[cardId.i] !== false) {
+   if (cardlist[cardId.i] !== false) {
       console.log("This card has already been used.")
     }
     else {
       cardlist[cardId.i] = true;
       try {
-        console.log("@@@@@@@@@@@@@@@@", cardId);
         socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
         socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
       } catch (error) {
