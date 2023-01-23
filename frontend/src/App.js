@@ -23,6 +23,7 @@ import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
 
+
 var timer = 500;
 
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
@@ -112,7 +113,6 @@ class webCam extends Component {
 
       this.state.session.on("signal:AItem4", (event) => {
         let message = JSON.parse(event.data);
-        console.log("1111111111");
         useStore.getState().set_AItem4(message.AItem4);
       });
 
@@ -140,13 +140,13 @@ class webCam extends Component {
         useStore.getState().set_cur_teller(message.cur_teller);
       });
 
-      //pass 시 동기화
+      // pass 시 동기화
       this.state.session.on("signal:pass", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_pass_cnt(message.pass_cnt);
       });
 
-      // //게임 종료 signal
+      // 게임 종료 signal
       this.state.session.on("signal:game_end", () => {
         this.forceUpdate();
       });
