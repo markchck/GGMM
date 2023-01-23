@@ -1,0 +1,44 @@
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; 
+  background-color: transparent;
+  border : solid 30px blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeOut 1s ease-in-out;
+}
+
+span {
+  text-align: center; 
+  line-height: 100px; 
+  animation: fadeOut 1s ease-in-out;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.Galmuri {
+  z-index: 10;
+  font-family: 'Galmuri14';
+  font-weight: 700;
+  font-size: 40px;
+  font-stretch: condensed;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@font-face {
+  font-family: 'Galmuri14';
+  src: url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+}
+
+@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');

@@ -4,6 +4,8 @@ import useSound from "use-sound";
 import good_sound from "../audio/good.mp3";
 import bad_sound from "../audio/bad.mp3";
 import socket from "../socket/socket";
+import Correct from "./correctwrong/Correct";
+import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
 
 function S_words() {
@@ -26,6 +28,8 @@ function S_words() {
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
   const { pass_cnt } = useStore();
+  const [CorrectAnswer, setCorrectAnswer] = useState(false);
+  const [WrongAnswer, setWrongAnswer] = useState(false);
 
   useEffect(()=>{
     socket.emit("session_join", cur_session.sessionId);
@@ -113,10 +117,18 @@ function S_words() {
   const check_Score = (e) => {
     if (show_name === answer) {
       set_CntAns(cnt_answer + 1);
+      setCorrectAnswer(true);
+      setTimeout(()=>{
+        setCorrectAnswer(false)
+      },1000)
     } else {
       // bad();
       console.log("wrong", answer, cur_session.sessionId);
       socket.emit("wrong", answer, cur_session.sessionId);
+      setWrongAnswer(true);
+      setTimeout(()=>{
+        setWrongAnswer(false)
+      },1000)
     }
     setAnswer("");
   };
@@ -179,6 +191,8 @@ useEffect(()=>{
           )}
         </>
       )}
+      {CorrectAnswer === true ? <Correct answer={answer}/> : null}
+      {WrongAnswer === true ? <Wrong answer={answer}/> : null}
     </>
   );
 }
