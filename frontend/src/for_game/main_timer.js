@@ -24,10 +24,8 @@ function Main_timer() {
   const {
     myUserID,
     gamers,
-    my_index, 
-    set_my_index,
+    my_index,
     player_count,
-    set_player_count,
     cur_session,
     card_game_red,
     card_game_blue,
@@ -54,7 +52,6 @@ function Main_timer() {
     }, 10);
 
     if (time.current < 0) {
-      // console.log("Time's up!");
       clearInterval(timer.current);
       game_loop();
 
@@ -80,8 +77,9 @@ function Main_timer() {
       time.current = cur_time;
       setSec(cur_time);
       setMsec(0);
-      set_turn_state_change("first_ready");
-      console.log("동기화");
+      set_turn_state_change("game");
+      console.log("게임 시작");
+      set_time_change("no_change");
     }
   }, [time_state]);
 
@@ -118,22 +116,21 @@ function Main_timer() {
 
   useEffect(() => {
     if (cur_round > 1) {
-      console.log("결과 : ", my_team_win);
       set_turn_state_change("end");
-      const message = {
-        strings: "game_end",
-      };
-      cur_session.signal({
-        type: "game_end",
-        data: JSON.stringify(message),
-      });
-      clearInterval(timer.current);
+      if (my_index === 0) {
+        const message = {
+          strings: "game_end",
+        };
+        cur_session.signal({
+          type: "game_end",
+          data: JSON.stringify(message),
+        });
+        clearInterval(timer.current);
+      }
     }
   }, [my_team_win]);
 
   useEffect(() => {
-    console.log("지금 인덱스는 :" + currentIndex.current);
-    // set_cur_teller(currentIndex.current)
     if (currentIndex.current < 10) {
       if (myUserID === { gamers }.gamers[currentIndex.current].name) {
         set_my_turn(true);
@@ -160,10 +157,16 @@ function Main_timer() {
 
   const game_loop = () => {
     if (cur_turn_states === "ready") {
-      time.current = 4000;
-      setSec(20);
-      setMsec(0);
-      set_turn_state_change("game");
+      if (my_index === 0) {
+        const message = {
+          timer: 4000,
+        };
+        cur_session &&
+          cur_session.signal({
+            type: "game_start",
+            data: JSON.stringify(message),
+          });
+      }
     } else if (cur_turn_states === "game") {
       time.current = 1000;
       setSec(10);

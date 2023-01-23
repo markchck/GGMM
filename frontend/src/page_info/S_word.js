@@ -19,6 +19,7 @@ function S_words() {
   const [bad] = useSound(bad_sound);
 
   let [show_name, setShow_name] = useState("--------");
+  let [show_theme, setShow_theme] = useState("");
   const [answer, setAnswer] = useState("");
   let [number, setNumber] = useState(cnt_answer);
   const [showIndex, setShowIndex] = useState(0);
@@ -33,15 +34,18 @@ function S_words() {
   }, [cur_teller]);
 
   useEffect(() => {
-    // 이거 임시로 해놓은거임(테마 출력해야함. 지금은 애니멀 주제 1개만 됨.)
-    console.log("바꿔어!!!!",gamerWords);
-    gamerWords.selectedAnimalWords && setShow(show.concat((gamerWords.selectedAnimalWords).map((a) => a.name)));
-
+    gamerWords && setShow(gamerWords);
   }, [gamerWords]);
 
   useEffect(() => {
-    setShow_name(show[showIndex]);
-  }, [show]);
+    if (gamerWords.length > 0 && cur_round > 0) {
+      const arr = gamerWords[cur_round - 1];
+      setShow_name(arr[showIndex].name);
+      setShow_theme(arr[showIndex].theme);
+    }
+  }, [show, cur_round, showIndex]);
+
+  useEffect(() => {}, [show_name, show_theme]);
 
   useEffect(() => {
     setNumber(cnt_answer);
@@ -78,7 +82,6 @@ function S_words() {
 
   const nextShow = () => {
     setShowIndex(showIndex + 1);
-    setShow_name(show[showIndex + 1]);
   };
 
   const pass_question = () => {
@@ -118,7 +121,9 @@ function S_words() {
     <>
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
         <>
-          <h5>{show_name}</h5>
+          <h5>
+            제시어 : {show_name}, 테마 : {show_theme}
+          </h5>
           {is_my_team_turn && cur_turn_states === "game" && (
             <button
               class="w-btn w-btn-gra1_1"

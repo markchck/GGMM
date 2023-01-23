@@ -90,6 +90,12 @@ class webCam extends Component {
         }
       });
 
+      this.state.session.on("signal:game_start", (event) => {
+        let message = JSON.parse(event.data);
+        useStore.getState().set_Curtime(message.timer);
+        useStore.getState().set_time_change("change");
+      });
+
       //item 사용 signal
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
@@ -106,7 +112,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:AItem4", (event) => {
         let message = JSON.parse(event.data);
-        console.log("1111111111")
+        console.log("1111111111");
         useStore.getState().set_AItem4(message.AItem4);
       });
 
@@ -125,7 +131,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:BItem4", (event) => {
         let message = JSON.parse(event.data);
-        console.log("222222222222222")
+        console.log("222222222222222");
         useStore.getState().set_BItem4(message.BItem4);
       });
       //현재 술래 신호
@@ -145,14 +151,13 @@ class webCam extends Component {
         this.forceUpdate();
       });
 
-
       // 미니게임 결과 signal
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
         console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
 
-        if (useStore.getState().card_game_end >= 10){
+        if (useStore.getState().card_game_end >= 1) {
           useStore.getState().set_cur_round(1);
           console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
@@ -320,8 +325,6 @@ class webCam extends Component {
       type: "timer",
       data: JSON.stringify(message),
     });
-
-
   }
   render() {
     const mySessionId = this.state.mySessionId;
@@ -390,13 +393,14 @@ class webCam extends Component {
                   <Main_Screen />
                 </div>
               </div>
-
-            ) : useStore.getState().cur_round === 0 ?
-            <div className="Game_Board">
-            <Card_Game_Boad sessionId={this.state.mySessionId} participantName={this.state.myUserName}/> 
-            </div>
-            : (
-
+            ) : useStore.getState().cur_round === 0 ? (
+              <div className="Game_Board">
+                <Card_Game_Boad
+                  sessionId={this.state.mySessionId}
+                  participantName={this.state.myUserName}
+                />
+              </div>
+            ) : (
               <div className="main_wait_room">
                 <div className="container">
                   <div id="session"></div>
