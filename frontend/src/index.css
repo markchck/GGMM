@@ -171,7 +171,7 @@ a:hover .demo-logo {
 #video-container video {
 	position: relative;
 	float: left;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 #video-container p {
@@ -218,7 +218,7 @@ a:hover .demo-logo {
 	position: relative;
 	float: left;
 	width: 50%;
-	cursor: pointer;
+	/* cursor: pointer; */
 	object-fit: cover;
 	height: 180px;
 }

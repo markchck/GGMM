@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
 import "./main_timer.css";
+
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||

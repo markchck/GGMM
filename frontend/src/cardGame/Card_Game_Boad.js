@@ -35,10 +35,8 @@ export default function Card_Game_Boad({ sessionId, participantName }) {
 
   return (
     <div className='remove-Click Game_Board'>
-      <cursor>
       {CountDownShow === true ? <CountDown /> : null}
       <CardGame sessionId={sessionId} participantName={participantName} />
-      </cursor>
     </div>
   )
 }
