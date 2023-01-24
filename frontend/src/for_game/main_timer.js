@@ -211,9 +211,6 @@ function Main_timer() {
     <>
       <div className="team_box">
         <div className="team_turn">
-          {cur_turn_states === "result_minigame" && (
-            <div className="turn_box">미니게임 결과</div>
-          )}
           {cur_turn_states === "first_ready" && (
             <div className="turn_box">잠시 후 게임이 시작됩니다.</div>
           )}

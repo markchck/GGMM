@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useStore from '../for_game/store';
 import Slide from '@material-ui/core/Slide';
 import './CardGameResult.css';
+import useSound from "use-sound";
+import ModalUp from "../audio/ModalOn.mp3"
 
 const style = {
   position: 'absolute',
@@ -19,9 +21,11 @@ const style = {
 function CardGameResult() {
   const [open, setOpen] = React.useState(false);
   const { card_game_end, card_game_red, card_game_blue, cur_session } = useStore();
+  const [ModalOn] = useSound(ModalUp);
 
   React.useEffect(() => {
     setOpen(true);
+    ModalOn();
     setTimeout(() => {
       setOpen(false);
       const message = {
@@ -33,7 +37,7 @@ function CardGameResult() {
           data: JSON.stringify(message),
         });
     }, 3000);
-  }, []);
+  }, [ModalOn]);
 
   return (
     <div>
