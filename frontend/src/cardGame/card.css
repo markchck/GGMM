@@ -112,10 +112,10 @@
 }
 
 .col-display {
-	width: 155px;
-	height: 120px;
+	width: 15vw;
+	height: 12vh;
 	background: #080001;
-	border-radius: 5px;
+	border-radius: 10px;
 	font-family: "Silkscreen", cursive;
 	font-style: normal;
 	font-weight: 400;
@@ -145,4 +145,12 @@
 	color: white;
 	line-height: 35px;
 	background: transparent;
+}
+
+.colorRed{
+	color:crimson;
+}
+
+.colorBlue{
+	color:blue;
 }
