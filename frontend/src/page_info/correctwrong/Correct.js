@@ -7,9 +7,6 @@ function Correct({answer}) {
 
     <div className="circle" >
       <span className="Galmuri answer_font">
-        <center >
-        {answer}
-        </center>
       </span>
     </div>
 

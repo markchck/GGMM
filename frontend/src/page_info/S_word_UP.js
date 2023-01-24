@@ -87,29 +87,35 @@ function S_words_Up() {
   };
 
   return (
-    
     <>
-      {cur_turn_states !== 'game' && (
+      {cur_turn_states !== "game" && (
+        // 게임 중이 아닐 때
         <></>
       )}
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
+        //내턴 또는 우리 팀 턴이 아닐 때
         <>
           <h5>
             제시어 : {show_name}, 테마 : {show_theme}
           </h5>
           {is_my_team_turn && cur_turn_states === "game" && (
             <button
-              class="w-btn w-btn-gra1_1"
-              type="button"
-              onClick={pass_question}
+            class="w-btn w-btn-gra1_1"
+            type="button"
+            onClick={pass_question}
             >
-              PASS
-            </button>
-          )}
+                PASS
+              </button>
+            )}
         </>
+      )}
+      {cur_teller !== my_index && is_my_team_turn && cur_turn_states === "game" && (
+        //내팀이고 게임 상태일 때(술래는 미포함)
+        <h5>테마 : {show_theme}</h5>
       )}
     </>
   );
 }
 
 export default S_words_Up;
+

@@ -6,9 +6,6 @@ function Wrong({answer}) {
   return (
     <div className="line" >
       <span className="Galmuri answer_font">
-        <center >
-        {answer}
-        </center>
       </span>
     </div>
   );
