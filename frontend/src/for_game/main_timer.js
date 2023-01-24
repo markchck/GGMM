@@ -209,25 +209,12 @@ function Main_timer() {
 
   return (
     <>
-      <div className="team_box">
-        <div className="team_turn">
-          {cur_turn_states === "first_ready" && (
-            <div className="turn_box">잠시 후 게임이 시작됩니다.</div>
-          )}
-          {cur_turn_states === "ready" && (
-            <div className="turn_box">
-              {cur_who_turn.toUpperCase()}팀은 게임을 준비해주세요
-            </div>
-          )}
-          {cur_turn_states === "game" && (
-            <div className="turn_box">
-              {cur_who_turn.toUpperCase()}팀 Turn : {sec}
-            </div>
-          )}
-        </div>
-      </div>
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
+
+          {cur_turn_states !== 'game' && (
+            <></>
+          )}
           {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
             <UserVideoComponent
               streamManager={
@@ -238,6 +225,30 @@ function Main_timer() {
           )}
         </div>
       </div>
+      <div className="team_box2">
+        <div className="team_turn3">
+          {cur_turn_states === "first_ready" && (
+            <center>
+            <p className="turn_box2">잠시 후 게임이 시작됩니다.</p>
+            </center>
+          )}
+          {cur_turn_states === "ready" && (
+            <p className="turn_box2">
+              <center>
+              {cur_who_turn.toUpperCase()}팀은 게임을 준비해주세요
+              </center>
+            </p>
+          )}
+          {cur_turn_states === "game" && (
+            <p className="turn_box2">
+              <center>
+              {cur_who_turn.toUpperCase()}팀 Turn : {sec}
+              </center>
+            </p>
+          )}
+        </div>
+      </div>
+
     </>
   );
 }

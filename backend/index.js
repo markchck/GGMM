@@ -86,7 +86,8 @@ io.on("connection", (socket) => {
 
   socket.on('mouse_move', ([sessionId, userInfo]) => {
     try {
-      socket.broadcast.to(sessionId).emit('cursor', userInfo);
+      // socket.emit('cursor', userInfo);
+      socket.to(sessionId).emit('cursor', userInfo);
     } catch (error) {
       console.log(error);
     }

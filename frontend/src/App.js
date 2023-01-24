@@ -475,13 +475,11 @@ class webCam extends Component {
 
                     {/* 중앙 freame */}
                     <div className="mid-screen">
-                      <div>
                         <div className="team_box">
                           <div className="team_turn2">
                             <S_words_UP />
                           </div>
                         </div>
-                      </div>
                       {(useStore.getState().gamers[0] ||
                         useStore.getState().gamers[1] ||
                         useStore.getState().gamers[2] ||

@@ -8,7 +8,7 @@ import Correct from "./correctwrong/Correct";
 import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
 
-function S_words() {
+function S_words_Down() {
   let [show, setShow] = useState([]);
 
   //ZUSTAND
@@ -147,22 +147,6 @@ useEffect(()=>{
   
   return (
     <>
-      {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
-        <>
-          <h5>
-            제시어 : {show_name}, 테마 : {show_theme}
-          </h5>
-          {is_my_team_turn && cur_turn_states === "game" && (
-            <button
-              class="w-btn w-btn-gra1_1"
-              type="button"
-              onClick={pass_question}
-            >
-              PASS
-            </button>
-          )}
-        </>
-      )}
       {!is_my_turn && is_my_team_turn && (
         <>
           <input
@@ -175,19 +159,9 @@ useEffect(()=>{
               handleKeyPress(e);
             }}
           />
-          <h5>테마 : {show_theme}</h5>
           <button class="w-btn w-btn-gra2" type="button">
             제출
           </button>
-          {is_my_team_turn && cur_turn_states === "game" && (
-            <button
-              class="w-btn w-btn-gra1"
-              type="button"
-              onClick={pass_question}
-            >
-              PASS
-            </button>
-          )}
         </>
       )}
       {CorrectAnswer === true ? <Correct answer={answer}/> : null}
@@ -196,4 +170,4 @@ useEffect(()=>{
   );
 }
 
-export default S_words;
+export default S_words_Down;

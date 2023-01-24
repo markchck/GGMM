@@ -1,8 +1,9 @@
 .Game_Board{
-  background-image:  url('./Card_Game_BG.jpg');
-  background-size: cover;
-  background-position: center;
-  z-index: 990;
+  position: relative;
+}
+
+cursor {
+	color: red;
 }
 
 .remove-Click{

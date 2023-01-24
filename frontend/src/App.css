@@ -242,15 +242,11 @@
 
 .team_box2 {
   position: relative;
-  height: 15%; /* 원하는 너비 */
-  top: 2.5vh;
-  right: 2.5%;
+  height: 5%; /* 원하는 너비 */
+  top: 59vh;
+  left: 1.5%;
 }
-.team_box2:before {
-  content: "";
-  display: block;
-  padding-top: 18%;
-}
+
 
 .team_turn2 {
   background-color: rgba(255, 255, 255, 0.3);
@@ -262,6 +258,18 @@
   width: 95%;
   border-radius: 13px;
 }
+
+.team_turn3 {
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative;
+  height: 80%;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 95%;
+  border-radius: 13px;
+}
+
 h5 {
   position: relative;
   font-size: 35px;
@@ -279,14 +287,8 @@ h5 {
   margin: auto;
 }
 
-.main_video_box:before {
-  content: "";
-  display: block;
-  padding-top: 75%;
-}
-
 .main_video_frame {
-  position: absolute;
+  position: relative;
   top: 5%;
   right: 0;
   bottom: 0;
@@ -467,6 +469,17 @@ h6 {
   line-height: 70px;
   font-weight: 350;
   color: white;
+  margin: auto;
+}
+
+.turn_box2 {
+  width: 100%;
+  position: absolute;
+  font-family: "Black Han Sans", sans-serif;
+  font-size: 15px;
+  justify-content: center;
+  font-weight: 350;
+  color: black;
   margin: auto;
 }
 
