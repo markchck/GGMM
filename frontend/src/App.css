@@ -225,11 +225,6 @@
   top: 1vh;
   left: 1.5%;
 }
-.team_box:before {
-  content: "";
-  display: block;
-  padding-top: 20%;
-}
 
 .team_turn {
   background-color: rgba(255, 255, 255, 0.3);
@@ -259,7 +254,7 @@
 
 .team_turn2 {
   background-color: rgba(255, 255, 255, 0.3);
-  position: absolute;
+  position: relative;
   height: 80%;
   right: 0;
   bottom: 0;

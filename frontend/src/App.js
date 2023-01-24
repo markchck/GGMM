@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
-import S_words from "./page_info/S_word";
+import S_words_UP from "./page_info/S_word_UP";
+import S_words_Down from "./page_info/S_word_Down";
 import CreateInvitation from "./page_info/CreateInvitation";
 import Main_Screen from "./page_info/Main_Screen";
 
@@ -474,17 +475,23 @@ class webCam extends Component {
 
                     {/* 중앙 freame */}
                     <div className="mid-screen">
+                      <div>
+                        <div className="team_box">
+                          <div className="team_turn2">
+                            <S_words_UP />
+                          </div>
+                        </div>
+                      </div>
                       {(useStore.getState().gamers[0] ||
                         useStore.getState().gamers[1] ||
                         useStore.getState().gamers[2] ||
                         useStore.getState().gamers[3] ||
                         useStore.getState().gamers[4] ||
                         useStore.getState().gamers[5]) && <Main_timer />}
-
                       <div>
                         <div className="team_box">
                           <div className="team_turn2">
-                            <S_words />
+                            <S_words_Down />
                           </div>
                         </div>
                       </div>
