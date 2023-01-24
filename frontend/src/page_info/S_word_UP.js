@@ -51,10 +51,6 @@ function S_words_Up() {
   }, [show, cur_round, showIndex]);
 
   useEffect(() => {
-    good();
-  }, [show_name]);
-
-  useEffect(() => {
     setNumber(cnt_answer);
   }, [cnt_answer]);
   useEffect(() => {

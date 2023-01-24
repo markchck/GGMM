@@ -228,22 +228,16 @@ function Main_timer() {
       <div className="team_box2">
         <div className="team_turn3">
           {cur_turn_states === "first_ready" && (
-            <center>
-            <p className="turn_box2">잠시 후 게임이 시작됩니다.</p>
-            </center>
+            <p className="turn_box2 timer-font">잠시 후 게임이 시작됩니다.</p>
           )}
           {cur_turn_states === "ready" && (
-            <p className="turn_box2">
-              <center>
+            <p className="turn_box2 timer-font">
               {cur_who_turn.toUpperCase()}팀은 게임을 준비해주세요
-              </center>
             </p>
           )}
           {cur_turn_states === "game" && (
-            <p className="turn_box2">
-              <center>
+            <p className="turn_box2 timer-font">
               {cur_who_turn.toUpperCase()}팀 Turn : {sec}
-              </center>
             </p>
           )}
         </div>
