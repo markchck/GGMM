@@ -200,8 +200,8 @@ function Main_timer() {
       setMsec(0);
       set_turn_state_change("ready");
     } else if (cur_turn_states === "result_minigame") {
-      time.current = 500;
-      setSec(5);
+      time.current = 100;
+      setSec(1);
       setMsec(0);
       set_turn_state_change("first_ready");
     }

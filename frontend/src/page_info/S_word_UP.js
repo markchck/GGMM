@@ -7,6 +7,8 @@ import socket from "../socket/socket";
 import Correct from "./correctwrong/Correct";
 import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
+import "./theme.css";
+
 
 function S_words_Up() {
   let [show, setShow] = useState([]);
@@ -48,14 +50,15 @@ function S_words_Up() {
     }
   }, [show, cur_round, showIndex]);
 
-  useEffect(() => {}, [show_name, show_theme]);
+  useEffect(() => {
+    good();
+  }, [show_name]);
 
   useEffect(() => {
     setNumber(cnt_answer);
   }, [cnt_answer]);
   useEffect(() => {
     if (number !== 0) {
-      sendScore();
       if (showIndex < show.length - 1) {
         nextShow();
         good();
@@ -63,7 +66,7 @@ function S_words_Up() {
     }
   }, [number]);
 
-  useEffect(() => {}, [is_my_team_turn]);
+  useEffect(() => { }, [is_my_team_turn]);
 
   useEffect(() => {
     if (pass_cnt > 0) {
@@ -95,23 +98,23 @@ function S_words_Up() {
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
         //내턴 또는 우리 팀 턴이 아닐 때
         <>
-          <h5>
-            제시어 : {show_name}, 테마 : {show_theme}
-          </h5>
+            <span className="font-theme">[{show_theme}]</span>
+            <span className="font-name">{show_name}</span>
+
           {is_my_team_turn && cur_turn_states === "game" && (
             <button
-            class="w-btn w-btn-gra1_1"
-            type="button"
-            onClick={pass_question}
+              class="w-btn w-btn-gra1_1"
+              type="button"
+              onClick={pass_question}
             >
-                PASS
-              </button>
-            )}
+              PASS
+            </button>
+          )}
         </>
       )}
       {cur_teller !== my_index && is_my_team_turn && cur_turn_states === "game" && (
         //내팀이고 게임 상태일 때(술래는 미포함)
-        <h5>테마 : {show_theme}</h5>
+        <span className="font-theme">[{show_theme}]</span>
       )}
     </>
   );
