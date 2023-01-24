@@ -22,39 +22,31 @@ function CardGame({ sessionId, participantName }) {
       console.log("아이템 누르면 들어오냐????????");
       if ((my_index + 1) % 2 === 0) {
         console.log("blue : ", card_game_blue);
-        socket.emit("score", card_game_red, card_game_blue + 1, sessionId, cardId);
-        const message = {
-          Total_score: card_game_red + card_game_blue + 1,
-        };
-
-        cur_session &&
-          cur_session.signal({
-            type: "Total_score",
-            data: JSON.stringify(message),
-          });
-
+        socket.emit("score", sessionId, cardId, my_index);
+        
       } else {
         console.log("red : ", card_game_blue);
-        socket.emit("score", card_game_red + 1, card_game_blue, sessionId, cardId);
-
-        const message = {
-          Total_score: card_game_red + card_game_blue + 1,
-        };
-
-        cur_session &&
-          cur_session.signal({
-            type: "Total_score",
-            data: JSON.stringify(message),
-          });
+        socket.emit("score", sessionId, cardId, my_index);
       }
     }
   }
 
   useEffect(() => {
-    socket.on("score", (card_game_red, card_game_blue) => {
-      set_card_game_red(card_game_red);
-      set_card_game_blue(card_game_blue);
-      console.log("red, blue", card_game_red, card_game_blue)
+    socket.on("score", (red_score, blue_score) => {
+      set_card_game_red(red_score);
+      set_card_game_blue(blue_score);
+
+      const message = {
+        Total_score: red_score + blue_score,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
+
+      console.log("red, blue", red_score, blue_score)
     });
   }, []);
 

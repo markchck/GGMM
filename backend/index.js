@@ -20,6 +20,7 @@ const JobWord = require("./models/job");
 
 
 
+
 mongoose.connect("mongodb://127.0.0.1:27017/namanmu", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -63,6 +64,9 @@ var openvidu = new OpenVidu(
   process.env.OPENVIDU_URL,
   process.env.OPENVIDU_SECRET
 );
+
+let red_score = 0;
+let blue_score = 0;
 
 // /* ---------------- Socket.io 사용 -------------------- 
 const io = Server(server, {
@@ -154,26 +158,6 @@ io.on("connection", (socket) => {
     });
   });
 
-
-  // let cardScoreList = {};
-  // for (let i = 0; i < 36; i++) {
-  //   cardScoreList[i] = false;
-  // }
-  // socket.on("score", (red_team, blue_team, sessionId, cardId) => {
-  //   if (cardScoreList[cardId.i] !== false) {
-  //     console.log("This score has already been scored.")
-  //   }
-  //   else {
-  //     cardScoreList[cardId.i] = true;
-  //     try {
-  //       socket.to(sessionId).emit("score", red_team, blue_team);
-  //       socket.emit("score", red_team, blue_team);
-  //     } catch (error) {
-  //       console.log(error);
-  //     };
-  //   }
-  // });
-
   const Scorelock = new AsyncLock();
   let cardScoreList = {};
 
@@ -181,7 +165,13 @@ io.on("connection", (socket) => {
     cardScoreList[i] = false;
   }
 
-  socket.on("score", (red_team, blue_team, sessionId, cardId) => {
+  function score_initiallize (){
+    red_score = 0;
+    blue_score = 0;
+  }
+  
+
+  socket.on("score", (sessionId, cardId, my_index) => {
     Scorelock.acquire(cardId.i, function (done) {
       if (cardScoreList[cardId.i] !== false) {
         console.log("This score has already been scored.");
@@ -189,8 +179,17 @@ io.on("connection", (socket) => {
       } else {
         cardScoreList[cardId.i] = true;
         try {
-          socket.to(sessionId).emit("score", red_team, blue_team);
-          socket.emit("score", red_team, blue_team);
+          if((my_index +1)%2 === 0){
+            blue_score = blue_score+1
+          } else{
+            red_score = red_score+1
+          }
+          socket.to(sessionId).emit("score", red_score, blue_score);
+          socket.emit("score", red_score, blue_score);
+
+          if((red_score + blue_score) === 9){
+            setTimeout(score_initiallize, 3000)
+          }
         } catch (error) {
           console.log(error);
         }
