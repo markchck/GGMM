@@ -85,13 +85,12 @@
 .score_class {
 	position: relative;
 	font-family: "Black Han Sans", sans-serif;
-	font-size: 700%;
+	font-size: 300%;
 	justify-content: center;
 	line-height: 70px;
 	font-weight: 800;
 	color: black;
 	margin-top: auto;
-	margin: 10vh;
 }
 
 /* @font-face {
@@ -104,7 +103,7 @@
 	font-family: "Verdana";
 	font-style: normal;
 	font-weight: 700;
-	font-size: 40px;
+	font-size: 25px;
 	line-height: 36px;
 	text-align: center;
 
@@ -112,8 +111,6 @@
 }
 
 .col-display {
-	width: 15vw;
-	height: 12vh;
 	background: #080001;
 	border-radius: 10px;
 	font-family: "Silkscreen", cursive;

@@ -93,7 +93,8 @@ function CardGame({ sessionId, participantName }) {
           ))}
         </div>
         <center className="score_class">
-          <span className="col-display">{card_game_red}</span> <span className="colorRed">RED</span>   VS   <span className="colorBlue">BLUE</span> <span className="col-display">{card_game_blue}</span>
+           <span className="colorRed">레드</span><span className="colorBlue">블루</span> 
+           <p><span className="col col-display">{card_game_red}</span> <span className="col col-display">{card_game_blue}</span></p>
         </center>
       </div>
       {card_game_end === 9 ? <CardGameResult /> : null}
