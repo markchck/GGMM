@@ -656,14 +656,3 @@ h6 {
   height: 100%; */
 }
 
-.score_class{
-  position: relative;
-  font-family: "Black Han Sans", sans-serif;
-  font-size: 700%;
-  justify-content: center;
-  line-height: 70px;
-  font-weight: 800;
-  color: black;
-  margin-top: auto;
-  margin : 10vh;
-}
