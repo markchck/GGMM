@@ -12,8 +12,7 @@ function S_words() {
   let [show, setShow] = useState([]);
 
   //ZUSTAND
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } =
-    useStore();
+  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } = useStore();
   const { is_my_turn, cur_who_turn, my_index, cur_teller } = useStore();
   const { gamerWords, fetchGamerWords } = useStore();
 

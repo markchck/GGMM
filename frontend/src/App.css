@@ -660,11 +660,10 @@ h6 {
   position: relative;
   font-family: "Black Han Sans", sans-serif;
   font-size: 700%;
-  display: flex;
   justify-content: center;
   line-height: 70px;
   font-weight: 800;
   color: black;
-  margin: auto;
-  margin-top: 12%;
+  margin-top: auto;
+  margin : 10vh;
 }

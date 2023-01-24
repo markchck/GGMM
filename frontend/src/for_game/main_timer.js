@@ -231,41 +231,13 @@ function Main_timer() {
       </div>
       <div className="main_video_box">
         <div id="main_screen" className="main_video_frame">
-          {cur_turn_states === "result_minigame" ? (
-            <>
-              {my_index % 2 == 0 ? (
-                <>
-                  {card_game_red > card_game_blue ? (
-                    <>
-                      <div className="mini_win" />
-                    </>
-                  ) : (
-                    <>
-                      <div className="mini_lose" />
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  {card_game_blue > card_game_red ? (
-                    <div className="mini_win" />
-                  ) : (
-                    <div className="mini_lose" />
-                  )}
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
-                <UserVideoComponent
-                  streamManager={
-                    { gamers }.gamers[currentIndex.current].streamManager
-                  }
-                  video_index={currentIndex.current}
-                />
-              )}
-            </>
+          {cur_round > 0 && { gamers }.gamers[currentIndex.current] && (
+            <UserVideoComponent
+              streamManager={
+                { gamers }.gamers[currentIndex.current].streamManager
+              }
+              video_index={currentIndex.current}
+            />
           )}
         </div>
       </div>

@@ -107,43 +107,98 @@ io.on("connection", (socket) => {
   });
 
   // flip card
+  // let cardlist = {};
+  // for (let i = 0; i < 36; i++) {
+  //   cardlist[i] = false;
+  // }
+  // socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
+  //  if (cardlist[cardId.i] !== false) {
+  //     console.log("This card has already been used.")
+  //   }
+  //   else {
+  //     cardlist[cardId.i] = true;
+  //     try {
+  //       socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+  //       socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // });
+
+  const AsyncLock = require('async-lock');
+  const lock = new AsyncLock();
   let cardlist = {};
+
   for (let i = 0; i < 36; i++) {
     cardlist[i] = false;
   }
+
   socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
-   if (cardlist[cardId.i] !== false) {
-      console.log("This card has already been used.")
-    }
-    else {
-      cardlist[cardId.i] = true;
-      try {
-        socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
-        socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
-      } catch (error) {
-        console.log(error);
+    lock.acquire(cardId.i, function (done) {
+      if (cardlist[cardId.i] !== false) {
+        console.log("This card has already been used.");
+        done();
+      } else {
+        cardlist[cardId.i] = true;
+        try {
+          socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+          socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+        } catch (error) {
+          console.log(error);
+        }
+        done();
       }
-    }
+    }, function (err, ret) {
+      //lock released
+    });
   });
 
 
+  // let cardScoreList = {};
+  // for (let i = 0; i < 36; i++) {
+  //   cardScoreList[i] = false;
+  // }
+  // socket.on("score", (red_team, blue_team, sessionId, cardId) => {
+  //   if (cardScoreList[cardId.i] !== false) {
+  //     console.log("This score has already been scored.")
+  //   }
+  //   else {
+  //     cardScoreList[cardId.i] = true;
+  //     try {
+  //       socket.to(sessionId).emit("score", red_team, blue_team);
+  //       socket.emit("score", red_team, blue_team);
+  //     } catch (error) {
+  //       console.log(error);
+  //     };
+  //   }
+  // });
+
+  const Scorelock = new AsyncLock();
   let cardScoreList = {};
+
   for (let i = 0; i < 36; i++) {
     cardScoreList[i] = false;
   }
+
   socket.on("score", (red_team, blue_team, sessionId, cardId) => {
-    if (cardScoreList[cardId.i] !== false) {
-      console.log("This score has already been scored.")
-    }
-    else {
-      cardScoreList[cardId.i] = true;
-      try {
-        socket.to(sessionId).emit("score", red_team, blue_team);
-        socket.emit("score", red_team, blue_team);
-      } catch (error) {
-        console.log(error);
-      };
-    }
+    Scorelock.acquire(cardId.i, function (done) {
+      if (cardScoreList[cardId.i] !== false) {
+        console.log("This score has already been scored.");
+        done();
+      } else {
+        cardScoreList[cardId.i] = true;
+        try {
+          socket.to(sessionId).emit("score", red_team, blue_team);
+          socket.emit("score", red_team, blue_team);
+        } catch (error) {
+          console.log(error);
+        }
+        done();
+      }
+    }, function (err, ret) {
+      //lock released
+    });
   });
 
   socket.on('disconnect', () => {
@@ -215,9 +270,9 @@ function updateSelectedQuestWords() {
 
 }
 
-  app.get("/api/sessions/game", async (req, res) => {
-    res.send(selectedQuestWords);
-  });
+app.get("/api/sessions/game", async (req, res) => {
+  res.send(selectedQuestWords);
+});
 // });
 
 setInterval(updateSelectedQuestWords, 1000 * 39);
