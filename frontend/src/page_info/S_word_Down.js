@@ -147,11 +147,15 @@ useEffect(()=>{
   
   return (
     <>
+      {cur_turn_states !== 'game' && (
+        <></>
+      )}
       {!is_my_turn && is_my_team_turn && (
         <>
           <input
             id="Answer_input"
             value={answer}
+            placeholder={'정답을 입력하세요'}
             onChange={(e) => {
               setAnswer(e.target.value);
             }}
@@ -159,9 +163,6 @@ useEffect(()=>{
               handleKeyPress(e);
             }}
           />
-          <button class="w-btn w-btn-gra2" type="button">
-            제출
-          </button>
         </>
       )}
       {CorrectAnswer === true ? <Correct answer={answer}/> : null}

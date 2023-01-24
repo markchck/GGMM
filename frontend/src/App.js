@@ -486,13 +486,11 @@ class webCam extends Component {
                         useStore.getState().gamers[3] ||
                         useStore.getState().gamers[4] ||
                         useStore.getState().gamers[5]) && <Main_timer />}
-                      <div>
-                        <div className="team_box">
-                          <div className="team_turn2">
+                        <div className="team_box3">
+                          <div className="team_turn4">
                             <S_words_Down />
                           </div>
                         </div>
-                      </div>
                     </div>
                     {/* B팀 프레임 */}
                     <div className="b-screen">
