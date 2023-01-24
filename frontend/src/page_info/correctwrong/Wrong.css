@@ -1,23 +1,24 @@
 .line {
   z-index: 0;
-  margin-top:100px;
+
   position: absolute;
-  width: 300px;
-  height: 45px;
+
   background: red;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fadeOut 1s ease-in-out;
   transform: rotate(45deg);
+  left: 35%;
+  top: 35%;
 }
 
 .line::before,
 .line::after {
   content: "";
   position: absolute;
-  width: 300px;
-  height: 45px;
+  width: 100px;
+  height: 20px;
   background: red;
 }
 
@@ -28,7 +29,6 @@
 .line::after {
   transform: rotate(180deg);
 }
-
 
 .line .answer_font {
   /* text-align: center;  */
@@ -42,7 +42,7 @@
 
 .Galmuri {
   z-index: 10;
-  font-family: 'Galmuri14';
+  font-family: "Galmuri14";
   font-weight: 700;
   font-size: 40px;
   font-stretch: condensed;
@@ -58,8 +58,8 @@
 }
 
 @font-face {
-  font-family: 'Galmuri14';
-  src: url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+  font-family: "Galmuri14";
+  src: url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
 }
 
-@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+@import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");

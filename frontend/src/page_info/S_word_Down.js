@@ -145,30 +145,36 @@ useEffect(()=>{
   });
 },[])
   
-  return (
-    <>
-      {cur_turn_states !== 'game' && (
-        <></>
-      )}
-      {!is_my_turn && is_my_team_turn && (
-        <>
-          <input
-            id="Answer_input"
-            value={answer}
-            placeholder={'정답을 입력하세요'}
-            onChange={(e) => {
-              setAnswer(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              handleKeyPress(e);
-            }}
-          />
-        </>
-      )}
-      {CorrectAnswer === true ? <Correct answer={answer}/> : null}
-      {WrongAnswer === true ? <Wrong answer={answer}/> : null}
-    </>
-  );
+return (
+  <>
+    {!is_my_turn && is_my_team_turn && (
+      <>
+        <input
+          id="Answer_input"
+          value={answer}
+          placeholder={"Press Enter"}
+          onChange={(e) => {
+            setAnswer(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleKeyPress(e);
+          }}
+        />
+        <button
+          class="w-btn w-btn-gra2"
+          type="button"
+          onClick={(e) => check_Score(e)}
+        >
+          제출
+        </button>
+      </>
+    )}
+
+    {CorrectAnswer === true ? <Correct answer={answer} /> : null}
+    {WrongAnswer === true ? <Wrong answer={answer} /> : null}
+  </>
+);
 }
+
 
 export default S_words_Down;
