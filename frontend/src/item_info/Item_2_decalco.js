@@ -52,7 +52,7 @@ const ItemTwoDecal = ({ streamManager }) => {
             videoRef.current.videoHeight
           );
           ctx.setTransform(1, 0, 0, 1, 0, 0);
-          setTimeout(drawFrame, 50);
+         setTimeout(drawFrame, 50);
         }
       }
       drawFrame();

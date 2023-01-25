@@ -5,6 +5,7 @@ import "./Item.css";
 const ItemThreeCut = ({ streamManager }) => {
   const videoRef = React.createRef();
   const canvasRef = useRef(null);
+
   useEffect(() => {
     streamManager.addVideoElement(videoRef.current);
   }, [streamManager, videoRef]);

@@ -80,17 +80,17 @@ class webCam extends Component {
       });
 
       //점수 동기화
-      this.state.session.on("signal:score", (event) => {
-        let message = JSON.parse(event.data);
-        console.log("시그널 확인(score) : " + message.score);
-        useStore.getState().set_CntAns(message.score);
-        if (useStore.getState().cur_who_turn === "red") {
-          useStore.getState().set_CurRed_cnt(message.score);
-        }
-        if (useStore.getState().cur_who_turn === "blue") {
-          useStore.getState().set_CurBlue_cnt(message.score);
-        }
-      });
+      // this.state.session.on("signal:score", (event) => {
+      //   let message = JSON.parse(event.data);
+      //   // console.log("시그널 확인(score) : " + message.score);
+      //   useStore.getState().set_CntAns(message.score);
+      //   if (useStore.getState().cur_who_turn === "red") {
+      //     useStore.getState().set_CurRed_cnt(message.score);
+      //   }
+      //   if (useStore.getState().cur_who_turn === "blue") {
+      //     useStore.getState().set_CurBlue_cnt(message.score);
+      //   }
+      // });
 
       this.state.session.on("signal:game_start", (event) => {
         let message = JSON.parse(event.data);
@@ -132,7 +132,7 @@ class webCam extends Component {
 
       this.state.session.on("signal:BItem4", (event) => {
         let message = JSON.parse(event.data);
-        console.log("222222222222222");
+        // console.log("222222222222222");
         useStore.getState().set_BItem4(message.BItem4);
       });
       //현재 술래 신호
@@ -155,12 +155,12 @@ class webCam extends Component {
       // 미니게임 결과 signal
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
-        console.log("totalscore : ", message.Total_score);
+        // console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
 
         if (useStore.getState().card_game_end >= 10) {
           useStore.getState().set_cur_round(1);
-          console.log("mini game_over");
+          // console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
           this.forceUpdate();
         }

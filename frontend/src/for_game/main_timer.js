@@ -79,7 +79,7 @@ function Main_timer() {
       setSec(cur_time);
       setMsec(0);
       set_turn_state_change("game");
-      console.log("게임 시작");
+      // console.log("게임 시작");
       set_time_change("no_change");
     }
   }, [time_state]);
@@ -88,14 +88,14 @@ function Main_timer() {
     if (cur_round > 1) {
       if (curBlue_cnt > curRed_cnt) {
         set_CurBlue_total(curBlue_total + 1);
-        console.log("블루가 이겼습니다.");
+        // console.log("블루가 이겼습니다.");
       } else if (curBlue_cnt < curRed_cnt) {
         set_CurRed_total(curRed_total + 1);
-        console.log("레드가 이겼습니다.");
+        // console.log("레드가 이겼습니다.");
       } else {
         set_CurBlue_total(curBlue_total + 1);
         set_CurRed_total(curRed_total + 1);
-        console.log("비겼습니다.");
+        // console.log("비겼습니다.");
       }
       set_CurBlue_cnt(0);
       set_CurRed_cnt(0);

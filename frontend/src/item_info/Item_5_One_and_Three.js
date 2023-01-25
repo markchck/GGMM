@@ -5,6 +5,7 @@ import "./Item.css";
 const ItemFive = ({ streamManager }) => {
   const videoRef = React.createRef();
   const canvasRef = useRef(null);
+
   useEffect(() => {
     streamManager.addVideoElement(videoRef.current);
   }, [streamManager, videoRef]);
@@ -69,6 +70,7 @@ const ItemFive = ({ streamManager }) => {
       drawFrame();
 
       return () => {
+        
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       };
     }

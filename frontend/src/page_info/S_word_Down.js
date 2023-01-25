@@ -26,7 +26,7 @@ function S_words_Down() {
   let [number, setNumber] = useState(cnt_answer);
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
-  const { pass_cnt } = useStore();
+  const { pass_cnt, set_CurBlue_cnt, set_CurRed_cnt, curRed_cnt, curBlue_cnt } = useStore();
   const [CorrectAnswer, setCorrectAnswer] = useState(false);
   const [WrongAnswer, setWrongAnswer] = useState(false);
 
@@ -50,10 +50,16 @@ function S_words_Down() {
     }
   }, [show, cur_round, showIndex]);
 
-  useEffect(() => {}, [show_name, show_theme]);
+  useEffect(() => { }, [show_name, show_theme]);
 
   useEffect(() => {
     setNumber(cnt_answer);
+    if (cur_who_turn === "red") {
+      set_CurRed_cnt(cnt_answer);
+    }
+    if (cur_who_turn === "blue") {
+      set_CurBlue_cnt(cnt_answer);
+    }
   }, [cnt_answer]);
   useEffect(() => {
     if (number !== 0) {
@@ -77,7 +83,7 @@ function S_words_Down() {
     nextShow();
   }, [cur_who_turn]);
 
-  useEffect(() => {}, [is_my_team_turn]);
+  useEffect(() => { }, [is_my_team_turn]);
 
   useEffect(() => {
     if (pass_cnt > 0) {
@@ -110,6 +116,7 @@ function S_words_Down() {
     });
   };
 
+
   var timer;
   const check_Score = (e) => {
     if (!timer) {
@@ -130,7 +137,7 @@ function S_words_Down() {
           }, 500);
         }
         setAnswer("");
-      }, 500);
+      }, 100);
     }
   };
   const handleKeyPress = (e) => {
@@ -138,7 +145,23 @@ function S_words_Down() {
       check_Score(e);
     }
   };
+  useEffect(()=>{
+    cur_session.on("signal:score", (event) => {
+      let message = JSON.parse(event.data);
+      // console.log("시그널 들어오니?");
+      set_CntAns(message.score);
+      if (cur_who_turn === "red") {
+        set_CurRed_cnt(message.score);
+      }
+      if (cur_who_turn === "blue") {
+        set_CurBlue_cnt(message.score);
+      }
+    });
+  }, [cur_session.on]);  
 
+  useEffect(()=>{
+   console.log("시그널 인지?");
+  }, [curRed_cnt, curBlue_cnt]);
   return (
     <>
       {!is_my_turn && is_my_team_turn && (
@@ -163,7 +186,7 @@ function S_words_Down() {
           </button>
         </>
       )}
-
+    
       {CorrectAnswer === true ? <Correct answer={answer} /> : null}
       {WrongAnswer === true ? <Wrong answer={answer} /> : null}
     </>
