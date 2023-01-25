@@ -1,11 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useStore from '../for_game/store';
-import Slide from '@material-ui/core/Slide';
-import './CardGameResult.css';
-import useSound from "use-sound";
-import ModalUp from "../audio/ModalOn.mp3"
 
 const style = {
   position: 'absolute',
@@ -13,57 +9,50 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-function CardGameResult() {
+function BasicModal() {
   const [open, setOpen] = React.useState(false);
-  const { card_game_end, card_game_red, card_game_blue, cur_session } = useStore();
-  const [ModalOn] = useSound(ModalUp);
+  const handleClose = () => setOpen(false);
+  const { card_game_end, cur_session, card_game_red, card_game_blue} = useStore();
 
   React.useEffect(() => {
     setOpen(true);
-    ModalOn();
     setTimeout(() => {
       setOpen(false);
+
       const message = {
         Total_score: card_game_end + 1,
       };
+
       cur_session &&
         cur_session.signal({
           type: "Total_score",
           data: JSON.stringify(message),
         });
+
     }, 3000);
-  }, [ModalOn]);
+  }, []);
 
   return (
     <div>
-      <Modal open={open}>
-        <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-          <Box sx={style}>
-            {card_game_red > card_game_blue ?
-              <>
-                <div className="wrapper">
-                  <div className="container">
-                    <h1>RED TEAM GET SPECIAL</h1>
-                  </div>
-                </div>
-              </>
-              : <>
-                <div className="wrapper">
-                  <div className="container">
-                    <h1>BLUE TEAM GET SPECIAL</h1>
-                  </div>
-                </div>
-              </>}
-          </Box>
-        </Slide>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {card_game_red > card_game_blue ? <>Red Team 이 이겼습니다.</> 
+          : <>Blue Team 이 이겼습니다.</>}
+        </Box>
       </Modal>
     </div>
   );
 }
 
-export default CardGameResult;
+export default BasicModal;
