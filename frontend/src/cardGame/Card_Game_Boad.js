@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CardGame from './CardGame';
 import CountDown from './CountDown';
 import useStore from '../for_game/store';
@@ -14,6 +14,7 @@ export default function Card_Game_Boad({ sessionId, participantName }) {
   const [CountDownShow, setCountDownShow] = useState(true);
   const [homeMusic, { stop }] = useSound(homeSound);
   const { card_game_end } = useStore();
+  const timeOutgame = useRef(null);
 
   const elements = document.getElementsByClassName("remove-Click")
 
@@ -27,10 +28,14 @@ export default function Card_Game_Boad({ sessionId, participantName }) {
     }
   }, [card_game_end]);
 
-  setTimeout(() => {
-    elements[0].classList.remove("remove-Click")
-    setCountDownShow(false)
-  }, 3200)
+  useEffect(()=>{
+    timeOutgame.current = setTimeout(() => {
+      elements[0].classList.remove("remove-Click")
+      setCountDownShow(false)
+    }, 3200)
+    
+    return ()=> clearTimeout(timeOutgame.current);
+  },[])
 
 
   return (
