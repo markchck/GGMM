@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useStore from "../for_game/store";
+import './itemEffect.css'
 
 function AteamItem() {
   const {
@@ -117,7 +118,7 @@ function AteamItem() {
       {my_index % 2 === 0 && is_my_team_turn === false ? (
         <>
           <button
-            className="image-button_shutter"
+            className="image-button_shutter bounce-button"
             onClick={() => {
               sendItem4();
             }}

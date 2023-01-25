@@ -117,7 +117,7 @@ function BteamItem() {
       {my_index % 2 === 1 && is_my_team_turn === false ? (
         <>
           <button
-            className="image-button_shutter"
+            className="image-button_shutter bounce-button"
             onClick={() => {
               sendItem4B();
             }}
