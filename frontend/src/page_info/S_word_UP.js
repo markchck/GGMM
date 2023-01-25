@@ -9,7 +9,6 @@ import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
 import "./theme.css";
 
-
 function S_words_Up() {
   let [show, setShow] = useState([]);
 
@@ -62,7 +61,19 @@ function S_words_Up() {
     }
   }, [number]);
 
-  useEffect(() => { }, [is_my_team_turn]);
+  useEffect(() => {
+    if (
+      (my_index % 2 === 0 && cur_who_turn === "red") ||
+      (my_index % 2 === 1 && cur_who_turn === "blue")
+    ) {
+      set_myteam_turn(true);
+    } else {
+      set_myteam_turn(false);
+    }
+    nextShow();
+  }, [cur_who_turn]);
+
+  useEffect(() => {}, [is_my_team_turn]);
 
   useEffect(() => {
     if (pass_cnt > 0) {
@@ -94,8 +105,8 @@ function S_words_Up() {
       {(is_my_turn || !is_my_team_turn) && cur_turn_states === "game" && (
         //내턴 또는 우리 팀 턴이 아닐 때
         <>
-            <span className="font-theme">[{show_theme}]</span>
-            <span className="font-name">{show_name}</span>
+          <span className="font-theme">[{show_theme}]</span>
+          <span className="font-name">{show_name}</span>
 
           {is_my_team_turn && cur_turn_states === "game" && (
             <button
@@ -108,13 +119,14 @@ function S_words_Up() {
           )}
         </>
       )}
-      {cur_teller !== my_index && is_my_team_turn && cur_turn_states === "game" && (
-        //내팀이고 게임 상태일 때(술래는 미포함)
-        <span className="font-theme">[{show_theme}]</span>
-      )}
+      {cur_teller !== my_index &&
+        is_my_team_turn &&
+        cur_turn_states === "game" && (
+          //내팀이고 게임 상태일 때(술래는 미포함)
+          <span className="font-theme">[{show_theme}]</span>
+        )}
     </>
   );
 }
 
 export default S_words_Up;
-

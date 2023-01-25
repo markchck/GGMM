@@ -12,13 +12,14 @@ function S_words_Down() {
   let [show, setShow] = useState([]);
 
   //ZUSTAND
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } = useStore();
+  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } =
+    useStore();
   const { is_my_turn, cur_who_turn, my_index, cur_teller } = useStore();
   const { gamerWords, fetchGamerWords } = useStore();
 
   //USE Sound
   const [good] = useSound(good_sound);
-  // const [bad] = useSound(bad_sound);
+  const [bad] = useSound(bad_sound);
 
   let [show_name, setShow_name] = useState("--------");
   let [show_theme, setShow_theme] = useState("");
@@ -30,10 +31,10 @@ function S_words_Down() {
   const [CorrectAnswer, setCorrectAnswer] = useState(false);
   const [WrongAnswer, setWrongAnswer] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.emit("session_join", cur_session.sessionId);
-    console.log("session  조인은 동작하는가")
-  },[])
+    console.log("session  조인은 동작하는가");
+  }, []);
 
   useEffect(async () => {
     if (cur_round !== 0) {
@@ -78,6 +79,7 @@ function S_words_Down() {
     } else {
       set_myteam_turn(false);
     }
+    nextShow();
   }, [cur_who_turn]);
 
   useEffect(() => {}, [is_my_team_turn]);
@@ -113,23 +115,28 @@ function S_words_Down() {
     });
   };
 
+  var timer;
   const check_Score = (e) => {
-    if (show_name === answer) {
-      set_CntAns(cnt_answer + 1);
-      setCorrectAnswer(true);
-      setTimeout(()=>{
-        setCorrectAnswer(false)
-      },1000)
-    } else {
-      // bad();
-      console.log("wrong", answer, cur_session.sessionId);
-      socket.emit("wrong", answer, cur_session.sessionId);
-      setWrongAnswer(true);
-      setTimeout(()=>{
-        setWrongAnswer(false)
-      },1000)
+    if (!timer) {
+      timer = setTimeout(function () {
+        timer = null;
+        if (show_name === answer) {
+          set_CntAns(cnt_answer + 1);
+          setCorrectAnswer(true);
+          setTimeout(() => {
+            setCorrectAnswer(false);
+          }, 500);
+        } else {
+          bad();
+          console.log("wrong", answer, cur_session.sessionId);
+          setWrongAnswer(true);
+          setTimeout(() => {
+            setWrongAnswer(false);
+          }, 500);
+        }
+        setAnswer("");
+      }, 500);
     }
-    setAnswer("");
   };
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -137,44 +144,35 @@ function S_words_Down() {
     }
   };
 
-useEffect(()=>{
-  socket.on('response_wrong',(wrong_answer)=>{
-    const [bad] = useSound(bad_sound);
-    console.log("response_wrong : ", wrong_answer);
-    bad();
-  });
-},[])
-  
-return (
-  <>
-    {!is_my_turn && is_my_team_turn && (
-      <>
-        <input
-          id="Answer_input"
-          value={answer}
-          placeholder={"Press Enter"}
-          onChange={(e) => {
-            setAnswer(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            handleKeyPress(e);
-          }}
-        />
-        <button
-          class="w-btn w-btn-gra2"
-          type="button"
-          onClick={(e) => check_Score(e)}
-        >
-          제출
-        </button>
-      </>
-    )}
+  return (
+    <>
+      {!is_my_turn && is_my_team_turn && (
+        <>
+          <input
+            id="Answer_input"
+            value={answer}
+            placeholder={"Press Enter"}
+            onChange={(e) => {
+              setAnswer(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              handleKeyPress(e);
+            }}
+          />
+          <button
+            class="w-btn w-btn-gra2"
+            type="button"
+            onClick={(e) => check_Score(e)}
+          >
+            제출
+          </button>
+        </>
+      )}
 
-    {CorrectAnswer === true ? <Correct answer={answer} /> : null}
-    {WrongAnswer === true ? <Wrong answer={answer} /> : null}
-  </>
-);
+      {CorrectAnswer === true ? <Correct answer={answer} /> : null}
+      {WrongAnswer === true ? <Wrong answer={answer} /> : null}
+    </>
+  );
 }
-
 
 export default S_words_Down;
