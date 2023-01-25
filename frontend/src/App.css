@@ -242,6 +242,7 @@
 
 .team_box2 {
   position: relative;
+  top : 3vh;
   height: 5%; /* 원하는 너비 */
   left: 1.5%;
 }
@@ -250,6 +251,7 @@
   position: relative;
   height: 10%; /* 원하는 너비 */
   left: 1.5%;
+  top : 3vh;
 }
 .team_turn2 {
   background-color: rgba(255, 255, 255, 0.3);
@@ -311,6 +313,7 @@ h5 {
 
 .main_video_frame {
   position: absolute;
+  top: 1%;
   right: 0;
   bottom: 0;
   left: 0;
