@@ -506,16 +506,14 @@ h6 {
 .timer-font{
   font-family: 'KyoboHandwriting2020A';
   position: relative;
-  bottom : 5%;
+  font-size : 200%;
+  text-align : center;
 }
 
 .turn_box2 {
   width: 100%;
   position: absolute;
-  font-family: "Black Han Sans", sans-serif;
-  font-size: 15px;
   justify-content: center;
-  font-weight: 350;
   color: black;
   margin: auto;
 }

@@ -238,7 +238,7 @@ function Main_timer() {
           )}
           {cur_turn_states === "game" && (
             <p className="turn_box2 timer-font">
-              {cur_who_turn.toUpperCase()}팀 Turn : {sec}
+              {cur_who_turn.toUpperCase()} 팀 Turn : {sec}
             </p>
           )}
         </div>
