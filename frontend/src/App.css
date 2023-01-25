@@ -243,14 +243,12 @@
 .team_box2 {
   position: relative;
   height: 5%; /* 원하는 너비 */
-  top: 60vh;
   left: 1.5%;
 }
 
 .team_box3 {
   position: relative;
   height: 10%; /* 원하는 너비 */
-  top: 60vh;
   left: 1.5%;
 }
 .team_turn2 {
@@ -299,19 +297,26 @@ h5 {
 }
 .main_video_box {
   position: relative;
-  width: 98%; /* 원하는 너비 */
+  width: 97%; /* 원하는 너비 */
   margin: auto;
+  /* top: 5%; */
+  margin-bottom: 3%;
+}
+
+.main_video_box:before {
+  content: "";
+  display: block;
+  padding-top: 75%;
 }
 
 .main_video_frame {
-  position: relative;
-  top: 5%;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
   background: rgb(255, 255, 255);
   border-radius: 10px;
-  margin-top: 1%;
+  margin-top: 5%;
 }
 
 .Video {
