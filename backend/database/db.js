@@ -212,7 +212,7 @@ const AnimalWords = [
   },
   {
     theme: '동물',
-    name: '미어캣'
+    name: '하마'
   },
   {
     theme: '동물',

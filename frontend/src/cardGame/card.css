@@ -4,87 +4,87 @@
 	transform-style: preserve-3d;
 	width: 100%;
 	height: 8vh;
-}
-
-.card {
+ }
+ 
+ .card {
 	height: 100%;
 	width: 100%;
-
+ 
 	transform-style: preserve-3d;
 	position: relative;
-
+ 
 	border-radius: 5px;
-
+ 
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-
+ 
 	user-select: none;
 	/* cursor: pointer; */
-}
-
-
-
-.card-front,
-.card-back {
+ }
+ 
+ 
+ 
+ .card-front,
+ .card-back {
 	height: 100%;
 	width: 100%;
-
+ 
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-
+ 
 	position: static;
-
+ 
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.card-front {
-
-	background-image: url("./CardGame_FT.jpg");
+ }
+ 
+ .card-front {
+ 
+	background-image: url("./CardGame_FT.webp");
 	background-size: cover;
 	background-position: center;
 	width: 100%;
 	height: 100%;
 	border: 2px;
-}
-
-
-#card {
+ }
+ 
+ 
+ #card {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	grid-template-rows: repeat(5, 1fr);
 	grid-gap: 57px;
-}
-
-.flip {
-	background-image: url("./CardGame_Item.jpg");
+ }
+ 
+ .flip {
+	background-image: url("./CardGame_Item.webp");
 	background-size: cover;
 	background-position: center;
 	width: 100%;
 	height: 100%;
 	transform: rotateY(180deg) scaleX(-1);
-}
-
-.blueborder {
+ }
+ 
+ .blueborder {
 	border: 10px solid blue;
 	user-select: none;
 	pointer-events: none;
-}
-
-.redborder {
+ }
+ 
+ .redborder {
 	border: 10px solid red;
 	user-select: none;
 	pointer-events: none;
-}
-
-.bomb {
+ }
+ 
+ .bomb {
 	transform: rotateY(180deg) scaleX(-1);
 	visibility: hidden;
 	user-select: none;
 	pointer-events: none;
-}
-
-.score_class {
+ }
+ 
+ .score_class {
 	position: relative;
 	font-family: "Black Han Sans", sans-serif;
 	font-size: 300%;
@@ -93,26 +93,26 @@
 	font-weight: 800;
 	color: black;
 	margin-top: auto;
-}
-
-/* @font-face {
-  font-family: myFirstFont;
-  src: url(Cursed.ttf);
-} */
-@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
-
-.col-heading h1 {
+ }
+ 
+ /* @font-face {
+   font-family: myFirstFont;
+   src: url(Cursed.ttf);
+ } */
+ @import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+ 
+ .col-heading h1 {
 	font-family: "Verdana";
 	font-style: normal;
 	font-weight: 700;
 	font-size: 25px;
 	line-height: 36px;
 	text-align: center;
-
+ 
 	color: white;
-}
-
-.col-display {
+ }
+ 
+ .col-display {
 	background: #080001;
 	border-radius: 10px;
 	font-family: "Silkscreen", cursive;
@@ -122,15 +122,15 @@
 	line-height: 110px;
 	text-align: center;
 	color: #f94f6d;
-}
-
-.col-points {
+ }
+ 
+ .col-points {
 	margin-top: 25px;
 	display: flex;
 	gap: 10px;
-}
-
-.add {
+ }
+ 
+ .add {
 	width: 45px;
 	height: 45px;
 	border: 2px solid white;
@@ -144,12 +144,29 @@
 	color: white;
 	line-height: 35px;
 	background: transparent;
-}
-
-.colorRed{
+ }
+ 
+ .colorRed{
 	color:crimson;
-}
-
-.colorBlue{
+ }
+ 
+ .colorBlue{
 	color:blue;
-}
+ }
+ 
+ .Galmuri {
+	z-index: 10;
+	font-family: "Galmuri14" !important;
+	font-weight: 700;
+	font-size: 40px;
+	font-stretch: condensed;
+   }
+ 
+ 
+ @font-face {
+	font-family: "Galmuri14";
+	src: url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+   }
+   
+ @import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+   

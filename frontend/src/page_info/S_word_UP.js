@@ -3,9 +3,6 @@ import useStore from "../for_game/store";
 import useSound from "use-sound";
 import good_sound from "../audio/good.mp3";
 import bad_sound from "../audio/bad.mp3";
-import socket from "../socket/socket";
-import Correct from "./correctwrong/Correct";
-import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
 import "./theme.css";
 

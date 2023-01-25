@@ -246,13 +246,6 @@ let selectedQuestWords = [];
 updateSelectedQuestWords();
 
 function updateSelectedQuestWords() {
-  ExerciseWord.aggregate([{ $sample: { size: 30 } }], function (error, ExerciseWord) {
-    if (error) {
-      console.log(error);
-    } else {
-      selectedQuestWords.push(ExerciseWord);
-    }
-  });
   JobWord.aggregate([{ $sample: { size: 15 } }], function (error, JobWord) {
     if (error) {
       console.log(error);
@@ -260,11 +253,18 @@ function updateSelectedQuestWords() {
       selectedQuestWords.push(JobWord);
     }
   });
-  AnimalWord.aggregate([{ $sample: { size: 15 } }], function (error, AnimalWord) {
+  AnimalWord.aggregate([{ $sample: { size: 20 } }], function (error, AnimalWord) {
     if (error) {
       console.log(error);
     } else {
       selectedQuestWords.push(AnimalWord);
+    }
+  });
+  ExerciseWord.aggregate([{ $sample: { size: 30 } }], function (error, ExerciseWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords.push(ExerciseWord);
     }
   });
 

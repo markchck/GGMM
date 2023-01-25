@@ -3,7 +3,6 @@ import useStore from "../for_game/store";
 import useSound from "use-sound";
 import good_sound from "../audio/good.mp3";
 import bad_sound from "../audio/bad.mp3";
-import socket from "../socket/socket";
 import Correct from "./correctwrong/Correct";
 import Wrong from "./correctwrong/Wrong";
 import "./S_word.css";
@@ -31,10 +30,6 @@ function S_words_Down() {
   const [CorrectAnswer, setCorrectAnswer] = useState(false);
   const [WrongAnswer, setWrongAnswer] = useState(false);
 
-  useEffect(() => {
-    socket.emit("session_join", cur_session.sessionId);
-    console.log("session  조인은 동작하는가");
-  }, []);
 
   useEffect(async () => {
     if (cur_round !== 0) {
