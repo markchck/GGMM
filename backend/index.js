@@ -14,7 +14,7 @@ const AnimalWord = require("./models/animals");
 const PersonWord = require("./models/Person");
 const EquipmentWord = require("./models/equipment");
 const MovieWord = require("./models/movies");
-const ExercisetWord = require("./models/exercise");
+const ExerciseWord = require("./models/exercise");
 const ProverbWord = require("./models/proverb");
 const JobWord = require("./models/job");
 
@@ -246,6 +246,20 @@ let selectedQuestWords = [];
 updateSelectedQuestWords();
 
 function updateSelectedQuestWords() {
+  ExerciseWord.aggregate([{ $sample: { size: 30 } }], function (error, ExerciseWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords.push(ExerciseWord);
+    }
+  });
+  JobWord.aggregate([{ $sample: { size: 15 } }], function (error, JobWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords.push(JobWord);
+    }
+  });
   AnimalWord.aggregate([{ $sample: { size: 15 } }], function (error, AnimalWord) {
     if (error) {
       console.log(error);
@@ -253,26 +267,12 @@ function updateSelectedQuestWords() {
       selectedQuestWords.push(AnimalWord);
     }
   });
-  EquipmentWord.aggregate([{ $sample: { size: 15 } }], function (error, EquipmentWord) {
-    if (error) {
-      console.log(error);
-    } else {
-      selectedQuestWords.push(EquipmentWord);
-    }
-  });
-  MovieWord.aggregate([{ $sample: { size: 15 } }], function (error, MovieWord) {
-    if (error) {
-      console.log(error);
-    } else {
-      selectedQuestWords.push(MovieWord);
-    }
-  });
 
 }
 
-app.get("/api/sessions/game", async (req, res) => {
-  res.send(selectedQuestWords);
-});
+  app.get("/api/sessions/game", async (req, res) => {
+    res.send(selectedQuestWords);
+  });
 // });
 
 setInterval(updateSelectedQuestWords, 1000 * 39);
