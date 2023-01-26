@@ -160,7 +160,7 @@ function Main_timer() {
     if (cur_turn_states === "ready") {
       if (my_index === 0) {
         const message = {
-          timer: 21,
+          timer: 2000,
         };
         cur_session &&
           cur_session.signal({
@@ -169,8 +169,8 @@ function Main_timer() {
           });
       }
     } else if (cur_turn_states === "game") {
-      time.current = 1000;
-      setSec(10);
+      time.current = 700;
+      setSec(7);
       setMsec(0);
       if (cur_who_turn === "blue") {
         set_cur_round(cur_round + 1);
