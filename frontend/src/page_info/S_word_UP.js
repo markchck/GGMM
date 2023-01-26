@@ -42,7 +42,7 @@ function S_words_Up() {
   useEffect(() => {
     if (gamerWords.length > 0 && cur_round > 0) {
       const arr = gamerWords[cur_round - 1];
-      console.log("arr[showIndex] : ", show);
+      // console.log("arr[showIndex] : ", show);
       setShow_name(arr[showIndex].name);
       setShow_theme(arr[showIndex].theme);
     }
@@ -73,10 +73,14 @@ function S_words_Up() {
   }, [cur_who_turn]);
 
   useEffect(() => {}, [is_my_team_turn]);
-
+  useEffect(()=>{
+    if(cur_round >0){
+      setShowIndex(0);
+    }
+  },[cur_round])
   useEffect(() => {
     if (pass_cnt > 0) {
-      console.log("pass_cnt 변경", pass_cnt);
+      // console.log("pass_cnt 변경", pass_cnt);
       nextShow();
     }
   }, [pass_cnt]);

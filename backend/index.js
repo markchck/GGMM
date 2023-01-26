@@ -272,7 +272,7 @@ function updateSelectedQuestWords() {
 
   app.get("/api/sessions/game", async (req, res) => {
     res.send(selectedQuestWords);
-    console.log(selectedQuestWords);
+    // console.log(selectedQuestWords);
   });
 // });
 

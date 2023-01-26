@@ -160,6 +160,12 @@ function S_words_Down() {
   }, [cur_session.on]);  
 
   useEffect(()=>{
+    if(cur_round >0){
+      setShowIndex(0);
+    }
+  },[cur_round])
+
+  useEffect(()=>{
    console.log("시그널 인지?");
   }, [curRed_cnt, curBlue_cnt]);
   return (
