@@ -32,7 +32,8 @@ function S_words_Up() {
       setShow([]);
       await fetchGamerWords();
     }
-  }, [cur_teller]);
+    return ()=>{}
+  }, []);
 
   useEffect(() => {
     gamerWords && setShow(gamerWords);
@@ -41,6 +42,7 @@ function S_words_Up() {
   useEffect(() => {
     if (gamerWords.length > 0 && cur_round > 0) {
       const arr = gamerWords[cur_round - 1];
+      console.log("arr[showIndex] : ", show);
       setShow_name(arr[showIndex].name);
       setShow_theme(arr[showIndex].theme);
     }
@@ -93,6 +95,7 @@ function S_words_Up() {
     });
   };
 
+  
   return (
     <>
       {cur_turn_states !== "game" && (

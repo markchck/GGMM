@@ -416,7 +416,7 @@ class webCam extends Component {
                         </div>
                         <div className="box">
                           <div className="A_total" id="A_totalScore">
-                            총점 : <Score_board score={"total_red"} />
+                            승리 : <Score_board score={"total_red"} />
                           </div>
                         </div>
                         {/* <AteamItem /> */}
@@ -496,7 +496,7 @@ class webCam extends Component {
                     <div className="b-screen">
                       <div className="box">
                         <div className="B_total" id="B_totalScore">
-                          총점 :
+                          승리 :
                           <Score_board score={"total_blue"} />
                         </div>
                       </div>

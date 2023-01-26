@@ -54,8 +54,8 @@ function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {card_game_red > card_game_blue ? <>Red Team WIN</> 
-          : <>Blue Team WIN</>}
+          {card_game_red > card_game_blue ? <>Red GET SPECIAL</> 
+          : <>Blue GET SPECIAL</>}
         </Box>
       </Modal>
     </div>
