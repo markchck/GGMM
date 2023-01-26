@@ -53,7 +53,11 @@ function S_words_Up() {
   }, [cnt_answer]);
   useEffect(() => {
     if (number !== 0) {
-      if (showIndex < show.length - 1) {
+      // if (showIndex < show.length - 1) {
+      //   nextShow();
+      //   good();
+      // }
+      if (showIndex < 20) {
         nextShow();
         good();
       }

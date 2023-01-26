@@ -160,7 +160,7 @@ function Main_timer() {
     if (cur_turn_states === "ready") {
       if (my_index === 0) {
         const message = {
-          timer: 2000,
+          timer: 3000,
         };
         cur_session &&
           cur_session.signal({

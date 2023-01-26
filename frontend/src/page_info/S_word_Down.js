@@ -64,7 +64,13 @@ function S_words_Down() {
   useEffect(() => {
     if (number !== 0) {
       sendScore();
-      if (showIndex < show.length - 1) {
+      console.log("showIndex 0이어야함 : ", showIndex)
+      console.log("show.legnth : ", show.length)
+      // if (showIndex < show.length - 1) {
+      //   nextShow();
+      //   good();
+      // }
+      if (showIndex < 20) {
         nextShow();
         good();
       }
@@ -145,7 +151,7 @@ function S_words_Down() {
       check_Score(e);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     cur_session.on("signal:score", (event) => {
       let message = JSON.parse(event.data);
       // console.log("시그널 들어오니?");
@@ -157,16 +163,16 @@ function S_words_Down() {
         set_CurBlue_cnt(message.score);
       }
     });
-  }, [cur_session.on]);  
+  }, [cur_session.on]);
 
-  useEffect(()=>{
-    if(cur_round >0){
+  useEffect(() => {
+    if (cur_round > 0) {
       setShowIndex(0);
     }
-  },[cur_round])
+  }, [cur_round])
 
-  useEffect(()=>{
-   console.log("시그널 인지?");
+  useEffect(() => {
+    console.log("시그널 인지?");
   }, [curRed_cnt, curBlue_cnt]);
   return (
     <>
@@ -192,7 +198,7 @@ function S_words_Down() {
           </button>
         </>
       )}
-    
+
       {CorrectAnswer === true ? <Correct answer={answer} /> : null}
       {WrongAnswer === true ? <Wrong answer={answer} /> : null}
     </>

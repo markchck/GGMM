@@ -240,7 +240,238 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-let selectedQuestWords = [];
+// let selectedQuestWords = [];
+let presentationWords = [
+  [
+    {
+      theme: '운동',
+      name: '펜싱'
+    },
+    {
+      theme: '운동',
+      name: '장대높이뛰기'
+    },
+    {
+      theme: '동물',
+      name: '미어캣'
+    },
+    {
+      theme: '영화',
+      name: '토이스토리'
+    },
+    {
+      theme: '영화',
+      name: 'ET'
+    },
+    {
+      theme: '인물',
+      name: '마이클잭슨'
+    },
+    {
+      theme: '영화',
+      name: '인터스텔라'
+    },
+    {
+      theme: '인물',
+      name: '스티브잡스'
+    },
+    {
+      theme: '영화',
+      name: '아이언맨'
+    },
+    {
+      theme: '물건',
+      name: '부채'
+    },
+    {
+      theme: '영화',
+      name: '라이온킹'
+    },
+    {
+      theme: '영화',
+      name: '닥터스트레인지'
+    },
+    {
+      theme: '직업',
+      name: '군인'
+    },
+    {
+      theme: '직업',
+      name: '스님'
+    },
+    {
+      theme: '영화',
+      name: '로보캅'
+    },
+    {
+      theme: '물건',
+      name: '담배'
+    },
+
+    {
+      theme: '동물',
+      name: '박쥐'
+    },
+    {
+      theme: '과일',
+      name: '레몬'
+    },
+    {
+      theme: '영화',
+      name: '타이타닉'
+    },
+    {
+      theme: '물건',
+      name: '순간접착제'
+    },
+    {
+      theme: '가수',
+      name: '싸이'
+    }
+
+], [
+  {
+      theme: '사물',
+      name: '커플링'
+  },
+  {
+      theme: '운동',
+      name: '야구'
+  },
+  {
+      theme: '인물',
+      name: '이봉주'
+  },
+  {
+      theme: '동물',
+      name: '닭'
+  },
+  {
+      theme: '직업',
+      name: '군인'
+  },
+  {
+      theme: '사물',
+      name: '립밤'
+  },
+  {
+      theme: '사물',
+      name: '모기향'
+  },
+  {
+      theme: '장소',
+      name: '코인노래방'
+  },
+  {
+      theme: '사물',
+      name: '비트코인'
+  },
+  {
+      theme: '취미',
+      name: '배틀그라운드'
+  },
+  {
+      theme: '동물',
+      name: '낙지'
+  },
+  {
+      theme: '어플',
+      name: '당근마켓'
+  },
+  {
+      theme: '신체',
+      name: '이두'
+  },
+  {
+      theme: '취미',
+      name: '라이딩'
+  },
+  {
+      theme: '음식',
+      name: '불닭볶음면'
+  },
+  {
+    theme: '감정',
+    name: '삐짐'
+  },
+  {
+    theme: '음식',
+    name: '국밥'
+  },
+  {
+    theme: '물건',
+    name: '마스카라'
+  },
+  {
+    theme: '과일',
+    name: '사과'
+  },
+  {
+    theme: '영화',
+    name: '처키'
+  }
+],[
+  {
+    theme: '동물',
+    name: '박쥐'
+  },
+  {
+    theme: '과일',
+    name: '레몬'
+  },
+  {
+    theme: '영화',
+    name: '타이타닉'
+  },
+  {
+    theme: '물건',
+    name: '순간접착제'
+  },
+  {
+    theme: '가수',
+    name: '싸이'
+  },
+  {
+    theme: '운동',
+    name: '클라이밍'
+  },
+  {
+    theme: '물건',
+    name: '노트북'
+  },
+  {
+    theme: '감정',
+    name: '삐짐'
+  },
+  {
+    theme: '음식',
+    name: '국밥'
+  },
+  {
+    theme: '물건',
+    name: '마스카라'
+  },
+  {
+    theme: '과일',
+    name: '사과'
+  },
+  {
+    theme: '영화',
+    name: '처키'
+  },
+  {
+    theme: '가수',
+    name: '임재범'
+  },
+  {
+    theme: '직업',
+    name: '요리사'
+  },
+  {
+    theme: '동물',
+    name: '뱀'
+  },
+]];
 
 // 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
 updateSelectedQuestWords();
@@ -250,29 +481,29 @@ function updateSelectedQuestWords() {
     if (error) {
       console.log(error);
     } else {
-      selectedQuestWords.push(JobWord);
+      // selectedQuestWords.push(JobWord);
     }
   });
-  AnimalWord.aggregate([{ $sample: { size: 20 } }], function (error, AnimalWord) {
+  AnimalWord.aggregate([{ $sample: { size: 15 } }], function (error, AnimalWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedQuestWords.push(AnimalWord);
+      // selectedQuestWords.push(AnimalWord);
     }
   });
-  ExerciseWord.aggregate([{ $sample: { size: 30 } }], function (error, ExerciseWord) {
+  ExerciseWord.aggregate([{ $sample: { size: 15 } }], function (error, ExerciseWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedQuestWords.push(ExerciseWord);
+      // selectedQuestWords.push(ExerciseWord);
     }
   });
 
 }
 
   app.get("/api/sessions/game", async (req, res) => {
-    res.send(selectedQuestWords);
-    // console.log(selectedQuestWords);
+    // res.send(selectedQuestWords);
+    res.send(presentationWords);
   });
 // });
 
