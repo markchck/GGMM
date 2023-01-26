@@ -5,11 +5,13 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@material-ui/core": "^4.12.4",
     "@mui/material": "^5.11.4",
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^0.21.4",
     "bootstrap": "^5.2.3",
     "css3": "^0.0.1",
+    "galmuri": "^2.35.1",
     "lodash": "^4.17.21",
     "openvidu-browser": "2.25.0",
     "react": "17.0.1",

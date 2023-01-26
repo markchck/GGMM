@@ -1,0 +1,32 @@
+@property --clip-value {
+  syntax: "<percentage>";
+  initial-value: 100%;
+  inherits: false;
+}
+
+.main_ani_box {
+   z-index: 999;
+   position: absolute;
+  height: 100%;
+  width: 100%;
+  background: url('./shutter-IMG.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  clip-path: inset(0 0 var(--clip-value) 0);
+  border-radius: 0px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* animation-delay: 1s; */
+  animation: shutters 5s infinite alternate ease-in-out;
+  }
+
+@keyframes shutters{
+  0%, 10%{
+    --clip-value: 100%;
+  }
+  75%, 100%{
+    --clip-value: 30%;
+  }
+}

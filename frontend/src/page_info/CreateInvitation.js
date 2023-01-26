@@ -9,7 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 function CreateInvitation({ mySessionId }) {
-  const [invLink, setInvLink] = useState(false);
+  const [invLink,setInvLink] = useState(false);
   const [open, setOpen] = useState(false);
 
   function createLink_and_copy() {

@@ -1,87 +1,96 @@
 import React, { Component, useEffect, useState, useRef } from "react";
-import Cards from "./Flippable_card";
+import Card from './Card_info';
 import Cursor from "../multiCursor/cursor";
 import './card.css'
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
+import CardGameResult from "./Card_Game_Result";
+
 
 let card_number = 35;
 
 function CardGame({ sessionId, participantName }) {
 
-  const [state, setState] = useState("뒤집은 카드");
-  const { my_index, cur_session } = useStore();
-  const [red_team, setRed_team] = useState(0);
-  const [blue_team, setBlue_team] = useState(0);
+  const { my_index, cur_session, card_game_red, card_game_blue, set_card_game_red, set_card_game_blue, card_game_end } = useStore();
+  const { MiniCardIndex } = useStore();
 
   const click_handler = (cardId) => {
-    // const clicked_card= document.getElementById(cardId);
-    console.log("지금 누른 카드는 : ", cardId);
-    socket.emit("flipingcard", sessionId, my_index, cardId);
+    socket.emit("flipingcard", sessionId, my_index, cardId, MiniCardIndex);
+    console.log("지금 누른 카드는 : ", cardId.i, my_index);
 
-    if ((my_index + 1) % 2 === 0) {
-      console.log("blue : ", blue_team);
-      socket.emit("score", red_team, blue_team+1, sessionId, cardId);
-      const message = {
-        Total_score: red_team+blue_team+1,
-      };
-
-      cur_session &&
-        cur_session.signal({
-          type: "Total_score",
-          data: JSON.stringify(message),
-        });
-
-    } else {
-      socket.emit("score", red_team+1, blue_team, sessionId, cardId);
-      
-      const message = {
-        Total_score: red_team+blue_team+1,
-      };
-
-      cur_session &&
-        cur_session.signal({
-          type: "Total_score",
-          data: JSON.stringify(message),
-        });
+    if (MiniCardIndex.includes(cardId.i)) {
+      console.log("아이템 누르면 들어오냐????????");
+      if ((my_index + 1) % 2 === 0) {
+        console.log("blue : ", card_game_blue);
+        socket.emit("score", sessionId, cardId, my_index);
+        
+      } else {
+        console.log("red : ", card_game_blue);
+        socket.emit("score", sessionId, cardId, my_index);
+      }
     }
   }
 
   useEffect(() => {
     socket.on("score", (red_score, blue_score) => {
-      setRed_team(red_score);
-      setBlue_team(blue_score);
-      console.log("red, blue",red_score,blue_score)
+      set_card_game_red(red_score);
+      set_card_game_blue(blue_score);
+
+      const message = {
+        Total_score: red_score + blue_score,
+      };
+
+      cur_session &&
+        cur_session.signal({
+          type: "Total_score",
+          data: JSON.stringify(message),
+        });
+
+      console.log("red, blue", red_score, blue_score)
     });
   }, []);
 
+  useEffect(() => {
+    socket.on("CardFliped", (my_index, flipedCardId, ItemIndex) => {
+      const clicked_card = document.getElementById(flipedCardId);
+      console.log("너 설마 모르냐?", ItemIndex);
 
-  socket.on("CardFliped", (gamer_index, flipedCardId) => {
-    const clicked_card= document.getElementById(flipedCardId);
-    // console.log(clicked_card.className);
-    clicked_card.innerHTML = '';
-    // clicked_card.parentNode.removeChild(clicked_card);
-  });
+      if (ItemIndex.includes(flipedCardId)) {
+        if ((my_index + 1) % 2 === 0) {
+          clicked_card.classList && clicked_card.classList.add("flip", "blueborder");
+        } else {
+          clicked_card.classList && clicked_card.classList.add("flip", "redborder");
+        };
+      } else {
+        clicked_card.classList && clicked_card.classList.add("bomb");
+      }
+    });
+  }, []);
 
+  useEffect(() => {
+    console.log("card_game_end : ", card_game_end)
+  }, [card_game_end,])
 
   return (
-    <div>
-      <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
-      
-      {/* <span id="card"> */}
-      <div id="card">
-        {Array.from({ length: card_number }, (_, i) => (
-          // <span key={i} id={`card-${i}`} className="Card_align" onClick={()=>{click_handler(`card-${i}`)}}>
-          <span id={i} key={i} className="Card_align" onClick={(event) => {click_handler({i}); event.preventDefault()}}>
-          {/* <span key={i} onClick={(event) => {click_handler({i}); event.preventDefault()}}> */}
-            <Cards  />
-          </span>
-        ))}
-      </div>
-      <center className="score_class"> 
-        {red_team} RED : BLUE {blue_team} 
+    <>
+      <div>
+        <Cursor sessionId={sessionId} participantName={participantName}></Cursor>
+
+        <div id="card">
+          {Array.from({ length: card_number }, (_, i) => (
+            <span id={i} key={i} className="Card_align" onClick={(event) => { click_handler({ i }); event.preventDefault() }}>
+
+              <Card />
+            </span>
+          ))}
+        </div>
+        <center className="score_class">
+           <span className="colorRed">레드</span><span className="colorBlue">블루</span> 
+           <p><span className="col col-display">{card_game_red}</span> <span className="col col-display">{card_game_blue}</span></p>
         </center>
-    </div>
+      </div>
+      {card_game_end === 9 ? <CardGameResult /> : null}
+    </>
   );
 }
 export default CardGame;

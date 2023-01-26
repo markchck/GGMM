@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'TTTtangsbudaejjigaeB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KyoboHandwriting2020A';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/KyoboHandwriting2020A.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-theme{
+    font-family: 'TTTtangsbudaejjigaeB';
+    font-size: 250%;
+    color: saddlebrown;
+    position: relative;
+    bottom : 28%;
+    margin-right : 5%;
+    left : 25%;
+}
+
+
+.font-name{
+    font-family: 'TTTtangsbudaejjigaeB';
+    font-size: 300%;
+    color: tan;
+    position: relative;
+    bottom : 28%;
+    left : 25%;
+}

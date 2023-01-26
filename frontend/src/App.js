@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import axios from "axios";
-import S_words from "./page_info/S_word";
+import S_words_UP from "./page_info/S_word_UP";
+import S_words_Down from "./page_info/S_word_Down";
 import CreateInvitation from "./page_info/CreateInvitation";
 import Main_Screen from "./page_info/Main_Screen";
 
@@ -11,8 +12,6 @@ import Card_Game_Boad from "./cardGame/Card_Game_Boad";
 
 // Timer
 import Main_timer from "./for_game/main_timer";
-
-//Item list
 
 //Item by each team
 import AteamItem from "./page_info/A_team_item";
@@ -24,23 +23,19 @@ import UserVideoComponent from "./UserVideoComponent";
 import Score_board from "./page_info/score_board";
 // Zustand
 import useStore from "./for_game/store";
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
-const APPLICATION_SERVER_URL = 'https://practiceggmm.shop/';
 
-// Cursor
-import CardGame from './cardGame/CardGame'
 
 var timer = 500;
+
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
 
 class webCam extends Component {
   constructor(props) {
     super(props);
 
     let currentTime = new Date().getTime();
-    console.log(currentTime);
-    console.log("currentTime 확인");
 
-    // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "Session" + Math.floor(Math.random() * 100),
       myUserName: "Participant" + currentTime,
@@ -79,78 +74,93 @@ class webCam extends Component {
       this.state.session.on("signal:timer", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_Curtime(message.timer);
-        useStore.getState().set_time_change("change");
         useStore.getState().set_cur_round(0); // 미니게임 시작
-
+        useStore.getState().fetchCardIndex(); // 미니게임 카드 index 요청
         this.forceUpdate();
       });
+
       //점수 동기화
-      this.state.session.on("signal:score", (event) => {
+      // this.state.session.on("signal:score", (event) => {
+      //   let message = JSON.parse(event.data);
+      //   // console.log("시그널 확인(score) : " + message.score);
+      //   useStore.getState().set_CntAns(message.score);
+      //   if (useStore.getState().cur_who_turn === "red") {
+      //     useStore.getState().set_CurRed_cnt(message.score);
+      //   }
+      //   if (useStore.getState().cur_who_turn === "blue") {
+      //     useStore.getState().set_CurBlue_cnt(message.score);
+      //   }
+      // });
+
+      this.state.session.on("signal:game_start", (event) => {
         let message = JSON.parse(event.data);
-        console.log("시그널 확인(score) : " + message.score);
-        useStore.getState().set_CntAns(message.score);
-        if (useStore.getState().cur_who_turn === "red") {
-          useStore.getState().set_CurRed_cnt(message.score);
-        }
-        if (useStore.getState().cur_who_turn === "blue") {
-          useStore.getState().set_CurBlue_cnt(message.score);
-        }
+        useStore.getState().set_Curtime(message.timer);
+        useStore.getState().set_time_change("change");
       });
 
+      //item 사용 signal
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem1(message.AItem1);
       });
-
       this.state.session.on("signal:AItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem2(message.AItem2);
       });
-
       this.state.session.on("signal:AItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem3(message.AItem3);
+      });
+
+      this.state.session.on("signal:AItem4", (event) => {
+        let message = JSON.parse(event.data);
+        useStore.getState().set_AItem4(message.AItem4);
       });
 
       this.state.session.on("signal:BItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem1(message.BItem1);
       });
-
       this.state.session.on("signal:BItem2", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem2(message.BItem2);
       });
-
       this.state.session.on("signal:BItem3", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_BItem3(message.BItem3);
       });
 
+      this.state.session.on("signal:BItem4", (event) => {
+        let message = JSON.parse(event.data);
+        // console.log("222222222222222");
+        useStore.getState().set_BItem4(message.BItem4);
+      });
+      //현재 술래 신호
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_cur_teller(message.cur_teller);
       });
 
+      // pass 시 동기화
       this.state.session.on("signal:pass", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_pass_cnt(message.pass_cnt);
       });
 
-      this.state.session.on("signal:game_end", (event) => {
-        let message = JSON.parse(event.data);
-        console.log("game over");
+      // 게임 종료 signal
+      this.state.session.on("signal:game_end", () => {
         this.forceUpdate();
       });
 
+      // 미니게임 결과 signal
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
-        console.log("totalscore : ",message.Total_score)
+        // console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
-        
-        if (useStore.getState().card_game_end === 35){
-          useStore.getState().set_cur_round(1)
-          console.log("mini game_over");
+
+        if (useStore.getState().card_game_end >= 10) {
+          useStore.getState().set_cur_round(1);
+          // console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
           this.forceUpdate();
         }
@@ -195,7 +205,6 @@ class webCam extends Component {
             subscribers.push(subscriber); // subscribers에 subscriber(나) 를 집어 넣음
             useStore.getState().setGamers({
               name: JSON.parse(event.stream.connection.data).clientData,
-              // name: this.state.myUserName,
               streamManager: subscriber,
             });
             return subscribers;
@@ -213,11 +222,9 @@ class webCam extends Component {
             useStore
               .getState()
               .deleteGamer(JSON.parse(event.stream.connection.data).clientData);
-            console.log("deletegamer", useStore.getState().gamers);
             useStore
               .getState()
-              .set_player_count(useStore.getState().player_count - 1);
-            console.log("플레이어 수  : " + useStore.getState().player_count);
+              .set_player_count(useStore.getState().gamers.length);
             if (index > -1) {
               subscribers.splice(index, 1);
               return subscribers;
@@ -282,12 +289,13 @@ class webCam extends Component {
   }
   oneMoregame() {
     useStore.getState().set_Curtime(1000000);
-    useStore.getState().set_time_change("no_change");
-    useStore.getState().set_cur_round(0);
+    useStore.getState().set_cur_round(-1);
     useStore.getState().set_cur_teller(-1);
     useStore.getState().set_turn_state_change("room");
     useStore.getState().set_my_index(10000);
     useStore.getState().set_my_team_win("none");
+    useStore.getState().set_player_count(useStore.getState().gamers.length);
+    useStore.getState().set_pass_cnt(0);
     this.forceUpdate();
   }
   leaveSession() {
@@ -386,11 +394,14 @@ class webCam extends Component {
                   <Main_Screen />
                 </div>
               </div>
-            ) : useStore.getState().cur_round === 0 ?
-            <div className="Game_Board">
-            <Card_Game_Boad sessionId={this.state.mySessionId} participantName={this.state.myUserName}/> 
-            </div>
-            : (
+            ) : useStore.getState().cur_round === 0 ? (
+              <div className="Game_Board">
+                <Card_Game_Boad
+                  sessionId={this.state.mySessionId}
+                  participantName={this.state.myUserName}
+                />
+              </div>
+            ) : (
               <div className="main_wait_room">
                 <div className="container">
                   <div id="session"></div>
@@ -405,7 +416,7 @@ class webCam extends Component {
                         </div>
                         <div className="box">
                           <div className="A_total" id="A_totalScore">
-                            총점 : <Score_board score={"total_red"} />
+                            승리 : <Score_board score={"total_red"} />
                           </div>
                         </div>
                         {/* <AteamItem /> */}
@@ -464,26 +475,28 @@ class webCam extends Component {
 
                     {/* 중앙 freame */}
                     <div className="mid-screen">
+                        <div className="team_box">
+                          <div className="team_turn2">
+                            <S_words_UP />
+                          </div>
+                        </div>
                       {(useStore.getState().gamers[0] ||
                         useStore.getState().gamers[1] ||
                         useStore.getState().gamers[2] ||
                         useStore.getState().gamers[3] ||
                         useStore.getState().gamers[4] ||
                         useStore.getState().gamers[5]) && <Main_timer />}
-
-                      <div>
-                        <div className="team_box">
-                          <div className="team_turn2">
-                            <S_words />
+                        <div className="team_box3">
+                          <div className="team_turn4">
+                            <S_words_Down />
                           </div>
                         </div>
-                      </div>
                     </div>
                     {/* B팀 프레임 */}
                     <div className="b-screen">
                       <div className="box">
                         <div className="B_total" id="B_totalScore">
-                          총점 :
+                          승리 :
                           <Score_board score={"total_blue"} />
                         </div>
                       </div>
@@ -601,11 +614,11 @@ class webCam extends Component {
       </>
     );
   }
+
   async getToken() {
     const sessionId = await this.createSession(this.state.mySessionId);
     return await this.createToken(sessionId);
   }
-
   async createSession(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
@@ -616,7 +629,6 @@ class webCam extends Component {
     );
     return response.data; // The sessionId
   }
-
   async createToken(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",

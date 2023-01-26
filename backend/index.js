@@ -1,4 +1,4 @@
-require("dotenv").config(!!process.env.CONFIG ? {path: process.env.CONFIG} : {});
+require("dotenv").config(!!process.env.CONFIG ? { path: process.env.CONFIG } : {});
 var express = require("express");
 var bodyParser = require("body-parser");
 var http = require("http");
@@ -10,17 +10,26 @@ const Server = require("socket.io")
 
 // /* ---------------- 몽고디비 사용 -------------------- 
 const mongoose = require("mongoose")
-const QuestWord = require("./models/theme");
+const AnimalWord = require("./models/animals");
+const PersonWord = require("./models/Person");
+const EquipmentWord = require("./models/equipment");
+const MovieWord = require("./models/movies");
+const ExerciseWord = require("./models/exercise");
+const ProverbWord = require("./models/proverb");
+const JobWord = require("./models/job");
 
-mongoose.connect("mongodb://127.0.0.1:27017/namanmu",{
-	useNewUrlParser:true, 
-	useUnifiedTopology:true, 
-	} //두번째 인자 부분은 아래에서 설명
+
+
+
+mongoose.connect("mongodb://127.0.0.1:27017/namanmu", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+} //두번째 인자 부분은 아래에서 설명
 );
 
 const db = mongoose.connection;
 const handleOpen = () => console.log("✅ Connected to DB");
-const handleError = (error) => console.log("❌ DB Error", error) 
+const handleError = (error) => console.log("❌ DB Error", error)
 db.once("open", handleOpen); //open 이벤트가 발생 시 handleOpen 실행 
 db.on("error", handleError); //error 이벤트가 발생할 때마다 handleError 실행 );
 
@@ -56,6 +65,9 @@ var openvidu = new OpenVidu(
   process.env.OPENVIDU_SECRET
 );
 
+let red_score = 0;
+let blue_score = 0;
+
 // /* ---------------- Socket.io 사용 -------------------- 
 const io = Server(server, {
   cors: {
@@ -66,9 +78,6 @@ const io = Server(server, {
 
 io.on("connection", (socket) => {
   console.log("UserConnected", socket.id);
-  
-
-  // socket join 시켜ㅑ줘야함. socket_session으로
 
   socket.on("session_join", (sessionId) => {
     console.log("sessioId : ", sessionId)
@@ -77,7 +86,8 @@ io.on("connection", (socket) => {
 
   socket.on('mouse_move', ([sessionId, userInfo]) => {
     try {
-      socket.broadcast.to(sessionId).emit('cursor', userInfo);
+      // socket.emit('cursor', userInfo);
+      socket.to(sessionId).emit('cursor', userInfo);
     } catch (error) {
       console.log(error);
     }
@@ -102,47 +112,109 @@ io.on("connection", (socket) => {
   });
 
   // flip card
+  // let cardlist = {};
+  // for (let i = 0; i < 36; i++) {
+  //   cardlist[i] = false;
+  // }
+  // socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
+  //  if (cardlist[cardId.i] !== false) {
+  //     console.log("This card has already been used.")
+  //   }
+  //   else {
+  //     cardlist[cardId.i] = true;
+  //     try {
+  //       socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+  //       socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // });
+
+  const AsyncLock = require('async-lock');
+  const lock = new AsyncLock();
   let cardlist = {};
-  for (let i = 0; i < 42; i++) {
+
+  for (let i = 0; i < 36; i++) {
     cardlist[i] = false;
   }
-  socket.on("flipingcard", async (sessionId, my_index, cardId) => {
-    console.log("My index is: ", my_index, "Flipped card is: ", cardId);
-    if (cardlist[cardId.i] !== false) {
-      console.log("This card has already been used.")
-    }
-    else {
-      cardlist[cardId.i] = true;
-      try {
-        socket.to(sessionId).emit("CardFliped", my_index, cardId.i);
-      } catch (error) {
-        console.log(error);
+
+  socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
+    lock.acquire(cardId.i, function (done) {
+      if (cardlist[cardId.i] !== false) {
+        console.log("This card has already been used.");
+        done();
+      } else {
+        cardlist[cardId.i] = true;
+        try {
+          socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+          socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
+        } catch (error) {
+          console.log(error);
+        }
+        done();
       }
-    }
+    }, function (err, ret) {
+      //lock released
+    });
   });
 
-
+  const Scorelock = new AsyncLock();
   let cardScoreList = {};
-  for (let i = 0; i < 42; i++) {
+
+  for (let i = 0; i < 36; i++) {
     cardScoreList[i] = false;
   }
-  socket.on("score", (red_team, blue_team, sessionId, cardId) => {
-   if (cardScoreList[cardId.i] !== false){
-      console.log("This score has already been scored.")
-    }
-    else {
-      cardScoreList[cardId.i] = true;
-      try {
-        socket.to(sessionId).emit("score", red_team, blue_team);
-        socket.emit("score", red_team, blue_team);
-      } catch (error) {
-        console.log(error);
-      };
-    }
+
+  function score_initiallize (){
+    red_score = 0;
+    blue_score = 0;
+  }
+  
+
+  socket.on("score", (sessionId, cardId, my_index) => {
+    Scorelock.acquire(cardId.i, function (done) {
+      if (cardScoreList[cardId.i] !== false) {
+        console.log("This score has already been scored.");
+        done();
+      } else {
+        cardScoreList[cardId.i] = true;
+        try {
+          if((my_index +1)%2 === 0){
+            blue_score = blue_score+1
+          } else{
+            red_score = red_score+1
+          }
+          socket.to(sessionId).emit("score", red_score, blue_score);
+          socket.emit("score", red_score, blue_score);
+
+          if((red_score + blue_score) === 9){
+            setTimeout(score_initiallize, 3000)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        done();
+      }
+    }, function (err, ret) {
+      //lock released
+    });
   });
 
   socket.on('disconnect', () => {
     console.log('A user disconnected');
+  });
+
+  /*-------제시어 틀린거 신호 받기---------*/
+  socket.on("wrong", (wrong_answer, sessionId) => {
+    console.log(" 틀린 답 : ", wrong_answer);
+    try {
+      console.log("wrong_answer", wrong_answer, sessionId)
+      socket.emit('response_wrong', wrong_answer);
+      socket.to(sessionId).emit('response_wrong', wrong_answer);
+    } catch (error) {
+      console.log(error);
+    };
   });
 
 });
@@ -168,30 +240,63 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-let selectedQuestWords = null;
+let selectedQuestWords = [];
 
 // 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
 updateSelectedQuestWords();
 
-function updateSelectedQuestWords(){
-  QuestWord.aggregate([{ $sample: { size: 15 } }], function(error, QuestWord) {
+function updateSelectedQuestWords() {
+  JobWord.aggregate([{ $sample: { size: 15 } }], function (error, JobWord) {
     if (error) {
       console.log(error);
     } else {
-      selectedQuestWords = QuestWord;
-      // console.log(selectedQuestWords)
-      // res.send(selectedQuestWords)
+      selectedQuestWords.push(JobWord);
     }
   });
+  AnimalWord.aggregate([{ $sample: { size: 20 } }], function (error, AnimalWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords.push(AnimalWord);
+    }
+  });
+  ExerciseWord.aggregate([{ $sample: { size: 30 } }], function (error, ExerciseWord) {
+    if (error) {
+      console.log(error);
+    } else {
+      selectedQuestWords.push(ExerciseWord);
+    }
+  });
+
 }
 
-app.get("/api/sessions/game", async (req, res) => {
-  // console.log(selectedQuestWords)
-  res.send(selectedQuestWords);
-});
+  app.get("/api/sessions/game", async (req, res) => {
+    res.send(selectedQuestWords);
+    // console.log(selectedQuestWords);
+  });
+// });
 
-setInterval(updateSelectedQuestWords, 1000 * 39); //1min
+setInterval(updateSelectedQuestWords, 1000 * 39);
 
 /* ------- 제시어 받는 api -------- */
+
+/** 카드 랜덤 섞기*/
+updateRandomCard();
+function updateRandomCard() {
+  const numbers = Array.from({ length: 35 }, (_, i) => i);
+  const randomCard = [];
+
+  for (let i = 0; i < 9; i++) {
+    const randomCardIndex = Math.floor(Math.random() * numbers.length);
+    randomCard.push(numbers[randomCardIndex]);
+    numbers.splice(randomCardIndex, 1);
+  }
+  console.log("0부터34까지 9개 뽑아", randomCard);
+  app.get("/api/sessions/cardindex", async (req, res) => {
+    res.send(randomCard);
+  });
+}
+setInterval(updateRandomCard, 1000 * 90);
+/** 카드 랜덤 섞기*/
 
 process.on('uncaughtException', err => console.error(err));

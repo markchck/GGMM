@@ -14,7 +14,7 @@ const MousePointerUsers = ({ positions}) => {
           const container = document.querySelector("#editor-container");
 
           if (container) {
-
+            const containerRect = container.getBoundingClientRect();
             top = position.mousePointer.top + "px";
             left = position.mousePointer.left + "px";
 
