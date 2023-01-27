@@ -244,71 +244,6 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 let presentationWords = [
   [
     {
-      theme: '운동',
-      name: '펜싱'
-    },
-    {
-      theme: '운동',
-      name: '장대높이뛰기'
-    },
-    {
-      theme: '동물',
-      name: '미어캣'
-    },
-    {
-      theme: '영화',
-      name: '토이스토리'
-    },
-    {
-      theme: '영화',
-      name: 'ET'
-    },
-    {
-      theme: '인물',
-      name: '마이클잭슨'
-    },
-    {
-      theme: '영화',
-      name: '인터스텔라'
-    },
-    {
-      theme: '인물',
-      name: '스티브잡스'
-    },
-    {
-      theme: '영화',
-      name: '아이언맨'
-    },
-    {
-      theme: '물건',
-      name: '부채'
-    },
-    {
-      theme: '영화',
-      name: '라이온킹'
-    },
-    {
-      theme: '영화',
-      name: '닥터스트레인지'
-    },
-    {
-      theme: '직업',
-      name: '군인'
-    },
-    {
-      theme: '직업',
-      name: '스님'
-    },
-    {
-      theme: '영화',
-      name: '로보캅'
-    },
-    {
-      theme: '물건',
-      name: '담배'
-    },
-
-    {
       theme: '동물',
       name: '박쥐'
     },
@@ -327,9 +262,48 @@ let presentationWords = [
     {
       theme: '가수',
       name: '싸이'
-    }
-
-], [
+    },
+    {
+      theme: '운동',
+      name: '클라이밍'
+    },
+    {
+      theme: '물건',
+      name: '노트북'
+    },
+    {
+      theme: '감정',
+      name: '삐짐'
+    },
+    {
+      theme: '음식',
+      name: '국밥'
+    },
+    {
+      theme: '물건',
+      name: '마스카라'
+    },
+    {
+      theme: '과일',
+      name: '사과'
+    },
+    {
+      theme: '영화',
+      name: '처키'
+    },
+    {
+      theme: '가수',
+      name: '임재범'
+    },
+    {
+      theme: '직업',
+      name: '요리사'
+    },
+    {
+      theme: '동물',
+      name: '뱀'
+    },
+  ], [
   {
       theme: '사물',
       name: '커플링'
@@ -412,6 +386,71 @@ let presentationWords = [
   }
 ],[
   {
+    theme: '운동',
+    name: '펜싱'
+  },
+  {
+    theme: '운동',
+    name: '장대높이뛰기'
+  },
+  {
+    theme: '동물',
+    name: '미어캣'
+  },
+  {
+    theme: '영화',
+    name: '토이스토리'
+  },
+  {
+    theme: '영화',
+    name: 'ET'
+  },
+  {
+    theme: '인물',
+    name: '마이클잭슨'
+  },
+  {
+    theme: '영화',
+    name: '인터스텔라'
+  },
+  {
+    theme: '인물',
+    name: '스티브잡스'
+  },
+  {
+    theme: '영화',
+    name: '아이언맨'
+  },
+  {
+    theme: '물건',
+    name: '부채'
+  },
+  {
+    theme: '영화',
+    name: '라이온킹'
+  },
+  {
+    theme: '영화',
+    name: '닥터스트레인지'
+  },
+  {
+    theme: '직업',
+    name: '군인'
+  },
+  {
+    theme: '직업',
+    name: '스님'
+  },
+  {
+    theme: '영화',
+    name: '로보캅'
+  },
+  {
+    theme: '물건',
+    name: '담배'
+  },
+
+  {
     theme: '동물',
     name: '박쥐'
   },
@@ -430,47 +469,7 @@ let presentationWords = [
   {
     theme: '가수',
     name: '싸이'
-  },
-  {
-    theme: '운동',
-    name: '클라이밍'
-  },
-  {
-    theme: '물건',
-    name: '노트북'
-  },
-  {
-    theme: '감정',
-    name: '삐짐'
-  },
-  {
-    theme: '음식',
-    name: '국밥'
-  },
-  {
-    theme: '물건',
-    name: '마스카라'
-  },
-  {
-    theme: '과일',
-    name: '사과'
-  },
-  {
-    theme: '영화',
-    name: '처키'
-  },
-  {
-    theme: '가수',
-    name: '임재범'
-  },
-  {
-    theme: '직업',
-    name: '요리사'
-  },
-  {
-    theme: '동물',
-    name: '뱀'
-  },
+  }
 ]];
 
 // 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
