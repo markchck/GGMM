@@ -81,15 +81,15 @@ https://www.notion.so/markchck/4e2ac5889a1c48b2ba5f7bdb98977df3
 
 ### ✨Git 컨벤션
 ---
-git commit -m"컨벤션 네이밍 컨벤션 
-feat : 새로운 기능에 대한 커밋 
-fix : 버그 수정에 대한 커밋 
-build : 빌드 관련 파일 수정에 대한 커밋
-chore : 그 외 자잘한 수정에 대한 커밋 
-ci : CI관련 설정 수정에 대한 커밋
-docs : 문서 수정에 대한 커밋 
-style : 코드 스타일 혹은 포맷 등에 관한 커밋 
-refactor : 코드 리팩토링에 대한 커밋 
+git commit -m"컨벤션 네이밍 컨벤션 <br>
+feat : 새로운 기능에 대한 커밋 <br>
+fix : 버그 수정에 대한 커밋 <br>
+build : 빌드 관련 파일 수정에 대한 커밋<br>
+chore : 그 외 자잘한 수정에 대한 커밋 <br>
+ci : CI관련 설정 수정에 대한 커밋<br>
+docs : 문서 수정에 대한 커밋 <br>
+style : 코드 스타일 혹은 포맷 등에 관한 커밋 <br>
+refactor : 코드 리팩토링에 대한 커밋 <br>
 test : 테스트 코드 수정에 대한 커밋
 
 
@@ -97,11 +97,10 @@ test : 테스트 코드 수정에 대한 커밋
 ---
 |**PORT**|**이름**|
 |:---:|:---:|
+|22|SSH|
+|80|HTTP|
 |443|HTTPS|
-|80|HTTP - HTTPS로 리다이렉트(프론트 페이지지로 리다이렉트)|
-|8443|Openvidu|
-|8379|Redis|
-|3306|MySQL|
-|8081|Jenkins|
-|8080|Spring boot Docker Container|
-|3000|React, NginX Docker Container|
+|3478|STUN/TURN|
+|40000-57000|KMS|
+|57001-65535|TURN|
+|27017|MongoDB|
