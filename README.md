@@ -10,7 +10,7 @@ https://www.youtube.com/watch?v=SDogkTxsKTo
 
 
 ## 프로젝트 기간 
-- 2022.12.22 ~ 2023.01.31 (5주)
+2022.12.22 ~ 2023.01.31 (5주)
 
 
 ## 그게몸말 게임 화면
@@ -30,7 +30,6 @@ https://www.youtube.com/watch?v=SDogkTxsKTo
 
 
 ### 여러 아이템 조합
-
 <img width="300" alt="데칼코마니,4분할" src="https://user-images.githubusercontent.com/26597015/216056872-d1a7185a-b98f-4e52-9f9c-e07e9fc35d54.png">
 
 <img width="300" alt="데칼코마니,모자이크" src="https://user-images.githubusercontent.com/26597015/216057503-39d6f78b-bb7b-4abc-b009-d1548d42374d.png">
@@ -44,7 +43,6 @@ https://www.youtube.com/watch?v=SDogkTxsKTo
     - 카드 뒤집기 게임: 멀티 커서를 구현하여 6명이 아이템을 얻기 위한 실시간 카드 뒤집기 게임을 플레이
 
 ### 🖥️ 개발 환경
-
 ---
 - AWS EC2 (t2.medium)
 - Ubuntu (20.04 LTS)
@@ -59,7 +57,6 @@ https://www.notion.so/markchck/Deploy-04435d23b4474b5796acbe33fb136b94
 
 
 ### 💫 서비스 아키텍처
-
 ---
 <img width="500" alt="아키텍처" src="https://user-images.githubusercontent.com/26597015/216062631-66baaa1c-98b6-4758-9967-ab571f692d16.png">
 
@@ -104,3 +101,9 @@ test : 테스트 코드 수정에 대한 커밋
 |40000-57000|KMS|
 |57001-65535|TURN|
 |27017|MongoDB|
+
+### ✨ 포스터
+---
+![그게몸말_포스터_최종_수정본 pdf 2023-02-01 23-11-09](https://user-images.githubusercontent.com/26597015/216066138-476815a0-dd93-4044-be88-77aa96f1bb31.jpg)
+
+
