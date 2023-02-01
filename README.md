@@ -61,35 +61,37 @@ https://www.notion.so/markchck/Deploy-04435d23b4474b5796acbe33fb136b94
 ### 💫 서비스 아키텍처
 
 ---
-<img width="500" alt="데칼코마니,모자이크" src="https://user-images.githubusercontent.com/26597015/216062631-66baaa1c-98b6-4758-9967-ab571f692d16.png">
+<img width="500" alt="아키텍처" src="https://user-images.githubusercontent.com/26597015/216062631-66baaa1c-98b6-4758-9967-ab571f692d16.png">
 
 
-### ✨기술 ㅊ
-
-
-
+### ✨기술적 챌린지
 ---
+#### 타이머가 클라이언트 별로 다르게 돌아가는 문제 
+<img width="500" alt="타이머오류" src="https://user-images.githubusercontent.com/26597015/216063170-3dc42d5e-7676-4d22-bb76-7eb9434833a9.png">
+
+#### 카드를 하나만 뒤집었는데 복수로 점수가 증가하는 문제
+<img width="500" alt="레이스컨디션" src="https://user-images.githubusercontent.com/26597015/216063203-15f5f8d0-8b02-4cd1-8a3e-4b215e5e8849.png">
+
+#### CPU 사용률이 최대 45%까지 증가하는 문제
+<img width="500" alt="서버과부화" src="https://user-images.githubusercontent.com/26597015/216063218-1bb744f6-a282-4363-a8c9-a0c71c791476.png">
+
+#### 그외 기술적 챌린지
+https://www.notion.so/markchck/4e2ac5889a1c48b2ba5f7bdb98977df3
 
 
 ### ✨Git 컨벤션
-
 ---
+git commit -m"컨벤션 네이밍 컨벤션 
+feat : 새로운 기능에 대한 커밋 
+fix : 버그 수정에 대한 커밋 
+build : 빌드 관련 파일 수정에 대한 커밋
+chore : 그 외 자잘한 수정에 대한 커밋 
+ci : CI관련 설정 수정에 대한 커밋
+docs : 문서 수정에 대한 커밋 
+style : 코드 스타일 혹은 포맷 등에 관한 커밋 
+refactor : 코드 리팩토링에 대한 커밋 
+test : 테스트 코드 수정에 대한 커밋
 
-```
-FEAT:    새로운 기능을 추가할 경우
-FIX:     버그를 고친 경우
-STYLE:   코드 포맷 변경, 간단한 수정, 코드 변경이 없는 경우
-REFATOR: 프로덕션 코드 리팩토링
-DOCS:    문서를 수정한 경우(ex> Swagger)
-Rename:  파일 혹은 폴더명 수정 및 이동
-Remove:  파일 삭제
-CHORE:    빌드 업무 수정(ex> dependency 추가)
-```
-
-```bash
-커밋 타입: 내용 자세히 적어주기 [#지라이슈넘버]
-ex) FEAT: 로그인 rest api 추가 [#지라이슈넘버]
-```
 
 ### ✨ EC2 포트 정리
 ---
