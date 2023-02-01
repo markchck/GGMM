@@ -1,8 +1,7 @@
 # 그게몸말? ( 몸으로 말해요 화상 웹 게임 )
+<img width="50%" alt="메인화면" src="https://user-images.githubusercontent.com/26597015/216051373-37b50720-f024-4d21-ac66-4fcf405ac6e2.png">
 
 ## 👇그게몸말 소개 및 시연 영상👇
-<img width="500" alt="메인화면" src="https://user-images.githubusercontent.com/26597015/216051373-37b50720-f024-4d21-ac66-4fcf405ac6e2.png">
-
 https://www.youtube.com/watch?v=SDogkTxsKTo
 
 ## 게임 소개
@@ -17,22 +16,22 @@ https://www.youtube.com/watch?v=SDogkTxsKTo
 
 ### 카드뒤집기 미니게임
 카드뒤집기 게임을 통해서 더 많은 보물을 찾아낸 팀에게 강력한 셔터 아이템이 주어집니다.
-<img width="500" alt="셔터" src="https://user-images.githubusercontent.com/26597015/216054228-9f686256-4e42-4798-9421-b58c11c6f7aa.gif">
+<img width="50%" alt="셔터" src="https://user-images.githubusercontent.com/26597015/216054228-9f686256-4e42-4798-9421-b58c11c6f7aa.gif">
 
 ### 셔터 아이템
-<img width="500" alt="셔터" src="https://user-images.githubusercontent.com/26597015/216054875-b039de1c-ec07-4c19-9c90-11564743eaf9.gif">
+<img width="50%" alt="셔터" src="https://user-images.githubusercontent.com/26597015/216054875-b039de1c-ec07-4c19-9c90-11564743eaf9.gif">
 
 ### 4분할 아이템
-<img width="500" alt="4분할" src="https://user-images.githubusercontent.com/26597015/216054936-cc90e9df-6bb7-4582-ad51-b4726a2bf514.gif">
+<img width="50%" alt="4분할" src="https://user-images.githubusercontent.com/26597015/216054936-cc90e9df-6bb7-4582-ad51-b4726a2bf514.gif">
 
 ### 미러 아이템
-<img width="500" alt="미러" src="https://user-images.githubusercontent.com/26597015/216055362-f318d785-bffe-4f46-8fa4-3f0ed0d27fc3.gif">
+<img width="50%" alt="미러" src="https://user-images.githubusercontent.com/26597015/216055362-f318d785-bffe-4f46-8fa4-3f0ed0d27fc3.gif">
 
 
 ### 여러 아이템 조합
-<img width="300" alt="데칼코마니,4분할" src="https://user-images.githubusercontent.com/26597015/216056872-d1a7185a-b98f-4e52-9f9c-e07e9fc35d54.png">
+<img width="30%" alt="데칼코마니,4분할" src="https://user-images.githubusercontent.com/26597015/216056872-d1a7185a-b98f-4e52-9f9c-e07e9fc35d54.png">
 
-<img width="300" alt="데칼코마니,모자이크" src="https://user-images.githubusercontent.com/26597015/216057503-39d6f78b-bb7b-4abc-b009-d1548d42374d.png">
+<img width="30%" alt="데칼코마니,모자이크" src="https://user-images.githubusercontent.com/26597015/216057503-39d6f78b-bb7b-4abc-b009-d1548d42374d.png">
 
 
 ## ✨ 주요 기능
@@ -58,19 +57,19 @@ https://www.notion.so/markchck/Deploy-04435d23b4474b5796acbe33fb136b94
 
 ### 💫 서비스 아키텍처
 ---
-<img width="500" alt="아키텍처" src="https://user-images.githubusercontent.com/26597015/216062631-66baaa1c-98b6-4758-9967-ab571f692d16.png">
+<img width="50%" alt="아키텍처" src="https://user-images.githubusercontent.com/26597015/216062631-66baaa1c-98b6-4758-9967-ab571f692d16.png">
 
 
 ### ✨기술적 챌린지
 ---
 #### 타이머가 클라이언트 별로 다르게 돌아가는 문제 
-<img width="500" alt="타이머오류" src="https://user-images.githubusercontent.com/26597015/216063170-3dc42d5e-7676-4d22-bb76-7eb9434833a9.png">
+<img width="50%" alt="타이머오류" src="https://user-images.githubusercontent.com/26597015/216063170-3dc42d5e-7676-4d22-bb76-7eb9434833a9.png">
 
 #### 카드를 하나만 뒤집었는데 복수로 점수가 증가하는 문제
-<img width="500" alt="레이스컨디션" src="https://user-images.githubusercontent.com/26597015/216063203-15f5f8d0-8b02-4cd1-8a3e-4b215e5e8849.png">
+<img width="50%" alt="레이스컨디션" src="https://user-images.githubusercontent.com/26597015/216063203-15f5f8d0-8b02-4cd1-8a3e-4b215e5e8849.png">
 
 #### CPU 사용률이 최대 45%까지 증가하는 문제
-<img width="500" alt="서버과부화" src="https://user-images.githubusercontent.com/26597015/216063218-1bb744f6-a282-4363-a8c9-a0c71c791476.png">
+<img width="50%" alt="서버과부화" src="https://user-images.githubusercontent.com/26597015/216063218-1bb744f6-a282-4363-a8c9-a0c71c791476.png">
 
 #### 그외 기술적 챌린지
 https://www.notion.so/markchck/4e2ac5889a1c48b2ba5f7bdb98977df3
