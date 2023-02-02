@@ -7,25 +7,16 @@ var cors = require("cors");
 var app = express();
 
 const Server = require("socket.io")
-
-// /* ---------------- 몽고디비 사용 -------------------- 
 const mongoose = require("mongoose")
 const AnimalWord = require("./models/animals");
-const PersonWord = require("./models/Person");
-const EquipmentWord = require("./models/equipment");
-const MovieWord = require("./models/movies");
 const ExerciseWord = require("./models/exercise");
-const ProverbWord = require("./models/proverb");
 const JobWord = require("./models/job");
-
-
 
 
 mongoose.connect("mongodb://127.0.0.1:27017/namanmu", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-} //두번째 인자 부분은 아래에서 설명
-);
+});
 
 const db = mongoose.connection;
 const handleOpen = () => console.log("✅ Connected to DB");
@@ -34,7 +25,7 @@ db.once("open", handleOpen); //open 이벤트가 발생 시 handleOpen 실행
 db.on("error", handleError); //error 이벤트가 발생할 때마다 handleError 실행 );
 
 
-/* ---------------- 몽고디비 사용(끝) -------------------- */
+
 
 // Enable CORS support
 app.use(
@@ -86,7 +77,6 @@ io.on("connection", (socket) => {
 
   socket.on('mouse_move', ([sessionId, userInfo]) => {
     try {
-      // socket.emit('cursor', userInfo);
       socket.to(sessionId).emit('cursor', userInfo);
     } catch (error) {
       console.log(error);
@@ -110,26 +100,6 @@ io.on("connection", (socket) => {
       console.log(error);
     };
   });
-
-  // flip card
-  // let cardlist = {};
-  // for (let i = 0; i < 36; i++) {
-  //   cardlist[i] = false;
-  // }
-  // socket.on("flipingcard", (sessionId, my_index, cardId, MiniCardIndex) => {
-  //  if (cardlist[cardId.i] !== false) {
-  //     console.log("This card has already been used.")
-  //   }
-  //   else {
-  //     cardlist[cardId.i] = true;
-  //     try {
-  //       socket.emit("CardFliped", my_index, cardId.i, MiniCardIndex);
-  //       socket.to(sessionId).emit("CardFliped", my_index, cardId.i, MiniCardIndex);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // });
 
   const AsyncLock = require('async-lock');
   const lock = new AsyncLock();
@@ -219,7 +189,6 @@ io.on("connection", (socket) => {
 
 });
 
-// /* ---------------- Socket.io 사용 -------------------- 
 
 
 app.post("/api/sessions", async (req, res) => {
@@ -240,239 +209,9 @@ app.post("/api/sessions/:sessionId/connections", async (req, res) => {
 });
 
 /* ------- 제시어 받는 api -------- */
-// let selectedQuestWords = [];
-let presentationWords = [
-  [
-    {
-      theme: '동물',
-      name: '박쥐'
-    },
-    {
-      theme: '과일',
-      name: '레몬'
-    },
-    {
-      theme: '영화',
-      name: '타이타닉'
-    },
-    {
-      theme: '물건',
-      name: '순간접착제'
-    },
-    {
-      theme: '가수',
-      name: '싸이'
-    },
-    {
-      theme: '운동',
-      name: '클라이밍'
-    },
-    {
-      theme: '물건',
-      name: '노트북'
-    },
-    {
-      theme: '감정',
-      name: '삐짐'
-    },
-    {
-      theme: '음식',
-      name: '국밥'
-    },
-    {
-      theme: '물건',
-      name: '마스카라'
-    },
-    {
-      theme: '과일',
-      name: '사과'
-    },
-    {
-      theme: '영화',
-      name: '처키'
-    },
-    {
-      theme: '가수',
-      name: '임재범'
-    },
-    {
-      theme: '직업',
-      name: '요리사'
-    },
-    {
-      theme: '동물',
-      name: '뱀'
-    },
-  ], [
-  {
-      theme: '사물',
-      name: '커플링'
-  },
-  {
-      theme: '운동',
-      name: '야구'
-  },
-  {
-      theme: '인물',
-      name: '이봉주'
-  },
-  {
-      theme: '동물',
-      name: '닭'
-  },
-  {
-      theme: '직업',
-      name: '군인'
-  },
-  {
-      theme: '사물',
-      name: '립밤'
-  },
-  {
-      theme: '사물',
-      name: '모기향'
-  },
-  {
-      theme: '장소',
-      name: '코인노래방'
-  },
-  {
-      theme: '사물',
-      name: '비트코인'
-  },
-  {
-      theme: '취미',
-      name: '배틀그라운드'
-  },
-  {
-      theme: '동물',
-      name: '낙지'
-  },
-  {
-      theme: '어플',
-      name: '당근마켓'
-  },
-  {
-      theme: '신체',
-      name: '이두'
-  },
-  {
-      theme: '취미',
-      name: '라이딩'
-  },
-  {
-      theme: '음식',
-      name: '불닭볶음면'
-  },
-  {
-    theme: '감정',
-    name: '삐짐'
-  },
-  {
-    theme: '음식',
-    name: '국밥'
-  },
-  {
-    theme: '물건',
-    name: '마스카라'
-  },
-  {
-    theme: '과일',
-    name: '사과'
-  },
-  {
-    theme: '영화',
-    name: '처키'
-  }
-],[
-  {
-    theme: '운동',
-    name: '펜싱'
-  },
-  {
-    theme: '운동',
-    name: '장대높이뛰기'
-  },
-  {
-    theme: '동물',
-    name: '미어캣'
-  },
-  {
-    theme: '영화',
-    name: '토이스토리'
-  },
-  {
-    theme: '영화',
-    name: 'ET'
-  },
-  {
-    theme: '인물',
-    name: '마이클잭슨'
-  },
-  {
-    theme: '영화',
-    name: '인터스텔라'
-  },
-  {
-    theme: '인물',
-    name: '스티브잡스'
-  },
-  {
-    theme: '영화',
-    name: '아이언맨'
-  },
-  {
-    theme: '물건',
-    name: '부채'
-  },
-  {
-    theme: '영화',
-    name: '라이온킹'
-  },
-  {
-    theme: '영화',
-    name: '닥터스트레인지'
-  },
-  {
-    theme: '직업',
-    name: '군인'
-  },
-  {
-    theme: '직업',
-    name: '스님'
-  },
-  {
-    theme: '영화',
-    name: '로보캅'
-  },
-  {
-    theme: '물건',
-    name: '담배'
-  },
+let selectedQuestWords = [];
 
-  {
-    theme: '동물',
-    name: '박쥐'
-  },
-  {
-    theme: '과일',
-    name: '레몬'
-  },
-  {
-    theme: '영화',
-    name: '타이타닉'
-  },
-  {
-    theme: '물건',
-    name: '순간접착제'
-  },
-  {
-    theme: '가수',
-    name: '싸이'
-  }
-]];
 
-// 미리 데이터베이스에서 하나의 조합을 가져와 캐시에 저장
 updateSelectedQuestWords();
 
 function updateSelectedQuestWords() {
@@ -480,35 +219,33 @@ function updateSelectedQuestWords() {
     if (error) {
       console.log(error);
     } else {
-      // selectedQuestWords.push(JobWord);
+      selectedQuestWords.push(JobWord);
     }
   });
   AnimalWord.aggregate([{ $sample: { size: 15 } }], function (error, AnimalWord) {
     if (error) {
       console.log(error);
     } else {
-      // selectedQuestWords.push(AnimalWord);
+      selectedQuestWords.push(AnimalWord);
     }
   });
   ExerciseWord.aggregate([{ $sample: { size: 15 } }], function (error, ExerciseWord) {
     if (error) {
       console.log(error);
     } else {
-      // selectedQuestWords.push(ExerciseWord);
+      selectedQuestWords.push(ExerciseWord);
     }
   });
 
 }
 
   app.get("/api/sessions/game", async (req, res) => {
-    // res.send(selectedQuestWords);
-    res.send(presentationWords);
+    res.send(selectedQuestWords);
   });
-// });
 
 setInterval(updateSelectedQuestWords, 1000 * 39);
 
-/* ------- 제시어 받는 api -------- */
+
 
 /** 카드 랜덤 섞기*/
 updateRandomCard();
@@ -527,6 +264,6 @@ function updateRandomCard() {
   });
 }
 setInterval(updateRandomCard, 1000 * 90);
-/** 카드 랜덤 섞기*/
+
 
 process.on('uncaughtException', err => console.error(err));
