@@ -52,7 +52,7 @@ https://www.youtube.com/watch?v=SDogkTxsKTo
 - MongoDB (4.2.21)
 
 ## Deploy하는 방법👩‍💻👨‍💻
-https://www.notion.so/markchck/Deploy-04435d23b4474b5796acbe33fb136b94
+https://markchck.notion.site/Deploy-GGMM-1299a1f61c5c4dada8f51d3f1928aa5a
 
 
 ### 서비스 아키텍처📕📕
@@ -72,7 +72,7 @@ https://www.notion.so/markchck/Deploy-04435d23b4474b5796acbe33fb136b94
 <img width="70%" alt="서버과부화" src="https://user-images.githubusercontent.com/26597015/216063218-1bb744f6-a282-4363-a8c9-a0c71c791476.png">
 
 #### 그외 기술적 챌린지
-https://www.notion.so/markchck/4e2ac5889a1c48b2ba5f7bdb98977df3
+https://markchck.notion.site/c8ee95c8824943f388ff3a07171a8a8b
 
 
 ### EC2 포트 정리😉😉
