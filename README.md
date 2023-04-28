@@ -119,3 +119,4 @@ https://markchck.notion.site/c8ee95c8824943f388ff3a07171a8a8b
 <br>
 
 ### 박경준(Frontend) [![github badge](https://img.shields.io/badge/GitHub-grey?logo=github)](https://github.com/JunGyeongP) - 게임 루프 설계, 동시성 구현
+개인 포트폴리오 : (https://n2verstop.notion.site/n2verstop/GGMM-62327d07e8fa4fbf8c035ea75ee1588f)
